@@ -2,6 +2,8 @@
 
 namespace Template;
 
+require_once('PartialView.php');
+
 /**
  * Matches variable insertion points.
  *
@@ -45,7 +47,15 @@ const BLOCK_DIRECTIVE_REGEX = '/({\? ?([a-z][a-zA-Z0-9]*)((?: ?[^ :]*)+) ?:)((?:
  */
 abstract class View {
 
-    private $settings;
+    /**
+     * @var ViewSettings
+     */
+    protected $settings;
+
+    /**
+     * @var View
+     */
+    private $parent;
 
     /**
      * @var string Path to the template relative to the templates folder.
@@ -62,13 +72,20 @@ abstract class View {
      */
     protected $views = [];
 
-    public function __construct(ViewSettings $settings) {
+    public function __construct(ViewSettings $settings, View $parent = null) {
         $this->settings = $settings;
+        $this->parent = $parent;
+    }
+
+    public function getSettings() {
+        return $this->settings;
     }
 
     public function getVariable($name) {
         if (isset($this->variables[$name])) {
             return $this->variables[$name];
+        } else if ($this->parent !== null) {
+            return $this->parent->getVariable($name);
         }
 
         return null;
@@ -79,7 +96,13 @@ abstract class View {
     }
 
     public function getView($name) {
-        return $this->views[$name];
+        if (isset($this->views[$name])) {
+            return $this->views[$name];
+        } else if ($this->parent !== null) {
+            return $this->parent->getView($name);
+        }
+
+        throw new \Exception("View '$name' not found");
     }
 
     public function setView($name, View $view) {
@@ -101,75 +124,9 @@ abstract class View {
         if (!is_file($this->settings->templatePath.$this->template)) {
             throw new \Exception("Template file '$this->template' don't exists");
         }
-        $output = file_get_contents($this->settings->templatePath.$this->template);
+        $template = file_get_contents($this->settings->templatePath.$this->template);
+        $partial = new PartialView($this);
 
-        return $this->renderPartial($output);
-    }
-
-    /**
-     * @param string $string
-     * @return string[]
-     */
-    private function extractArguments($string) {
-        $arguments = [];
-        foreach (preg_split('/ +/', trim($string)) as $argument) {
-            $arguments[] = $argument;
-        }
-
-        return $arguments;
-    }
-
-    /**
-     * @param string $string A possibly unsafe string
-     * @returns string A string that is safe inside HTML if double quotes are
-     *                 used when placing in an attributes value.
-     */
-    private function htmlEscape($string) {
-        $string = str_replace('<', '&lt;', $string);
-        $string = str_replace('>', '&gt;', $string);
-        $string = str_replace('"', '&quot;', $string);
-
-        return $string;
-    }
-
-    /**
-     * @param string $partial A part of a template.
-     * @returns string A rendered version of that part.
-     */
-    private function renderPartial($partial) {
-
-        preg_match_all(BLOCK_DIRECTIVE_REGEX, $partial, $blockDirectiveMatches, PREG_SET_ORDER);
-
-        foreach ($blockDirectiveMatches as $match) {
-            $name = $match[2];
-            $arguments = $this->extractArguments($match[3]);
-            $body = $match[4];
-
-            $rendered = $this->settings->blockDirectives[$name]->render($this, $arguments, $body);
-            $rendered = $this->renderPartial($rendered);
-
-            $partial = str_replace($match[0], $rendered, $partial);
-        }
-
-        preg_match_all(INLINE_DIRECTIVE_REGEX, $partial, $inlineDirectiveMatches, PREG_SET_ORDER);
-
-        foreach ($inlineDirectiveMatches as $match) {
-            $name = $match[1];
-            $arguments = $this->extractArguments($match[2]);
-
-            $rendered = $this->settings->inlineDirectives[$name]->render($this, $arguments);
-
-            $partial = str_replace($match[0], $rendered, $partial);
-        }
-
-        preg_match_all(VARIABLE_REGEX, $partial, $variableMatches, PREG_SET_ORDER);
-
-        foreach ($variableMatches as $match) {
-            $variable = $this->variables[$match[1]];
-            $variable = $this->htmlEscape($variable);
-            $partial = str_replace($match[0], $variable, $partial);
-        }
-
-        return $partial;
+        return $partial->render($template);
     }
 }

@@ -49,6 +49,8 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
 
     public function __construct() {
         $injector = new Injector();
+        $injector->bindToInstance(Injector::class, $injector);
+
         $this->viewSettings = $injector->get(ViewSettings::class);
         $this->viewSettings->templatePath = __DIR__.'/templates/';
     }
@@ -57,6 +59,18 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
         global $renderedPage;
         $page = new Layout($this->viewSettings, new Content($this->viewSettings));
         $this->assertEquals($renderedPage, $page->render());
+    }
+
+    public function testInjectedView() {
+        global $renderedPage;
+        $page = new LayoutWithInjectedContent($this->viewSettings);
+        $page->setVariable('title', 'Test');
+        $this->assertEquals($renderedPage, $page->render());
+    }
+
+    public function testForWithIf() {
+        $page = new UsersView($this->viewSettings);
+        $this->assertEquals("\n   Test \n\n  \n\n   Test2 \n\n", $page->render());
     }
 
     /**
@@ -116,4 +130,19 @@ class NotFoundTemplate extends View {
 
         $this->template = 'not-found.html';
     }
+}
+
+class LayoutWithInjectedContent extends View {
+    protected $template = 'layoutWithInjectedContent.html';
+}
+
+class UsersView extends View {
+    protected $template = 'users.html';
+    protected $variables = [
+        'users' => [
+            'Test',
+            null,
+            'Test2'
+        ]
+    ];
 }

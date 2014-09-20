@@ -2,6 +2,7 @@
 
 namespace Template;
 
+require_once('directives/ForDirective.php');
 require_once('directives/IfDirective.php');
 require_once('directives/InjectViewDirective.php');
 require_once('directives/InputDirective.php');
@@ -21,11 +22,13 @@ class ViewSettings {
 
     public $templatePath = 'templates/';
 
-    public function __construct(directives\IfDirective $if,
+    public function __construct(directives\ForDirective $for,
+                                directives\IfDirective $if,
                                 directives\InjectViewDirective $injectView,
                                 directives\InputDirective $input,
                                 directives\ViewDirective $view) {
         $this->blockDirectives = [
+            'for' => $for,
             'if' => $if,
         ];
 
