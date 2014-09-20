@@ -7,11 +7,15 @@ class Association {
     private $from;
     private $to;
 
+    public static function getPattern() {
+        return '/'.ClassObject::PATTERN.'-(?:(\w+)-)?'.ClassObject::PATTERN.'/i';
+    }
+
     /**
      * @param string $string
      */
     public function __construct($string) {
-        $pattern = '/'.ClassObject::PATTERN.'-(?:(\w+)-)?'.ClassObject::PATTERN.'/i';
+        $pattern = self::getPattern();
 
         preg_match($pattern, $string, $matches);
 
