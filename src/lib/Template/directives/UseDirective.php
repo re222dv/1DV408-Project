@@ -10,6 +10,18 @@ use Template\View;
 class UseDirective extends BlockDirective {
 
     /**
+     * @var View
+     */
+    private $view;
+
+    private function getValue($expression) {
+        if (is_numeric($expression)) {
+            return $expression;
+        }
+        return $this->view->getVariable($expression);
+    }
+
+    /**
      * @param View $view       The View this directive is rendered in.
      * @param array $arguments All arguments specified in the template.
      * @param string $body     The body of this template.
@@ -22,10 +34,11 @@ class UseDirective extends BlockDirective {
         } elseif ($arguments[1] !== 'as') {
             throw new \InvalidArgumentException('The second argument must be as');
         }
+        $this->view = $view;
 
 
         $partial = new PartialView($view);
-        $partial->setVariable($arguments[2], $view->getVariable($arguments[0]));
+        $partial->setVariable($arguments[2], $this->getValue($arguments[0]));
 
         return $partial->render($body);
     }

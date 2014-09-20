@@ -49,6 +49,7 @@ class PartialView extends View {
      * @return string[]
      */
     private function extractArguments($string) {
+        $string = $this->renderInlineDirectives($string);
         $arguments = [];
         foreach (preg_split('/ +/', trim($string)) as $argument) {
             $arguments[] = $argument;
@@ -70,12 +71,7 @@ class PartialView extends View {
         return $string;
     }
 
-    /**
-     * @param string $template Template code
-     * @return string rendered HTML
-     */
-    public function render($template) {
-
+    private function renderBlockDirectives($template) {
         preg_match_all(self::BLOCK_DIRECTIVE_REGEX, $template, $blockDirectiveMatches, PREG_SET_ORDER);
 
         foreach ($blockDirectiveMatches as $match) {
@@ -90,6 +86,10 @@ class PartialView extends View {
             $template = str_replace($match[0], $rendered, $template);
         }
 
+        return $template;
+    }
+
+    private function renderInlineDirectives($template) {
         preg_match_all(self::INLINE_DIRECTIVE_REGEX, $template, $inlineDirectiveMatches, PREG_SET_ORDER);
 
         foreach ($inlineDirectiveMatches as $match) {
@@ -100,6 +100,18 @@ class PartialView extends View {
 
             $template = str_replace($match[0], $rendered, $template);
         }
+
+        return $template;
+    }
+
+    /**
+     * @param string $template Template code
+     * @return string rendered HTML
+     */
+    public function render($template) {
+
+        $template = $this->renderBlockDirectives($template);
+        $template = $this->renderInlineDirectives($template);
 
         preg_match_all(self::VARIABLE_REGEX, $template, $variableMatches, PREG_SET_ORDER);
 

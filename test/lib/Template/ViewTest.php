@@ -83,6 +83,12 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals("\n  Admin\n\n\n   Test \n\n  \n\n   Test2 \n\n", $page->render());
     }
 
+    public function testExpressions() {
+        $page = new ExpressionView($this->viewSettings);
+        $this->assertEquals("12\n5\n15\n5\n13.5\n9\n20\n20\n11\n24\n18\n\n  \n\n\n   ".
+            "numIsMoreThanFour \n\n\n  \n\n\n   numPlusNumIsTwenty \n\n\n  \n\n", $page->render());
+    }
+
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage Template file '' don't exists
@@ -163,4 +169,11 @@ class UserModel {
         $this->name = $name;
         $this->show = $show;
     }
+}
+
+class ExpressionView extends View {
+    protected $template = 'expressions.html';
+    protected $variables = [
+        'num' => 10
+    ];
 }
