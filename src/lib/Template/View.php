@@ -10,6 +10,13 @@ require_once('PartialView.php');
  * @package Template
  */
 abstract class View {
+    /**
+     * Matches variables with or without a point and a attribute
+     *
+     * Examples:
+     *   user
+     *   user.name
+     */
     const VARIABLE_REGEX = '/([a-z0-9]+)(?:\.([a-z0-9]+))?/i';
 
     /**
@@ -18,7 +25,7 @@ abstract class View {
     protected $settings;
 
     /**
-     * @var View
+     * @var View Variables and View are inherited from the parent
      */
     private $parent;
 

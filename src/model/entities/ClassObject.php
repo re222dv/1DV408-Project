@@ -13,7 +13,8 @@ class ClassObject {
     private $methods = [];
 
     /**
-     * @param string $string
+     * @param string $string The string to parse
+     * @param ClassObject $extend optional, set if this ClassObject should extend another one
      */
     public function __construct($string, ClassObject $extend = null) {
         if ($extend !== null) {
@@ -57,7 +58,6 @@ class ClassObject {
      * @returns Variable[]
      */
     public function getAttributes() {
-        var_dump($this->attributes);
         return $this->attributes;
     }
 

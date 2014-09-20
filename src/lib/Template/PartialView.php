@@ -71,8 +71,8 @@ class PartialView extends View {
     }
 
     /**
-     * @param string $template
-     * @return string a rendered version of this PartialView
+     * @param string $template Template code
+     * @return string rendered HTML
      */
     public function render($template) {
 

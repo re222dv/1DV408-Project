@@ -16,7 +16,7 @@ class ClassDiagram {
     private $associations = [];
 
     /**
-     * @param string $string
+     * @param string $string The string to parse
      */
     public function __construct($string) {
         preg_match_all('/'.ClassObject::PATTERN.'/i', $string, $classMatches, PREG_SET_ORDER);
@@ -65,6 +65,12 @@ class ClassDiagram {
         return null;
     }
 
+    /**
+     * Replaces the class named $name with $new
+     *
+     * @param string $name
+     * @param ClassObject $new
+     */
     private function replaceClass($name, ClassObject $new) {
         foreach ($this->classes as $index => $class) {
             if ($class->getName() === $name) {

@@ -9,7 +9,7 @@ class Variable {
     private $type;
 
     /**
-     * @param string $string
+     * @param string $string The string to parse
      */
     public function __construct($string) {
         preg_match(self::PATTERN, $string, $matches);

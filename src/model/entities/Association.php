@@ -12,7 +12,7 @@ class Association {
     }
 
     /**
-     * @param string $string
+     * @param string $string The string to parse
      */
     public function __construct($string) {
         $pattern = self::getPattern();
@@ -32,14 +32,14 @@ class Association {
     }
 
     /**
-     * @returns string
+     * @returns string Name of the class this association goes from
      */
     public function getFrom() {
         return $this->from;
     }
 
     /**
-     * @returns string
+     * @returns string Name of the class this association goes to
      */
     public function getTo() {
         return $this->to;
