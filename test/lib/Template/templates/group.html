@@ -1,0 +1,6 @@
+{? use group.owner as owner:
+  {{ owner.name }}
+?}
+{? for user in group.members:
+  {? if user.show: {{ user.name }} ?}
+?}

@@ -5,47 +5,12 @@ namespace Template;
 require_once('PartialView.php');
 
 /**
- * Matches variable insertion points.
- *
- * A variable insertion point starts with {{ and ends with }},
- * between them is a variable name that starts with a lower case
- * and may contains lower case, upper case and numbers. It may be
- * surrounded by a single space.
- */
-const VARIABLE_REGEX = '{{{ ?([a-z][a-zA-Z0-9]*?) ?}}}';
-
-/**
- * Matches inline directives
- *
- * An inline directive does only have a header that contains the name
- * of the directive and an optional list of space separated arguments.
- *
- * Example:
- *  {% view content %}
- */
-const INLINE_DIRECTIVE_REGEX = '/{% ?([a-z][a-zA-Z0-9]*)((?: [^ ]*)*?) ?%}/';
-
-/**
- * Matches block directives
- *
- * A block directive a header and a body. The header contains the name
- * of the directive and an optional list of space separated arguments.
- * The header is ended with a colon (:) and after that the body starts
- * and ends at the closing tag (?}).
- *
- * Example:
- *  {? if loggedIn:
- *     Hello, {{ userName }}!
- *  ?}
- */
-const BLOCK_DIRECTIVE_REGEX = '/({\? ?([a-z][a-zA-Z0-9]*)((?: ?[^ :]*)+) ?:)((?:(?!(?1)|(\?})).|(?R))*)\?}/s';
-
-/**
  * This is a base class for views.
  *
  * @package Template
  */
 abstract class View {
+    const VARIABLE_REGEX = '/([a-z0-9]+)(?:\.([a-z0-9]+))?/i';
 
     /**
      * @var ViewSettings
@@ -81,11 +46,18 @@ abstract class View {
         return $this->settings;
     }
 
-    public function getVariable($name) {
+    public function getVariable($variable) {
+        preg_match(self::VARIABLE_REGEX, $variable, $matches);
+        $name = $matches[1];
+
         if (isset($this->variables[$name])) {
+            if (count($matches) > 2) {
+                $memberName = $matches[2];
+                return $this->variables[$name]->$memberName;
+            }
             return $this->variables[$name];
         } else if ($this->parent !== null) {
-            return $this->parent->getVariable($name);
+            return $this->parent->getVariable($variable);
         }
 
         return null;

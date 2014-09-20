@@ -58,7 +58,8 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
     public function testRender() {
         global $renderedPage;
         $page = new Layout($this->viewSettings, new Content($this->viewSettings));
-        $this->assertEquals($renderedPage, $page->render());
+        $rendered = $page->render();
+        $this->assertEquals($renderedPage, $rendered);
     }
 
     public function testInjectedView() {
@@ -69,8 +70,17 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testForWithIf() {
-        $page = new UsersView($this->viewSettings);
-        $this->assertEquals("\n   Test \n\n  \n\n   Test2 \n\n", $page->render());
+        $page = new GroupView($this->viewSettings);
+        $group = new GroupModel();
+        $group->owner = new UserModel('Admin');
+        $group->members = [
+            new UserModel('Test'),
+            new UserModel('Hidden', false),
+            new UserModel('Test2')
+        ];
+
+        $page->setVariable('group', $group);
+        $this->assertEquals("\n  Admin\n\n\n   Test \n\n  \n\n   Test2 \n\n", $page->render());
     }
 
     /**
@@ -136,13 +146,21 @@ class LayoutWithInjectedContent extends View {
     protected $template = 'layoutWithInjectedContent.html';
 }
 
-class UsersView extends View {
-    protected $template = 'users.html';
-    protected $variables = [
-        'users' => [
-            'Test',
-            null,
-            'Test2'
-        ]
-    ];
+class GroupView extends View {
+    protected $template = 'group.html';
+}
+
+class GroupModel {
+    public $owner;
+    public $members;
+}
+
+class UserModel {
+    public $name;
+    public $show;
+
+    public function __construct($name, $show = true) {
+        $this->name = $name;
+        $this->show = $show;
+    }
 }

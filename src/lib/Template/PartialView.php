@@ -4,6 +4,42 @@ namespace Template;
 
 class PartialView extends View {
 
+    /**
+     * Matches variable insertion points.
+     *
+     * A variable insertion point starts with {{ and ends with }},
+     * between them is a variable name that starts with a lower case
+     * and may contains lower case, upper case and numbers. It may be
+     * surrounded by a single space.
+     */
+    const VARIABLE_REGEX = '/{{ ?([^ ]+?) ?}}/';
+
+    /**
+     * Matches inline directives
+     *
+     * An inline directive does only have a header that contains the name
+     * of the directive and an optional list of space separated arguments.
+     *
+     * Example:
+     *  {% view content %}
+     */
+    const INLINE_DIRECTIVE_REGEX = '/{% ?([a-z][a-zA-Z0-9]*)((?: [^ ]*)*?) ?%}/';
+
+    /**
+     * Matches block directives
+     *
+     * A block directive a header and a body. The header contains the name
+     * of the directive and an optional list of space separated arguments.
+     * The header is ended with a colon (:) and after that the body starts
+     * and ends at the closing tag (?}).
+     *
+     * Example:
+     *  {? if loggedIn:
+     *     Hello, {{ userName }}!
+     *  ?}
+     */
+    const BLOCK_DIRECTIVE_REGEX = '/({\? ?([a-z][a-zA-Z0-9]*)((?: ?[^ :]*)+) ?:)((?:(?!(?1)|(\?})).|(?R))*)\?}/s';
+
     public function __construct(View $parent = null) {
         parent::__construct($parent->getSettings(), $parent);
     }
@@ -40,7 +76,7 @@ class PartialView extends View {
      */
     public function render($template) {
 
-        preg_match_all(BLOCK_DIRECTIVE_REGEX, $template, $blockDirectiveMatches, PREG_SET_ORDER);
+        preg_match_all(self::BLOCK_DIRECTIVE_REGEX, $template, $blockDirectiveMatches, PREG_SET_ORDER);
 
         foreach ($blockDirectiveMatches as $match) {
             $name = $match[2];
@@ -54,7 +90,7 @@ class PartialView extends View {
             $template = str_replace($match[0], $rendered, $template);
         }
 
-        preg_match_all(INLINE_DIRECTIVE_REGEX, $template, $inlineDirectiveMatches, PREG_SET_ORDER);
+        preg_match_all(self::INLINE_DIRECTIVE_REGEX, $template, $inlineDirectiveMatches, PREG_SET_ORDER);
 
         foreach ($inlineDirectiveMatches as $match) {
             $name = $match[1];
@@ -65,7 +101,7 @@ class PartialView extends View {
             $template = str_replace($match[0], $rendered, $template);
         }
 
-        preg_match_all(VARIABLE_REGEX, $template, $variableMatches, PREG_SET_ORDER);
+        preg_match_all(self::VARIABLE_REGEX, $template, $variableMatches, PREG_SET_ORDER);
 
         foreach ($variableMatches as $match) {
             $variable = $this->getVariable($match[1]);
