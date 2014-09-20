@@ -6,7 +6,7 @@ require_once('Variable.php');
 require_once('Method.php');
 
 class ClassObject {
-    const PATTERN = '/\[([^\s\]]+?(?=\||\]))((?:\|[^\|\]]*)+)?\]/i';
+    const PATTERN = '\[([^\s\]]+?(?=\||\]))((?:\|[^\|\]]*)+)?\]';
 
     private $name;
     private $attributes = [];
@@ -16,7 +16,8 @@ class ClassObject {
      * @param string $string
      */
     public function __construct($string) {
-        preg_match(self::PATTERN, $string, $matches);
+        $pattern = '/'.self::PATTERN.'/i';
+        preg_match($pattern, $string, $matches);
         $this->name = $matches[1];
 
         if (count($matches) > 2) {

@@ -9,7 +9,7 @@ class AssociationTest extends \PHPUnit_Framework_TestCase {
     public function testThatItParsesAssociationsInGarbage() {
         $association = new Association('dgfshdfgh[Member]-[Comment]gfdfgsgsdfg');
 
-        $this->assertNull($association->getName());
+        $this->assertEmpty($association->getName());
         $this->assertEquals('Member', $association->getFrom());
         $this->assertEquals('Comment', $association->getTo());
     }
