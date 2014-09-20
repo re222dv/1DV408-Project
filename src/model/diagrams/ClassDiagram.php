@@ -6,7 +6,13 @@ use model\entities\Association;
 use model\entities\ClassObject;
 
 class ClassDiagram {
+    /**
+     * @var ClassObject[]
+     */
     private $classes = [];
+    /**
+     * @var Association[]
+     */
     private $associations = [];
 
     /**
@@ -17,8 +23,11 @@ class ClassDiagram {
 
         foreach($classMatches as $classMatch) {
             $name = $classMatch[1];
-            if (!in_array($name, $this->classes)) {
-                $this->classes[$name] = new ClassObject($classMatch[0]);
+            $class = $this->getClass($name);
+            if ($class === null) {
+                $this->classes[] = new ClassObject($classMatch[0]);
+            } else {
+                $this->replaceClass($name, new ClassObject($classMatch[0], $class));
             }
         }
 
@@ -41,5 +50,26 @@ class ClassDiagram {
      */
     public function getAssociations() {
         return $this->associations;
+    }
+
+    /**
+     * @param string $name
+     * @return ClassObject The class object if exists, else null
+     */
+    public function getClass($name) {
+        foreach ($this->classes as $class) {
+            if ($class->getName() === $name) {
+                return $class;
+            }
+        }
+        return null;
+    }
+
+    private function replaceClass($name, ClassObject $new) {
+        foreach ($this->classes as $index => $class) {
+            if ($class->getName() === $name) {
+                $this->classes[$index] = $new;
+            }
+        }
     }
 }

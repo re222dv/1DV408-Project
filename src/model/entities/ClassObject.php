@@ -15,7 +15,12 @@ class ClassObject {
     /**
      * @param string $string
      */
-    public function __construct($string) {
+    public function __construct($string, ClassObject $extend = null) {
+        if ($extend !== null) {
+            $this->attributes = $extend->getAttributes();
+            $this->methods = $extend->getMethods();
+        }
+
         $pattern = '/'.self::PATTERN.'/i';
         preg_match($pattern, $string, $matches);
         $this->name = $matches[1];

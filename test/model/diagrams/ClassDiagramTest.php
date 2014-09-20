@@ -16,4 +16,16 @@ class ClassDiagramTest extends \PHPUnit_Framework_TestCase {
         $this->assertCount(3, $diagram->getClasses());
         $this->assertCount(2, $diagram->getAssociations());
     }
+
+    public function testThatItCanExtendClasses() {
+        $diagram = new ClassDiagram('
+            [Post||post(text)]
+            [Post|author]
+        ');
+
+        $this->assertCount(1, $diagram->getClasses());
+        $this->assertCount(1, $diagram->getClasses()[0]->getAttributes());
+        $this->assertCount(1, $diagram->getClasses()[0]->getMethods());
+        $this->assertEmpty($diagram->getAssociations());
+    }
 }
