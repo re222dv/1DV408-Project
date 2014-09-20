@@ -74,7 +74,7 @@ class ClassObjectTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testThatItParsesClassesWithMethodsWithArguments() {
-        $classObject = new ClassObject('[Methods||go(length:int, direction);stop(force:bool):bool]');
+        $classObject = new ClassObject('[Methods||go(length:int, direction);stop(force:bool)]');
 
         $this->assertEquals('Methods', $classObject->getName());
         $this->assertEmpty($classObject->getAttributes());
@@ -90,6 +90,24 @@ class ClassObjectTest extends \PHPUnit_Framework_TestCase {
         $this->assertCount(1, $classObject->getMethods()[1]->getArguments());
         $this->assertEquals('force', $classObject->getMethods()[1]->getArguments()[0]->getName());
         $this->assertEquals('bool', $classObject->getMethods()[1]->getArguments()[0]->getType());
+        $this->assertNull($classObject->getMethods()[1]->getReturnType());
+    }
+
+    public function testThatItParsesClassesWithMethodsWithReturnType() {
+        $classObject = new ClassObject('[Methods||go(length:int, direction):Position;stop():bool]');
+
+        $this->assertEquals('Methods', $classObject->getName());
+        $this->assertEmpty($classObject->getAttributes());
+        $this->assertCount(2, $classObject->getMethods());
+        $this->assertEquals('go', $classObject->getMethods()[0]->getName());
+        $this->assertCount(2, $classObject->getMethods()[0]->getArguments());
+        $this->assertEquals('length', $classObject->getMethods()[0]->getArguments()[0]->getName());
+        $this->assertEquals('int', $classObject->getMethods()[0]->getArguments()[0]->getType());
+        $this->assertEquals('direction', $classObject->getMethods()[0]->getArguments()[1]->getName());
+        $this->assertNull($classObject->getMethods()[0]->getArguments()[1]->getType());
+        $this->assertEquals('Position', $classObject->getMethods()[0]->getReturnType());
+        $this->assertEquals('stop', $classObject->getMethods()[1]->getName());
+        $this->assertEmpty($classObject->getMethods()[1]->getArguments());
         $this->assertEquals('bool', $classObject->getMethods()[1]->getReturnType());
     }
 }
