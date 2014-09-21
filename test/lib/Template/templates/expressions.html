@@ -1,26 +1,20 @@
-{% expression num+2 %}
-{% expression num-5 %}
-{% expression num*1.5 %}
-{% expression num/2 %}
-{% expression num + 3.5 %}
-{% expression num - 1 %}
-{% expression num * 2 %}
-{% expression num / 0.5 %}
-{% expression num - 1 + 2 %}
-{% expression num * 2 + 4 %}
-{% expression num + 2 * 4 %}
-{? use {% expression num < 2 %} as numIsLessThanTwo:
-  {? if numIsLessThanTwo: numIsLessThanTwo ?}
-?}
-{? use {% expression num > 4 %} as numIsMoreThanFour:
-  {? if numIsMoreThanFour: numIsMoreThanFour ?}
-?}
-{? use {% expression num > 4 + num %} as numIsMoreThanFourPlusNum:
-  {? if numIsMoreThanFourPlusNum: numIsMoreThanFourPlusNum ?}
-?}
-{? use {% expression num + num == 20 %} as numPlusNumIsTwenty:
-  {? if numPlusNumIsTwenty: numPlusNumIsTwenty ?}
-?}
-{? use {% expression num != 10 %} as numIsNotTen:
+{{ num+2 }}
+{{ num-5 }}
+{{ num*1.5 }}
+{{ num/2 }}
+{{ num + 3.5 }}
+{{ num - 1 }}
+{{ num * 2 }}
+{{ num / 0.5 }}
+{{ num - 1 + 2 }}
+{{ num * 2 + 4 }}
+{{ num + 2 * 4 }}
+{{ 1 + 2 * 3 }}
+{{ {{ 1 + 2 }} * 3 }}
+{? if {{ num < 2 }}: numIsLessThanTwo ?}
+{? if {{ num > 4 }}: numIsMoreThanFour ?}
+{? if {{ num > 4 + num }}: numIsMoreThanFourPlusNum ?}
+{? if {{ num + num == 20 }}: numPlusNumIsTwenty ?}
+{? use {{ num != 10 }} as numIsNotTen:
   {? if numIsNotTen: numIsNotTen ?}
 ?}

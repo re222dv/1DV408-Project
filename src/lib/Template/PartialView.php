@@ -5,16 +5,6 @@ namespace Template;
 class PartialView extends View {
 
     /**
-     * Matches variable insertion points.
-     *
-     * A variable insertion point starts with {{ and ends with }},
-     * between them is a variable name that starts with a lower case
-     * and may contains lower case, upper case and numbers. It may be
-     * surrounded by a single space.
-     */
-    const VARIABLE_REGEX = '/{{ ?([^ ]+?) ?}}/';
-
-    /**
      * Matches inline directives
      *
      * An inline directive does only have a header that contains the name
@@ -23,7 +13,7 @@ class PartialView extends View {
      * Example:
      *  {% view content %}
      */
-    const INLINE_DIRECTIVE_REGEX = '/{% ?([a-z][a-zA-Z0-9]*)((?: [^ ]*)*?) ?%}/';
+    const INLINE_DIRECTIVE_REGEX = '/{% ?([a-z][a-zA-Z0-9]*)( (?:(?R)|(?:.??(?!%})))+) ?%}/';
 
     /**
      * Matches block directives
@@ -56,19 +46,6 @@ class PartialView extends View {
         }
 
         return $arguments;
-    }
-
-    /**
-     * @param string $string A possibly unsafe string
-     * @returns string A string that is safe inside HTML if double quotes are
-     *                 used when placing in an attributes value.
-     */
-    private function htmlEscape($string) {
-        $string = str_replace('<', '&lt;', $string);
-        $string = str_replace('>', '&gt;', $string);
-        $string = str_replace('"', '&quot;', $string);
-
-        return $string;
     }
 
     private function renderBlockDirectives($template) {
@@ -109,17 +86,10 @@ class PartialView extends View {
      * @return string rendered HTML
      */
     public function render($template) {
+        $template = str_replace(['{{', '}}'], ['{% expression ', '%}'], $template);
 
         $template = $this->renderBlockDirectives($template);
         $template = $this->renderInlineDirectives($template);
-
-        preg_match_all(self::VARIABLE_REGEX, $template, $variableMatches, PREG_SET_ORDER);
-
-        foreach ($variableMatches as $match) {
-            $variable = $this->getVariable($match[1]);
-            $variable = $this->htmlEscape($variable);
-            $template = str_replace($match[0], $variable, $template);
-        }
 
         return $template;
     }

@@ -17,17 +17,10 @@ class ExpressionDirective extends InlineDirective {
      */
     private $view;
 
-    private function getValue($expression) {
-        if (is_numeric($expression)) {
-            return $expression;
-        }
-        return $this->view->getVariable($expression);
-    }
-
     private function calculate($pattern) {
         if (preg_match($pattern, $this->expression, $match) !== 0) {
-            $first = $this->getValue($match[1]);
-            $second = $this->getValue($match[3]);
+            $first = $this->view->getVariable($match[1]);
+            $second = $this->view->getVariable($match[3]);
             $result = 0;
 
             switch ($match[2]) {
@@ -56,8 +49,8 @@ class ExpressionDirective extends InlineDirective {
 
     private function check($pattern) {
         if (preg_match($pattern, $this->expression, $match) !== 0) {
-            $first = $this->getValue($match[1]);
-            $second = $this->getValue($match[3]);
+            $first = $this->view->getVariable($match[1]);
+            $second = $this->view->getVariable($match[3]);
             $result = 0;
 
             switch ($match[2]) {
@@ -90,6 +83,19 @@ class ExpressionDirective extends InlineDirective {
     }
 
     /**
+     * @param string $string A possibly unsafe string
+     * @returns string A string that is safe inside HTML if double quotes are
+     *                 used when placing in an attributes value.
+     */
+    private function htmlEscape($string) {
+        $string = str_replace('<', '&lt;', $string);
+        $string = str_replace('>', '&gt;', $string);
+        $string = str_replace('"', '&quot;', $string);
+
+        return $string;
+    }
+
+    /**
      * @param View $view       The View this directive is rendered in.
      * @param array $arguments All arguments specified in the template.
      * @throws \InvalidArgumentException If more or less than one argument specified.
@@ -102,6 +108,9 @@ class ExpressionDirective extends InlineDirective {
         $this->calculate(self::PRIORITY_MATH);
         $this->calculate(self::MATH);
         $this->check(self::BOOLEAN_EXPRESSION);
+
+        $this->expression = $view->getVariable($this->expression);
+        $this->expression = $this->htmlEscape($this->expression);
 
         return $this->expression;
     }

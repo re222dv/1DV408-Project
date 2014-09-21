@@ -54,6 +54,10 @@ abstract class View {
     }
 
     public function getVariable($variable) {
+        if (is_numeric($variable)) {
+            return $variable;
+        }
+
         preg_match(self::VARIABLE_REGEX, $variable, $matches);
         $name = $matches[1];
 
