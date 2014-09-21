@@ -16,9 +16,9 @@ class ViewDirective extends InlineDirective {
      */
     function render(View $view, array $arguments) {
         if (count($arguments) !== 1) {
-            throw new \InvalidArgumentException('Exactly one view name must be specified');
+            throw new \InvalidArgumentException('Exactly one variable name must be specified');
         }
 
-        return $view->getView($arguments[0])->render();
+        return $view->getVariable($arguments[0])->render();
     }
 }

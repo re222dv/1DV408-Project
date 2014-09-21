@@ -35,14 +35,9 @@ abstract class View {
     protected $template;
     /**
      * @var mixed[] An assoc array with name => variable of all variables
-     *              that should be inserted in the output.
+     *              defined on this View.
      */
     protected $variables = [];
-    /**
-     * @var View[] An assoc array with name => View of all children views
-     *             that should be inserted in the output.
-     */
-    protected $views = [];
 
     public function __construct(ViewSettings $settings, View $parent = null) {
         $this->settings = $settings;
@@ -76,20 +71,6 @@ abstract class View {
 
     public function setVariable($name, $value) {
         $this->variables[$name] = $value;
-    }
-
-    public function getView($name) {
-        if (isset($this->views[$name])) {
-            return $this->views[$name];
-        } else if ($this->parent !== null) {
-            return $this->parent->getView($name);
-        }
-
-        throw new \Exception("View '$name' not found");
-    }
-
-    public function setView($name, View $view) {
-        $this->views[$name] = $view;
     }
 
     /**

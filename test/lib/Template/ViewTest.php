@@ -126,7 +126,7 @@ class Layout extends View {
 
         $this->template = 'layout.html';
         $this->setVariable('title', 'Test');
-        $this->setView('content', $content);
+        $this->setVariable('content', $content);
     }
 }
 
