@@ -7,6 +7,7 @@ require_once('directives/ForDirective.php');
 require_once('directives/IfDirective.php');
 require_once('directives/InjectViewDirective.php');
 require_once('directives/InputDirective.php');
+require_once('directives/SetDirective.php');
 require_once('directives/UseDirective.php');
 require_once('directives/ViewDirective.php');
 
@@ -29,6 +30,7 @@ class ViewSettings {
                                 directives\IfDirective $if,
                                 directives\InjectViewDirective $injectView,
                                 directives\InputDirective $input,
+                                directives\SetDirective $set,
                                 directives\UseDirective $use,
                                 directives\ViewDirective $view) {
         $this->blockDirectives = [
@@ -41,6 +43,7 @@ class ViewSettings {
             'expression' => $expression,
             'injectView' => $injectView,
             'input' => $input,
+            'set' => $set,
             'view' => $view,
         ];
     }

@@ -44,6 +44,10 @@ abstract class View {
         $this->parent = $parent;
     }
 
+    public function getParent() {
+        return $this->parent;
+    }
+
     public function getSettings() {
         return $this->settings;
     }
@@ -71,6 +75,10 @@ abstract class View {
 
     public function setVariable($name, $value) {
         $this->variables[$name] = $value;
+    }
+
+    public function isDefined($variable) {
+        return isset($this->variables[$variable]);
     }
 
     /**

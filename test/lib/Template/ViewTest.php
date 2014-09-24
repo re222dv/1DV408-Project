@@ -90,6 +90,13 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
             "\n\n numIsEven \n\n  \n\n", $page->render());
     }
 
+    public function testScope() {
+        $page = new ScopeView($this->viewSettings);
+        $render = $page->render();
+        $this->assertEquals("10\n\n  3\n\n10\n\n  11\n  \n    \n    \n  \n  12\n  \n  13".
+            "\n\n10\n\n11\n", $render);
+    }
+
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage Template file '' don't exists
@@ -174,6 +181,13 @@ class UserModel {
 
 class ExpressionView extends View {
     protected $template = 'expressions.html';
+    protected $variables = [
+        'num' => 10
+    ];
+}
+
+class ScopeView extends View {
+    protected $template = 'scope.html';
     protected $variables = [
         'num' => 10
     ];

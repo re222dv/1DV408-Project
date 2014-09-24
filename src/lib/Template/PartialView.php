@@ -13,7 +13,7 @@ class PartialView extends View {
      * Example:
      *  {% view content %}
      */
-    const INLINE_DIRECTIVE_REGEX = '/{% ?([a-z][a-zA-Z0-9]*)( (?:(?R)|(?:.??(?!%})))+) ?%}/';
+    const INLINE_DIRECTIVE_REGEX = '({% ?([a-z][a-zA-Z0-9]*)( (?:(?R)|(?:.??(?!%})))+) ?%})';
 
     /**
      * Matches block directives
@@ -28,7 +28,7 @@ class PartialView extends View {
      *     Hello, {{ userName }}!
      *  ?}
      */
-    const BLOCK_DIRECTIVE_REGEX = '/({\? ?([a-z][a-zA-Z0-9]*)((?: ?[^ :]*)+) ?:)((?:(?!(?1)|(\?})).|(?R))*)\?}/s';
+    const BLOCK_DIRECTIVE_REGEX = '(({\? ?([a-z][a-zA-Z0-9]*)((?: ?[^ :]*)+) ?:)((?:(?!(?1)|(\?})).|(?R))*)\?})';
 
     public function __construct(View $parent = null) {
         parent::__construct($parent->getSettings(), $parent);
@@ -39,19 +39,25 @@ class PartialView extends View {
      * @return string[]
      */
     private function extractArguments($string) {
-        $string = $this->renderInlineDirectives($string);
+        $template = $string;
+        while ($string != null) {
+            $string = $this->renderInlineDirective($string);
+            if ($string !== null) {
+                $template = $string;
+            }
+        }
         $arguments = [];
-        foreach (preg_split('/ +/', trim($string)) as $argument) {
+        foreach (preg_split('/ +/', trim($template)) as $argument) {
             $arguments[] = $argument;
         }
 
         return $arguments;
     }
 
-    private function renderBlockDirectives($template) {
-        preg_match_all(self::BLOCK_DIRECTIVE_REGEX, $template, $blockDirectiveMatches, PREG_SET_ORDER);
+    private function renderBlockDirective($template) {
+        $matched = preg_match(self::BLOCK_DIRECTIVE_REGEX.'s', $template, $match);
 
-        foreach ($blockDirectiveMatches as $match) {
+        if ($matched) {
             $name = $match[2];
             $arguments = $this->extractArguments($match[3]);
             $body = $match[4];
@@ -60,25 +66,29 @@ class PartialView extends View {
 
             $rendered = $partial->render($this->settings->blockDirectives[$name]->render($partial, $arguments, $body));
 
-            $template = str_replace($match[0], $rendered, $template);
+            $template = preg_replace('/'.preg_quote($match[0], '/').'/', $rendered, $template, 1);
+
+            return $template;
         }
 
-        return $template;
+        return null;
     }
 
-    private function renderInlineDirectives($template) {
-        preg_match_all(self::INLINE_DIRECTIVE_REGEX, $template, $inlineDirectiveMatches, PREG_SET_ORDER);
+    private function renderInlineDirective($template) {
+        $matched = preg_match(self::INLINE_DIRECTIVE_REGEX, $template, $match);
 
-        foreach ($inlineDirectiveMatches as $match) {
+        if ($matched) {
             $name = $match[1];
             $arguments = $this->extractArguments($match[2]);
 
             $rendered = $this->settings->inlineDirectives[$name]->render($this, $arguments);
 
-            $template = str_replace($match[0], $rendered, $template);
+            $template = preg_replace('/'.preg_quote($match[0], '/').'/', $rendered, $template, 1);
+
+            return $template;
         }
 
-        return $template;
+        return null;
     }
 
     /**
@@ -88,8 +98,16 @@ class PartialView extends View {
     public function render($template) {
         $template = str_replace(['{{', '}}'], ['{% expression ', '%}'], $template);
 
-        $template = $this->renderBlockDirectives($template);
-        $template = $this->renderInlineDirectives($template);
+        preg_match_all('/'.self::BLOCK_DIRECTIVE_REGEX.'|'.self::INLINE_DIRECTIVE_REGEX.'/s', $template, $matches, PREG_SET_ORDER);
+
+        foreach ($matches as $match) {
+            $rendered = $this->renderBlockDirective($match[0]);
+            if ($rendered === null) {
+                $rendered = $this->renderInlineDirective($match[0]);
+            }
+            $template = preg_replace('/'.preg_quote($match[0], '/').'/', $rendered, $template, 1);
+        }
+
 
         return $template;
     }

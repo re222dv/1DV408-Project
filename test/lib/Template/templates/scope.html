@@ -1,0 +1,18 @@
+{{ num }}
+{? use 3 as num:
+  {{ num }}
+?}
+{{ num }}
+{? use {{ num + 1 }} as num:
+  {{ num }}
+  {? use num as number:
+    {% set num {{ num + 1 }} %}
+    {% set number {{ num + 1 }} %}
+  ?}
+  {{ num }}
+  {% set num {{ num + 1 }} %}
+  {{ num }}
+?}
+{{ num }}
+{% set num {{ num + 1 }} %}
+{{ num }}
