@@ -21,6 +21,31 @@ class Database {
     }
 
     /**
+     * Gets all properties on $object that is marked as a column and private
+     *
+     * @param object $object
+     * @param bool $getId Optional, set to true if the id should be requested even if it's
+     *                    not marked as a column.
+     * @return array with name => values
+     */
+    private function getProperties($object, $getId = false) {
+        $reflection = new \ReflectionClass($object);
+        $properties = $reflection->getProperties(\ReflectionProperty::IS_PRIVATE);
+        $vars = [];
+
+        foreach ($properties as $property) {
+            preg_match(self::COLUMN_DECLARATION, $property->getDocComment(), $match);
+
+            if ($match or ($getId and $property->getName() === 'id')) {
+                $property->setAccessible(true);
+                $vars[$property->getName()] = $property->getValue($object);
+            }
+        }
+
+        return $vars;
+    }
+
+    /**
      * Instantiates a class without calling its constructor and set $attributes even
      * if they are private.
      *
@@ -83,24 +108,45 @@ class Database {
     }
 
     /**
+     * Deletes $objects from the database
+     *
+     * If $objects is an array all objects in it are deleted
+     *
+     * @param object|array $objects
+     */
+    public function delete($objects) {
+        if (!is_array($objects)) {
+            $objects = [$objects];
+        }
+
+        $reflection = new \ReflectionClass($objects[0]);
+        $table = $reflection->getShortName();
+        $ids = [];
+
+        foreach ($objects as $object) {
+            $reflection = new \ReflectionClass($objects[0]);
+            $idProperty = $reflection->getProperty('id');
+            $idProperty->setAccessible(true);
+            $ids[] = $idProperty->getValue($object);
+        }
+
+        // got this from http://stackoverflow.com/a/23641033/2965191
+        $in = join(',', array_fill(0, count($ids), '?'));
+
+        $this->connection
+            ->prepare("DELETE FROM $table WHERE `id` IN ($in)")
+            ->execute($ids);
+    }
+
+    /**
      * Insert $object into its corresponding table
      *
      * @param object $object
      */
     public function insert($object) {
         $reflection = new \ReflectionClass($object);
-        $properties = $reflection->getProperties(\ReflectionProperty::IS_PRIVATE);
         $table = $reflection->getShortName();
-        $vars = [];
-
-        foreach ($properties as $property) {
-            preg_match(self::COLUMN_DECLARATION, $property->getDocComment(), $match);
-
-            if ($match) {
-                $property->setAccessible(true);
-                $vars[$property->getName()] = $property->getValue($object);
-            }
-        }
+        $vars = $this->getProperties($object);
 
         $columns = join('`, `', array_keys($vars));
         $placeholders = join(', ', array_fill (0, count($vars), '?'));
@@ -108,6 +154,35 @@ class Database {
         $this->connection
             ->prepare("INSERT INTO $table (`$columns`) VALUES ($placeholders)")
             ->execute(array_values($vars));
+    }
+
+    /**
+     * Saves $object to the database
+     * If it exists it's updated or else it's inserted
+     *
+     * @param object $object
+     */
+    public function save($object) {
+        $reflection = new \ReflectionClass($object);
+        $table = $reflection->getShortName();
+        $vars = $this->getProperties($object, true);
+
+        if ($vars['id'] === null) {
+            $this->insert($object);
+        } else {
+            $set = '';
+            foreach (array_keys($vars) as $column) {
+                if ($column === 'id') {
+                    continue;
+                }
+                $set .= "`$column` = :$column,";
+            }
+            $set = substr($set, 0, -1);
+
+            $this->connection
+                ->prepare("UPDATE $table SET $set WHERE `id` = :id")
+                ->execute($vars);
+        }
     }
 
     /**

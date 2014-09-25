@@ -22,16 +22,48 @@ class DatabaseE2E extends \PHPUnit_Framework_TestCase {
         $this->database->insert(new User('Admin', 'Password'));
     }
 
+    public function testInsertWithSave() {
+        $this->database->save(new User('User', 'MyCatsName'));
+    }
+
     public function testSelect() {
         $users = $this->database->select(User::class);
 
-        $this->assertEquals(1, count($users));
+        $this->assertEquals(2, count($users));
         $this->assertEquals('Admin', $users[0]->getUsername());
         $this->assertTrue($users[0]->verifyPassword('Password'));
+        $this->assertEquals('User', $users[1]->getUsername());
+        $this->assertTrue($users[1]->verifyPassword('MyCatsName'));
+    }
+
+    public function testUpdate() {
+        $user = $this->database->select(User::class, '', [], 1);
+        $user->setUsername('Administrator');
+        $this->database->save($user);
+
+        $user = $this->database->select(User::class, '', [], 1);
+        $this->assertEquals('Administrator', $user->getUsername());
+    }
+
+    public function testDelete() {
+        $users = $this->database->select(User::class);
+        $this->database->delete($users[0]);
+
+        $users = $this->database->select(User::class);
+        $this->assertEquals(1, count($users));
+    }
+
+    public function testDeleteAll() {
+        $users = $this->database->select(User::class);
+        $this->database->delete($users);
+
+        $users = $this->database->select(User::class);
+        $this->assertEquals(0, count($users));
     }
 }
 
 class User {
+    private $id;
     /**
      * [column varchar(20)]
      */
@@ -52,10 +84,6 @@ class User {
 
     public function setUsername($username) {
         return $this->username = $username;
-    }
-
-    public function setHash($hash) {
-        return $this->hash = $hash;
     }
 
     public function verifyPassword($password) {
