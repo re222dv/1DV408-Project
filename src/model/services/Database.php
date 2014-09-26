@@ -46,6 +46,17 @@ class Database {
     }
 
     /**
+     * Get table name for $class
+     *
+     * @param mixed $class The name of a class or an object of the class
+     * @return string
+     */
+    private function getTable($class) {
+        $reflection = new \ReflectionClass($class);
+        return $reflection->getShortName();
+    }
+
+    /**
      * Instantiates a class without calling its constructor and set $attributes even
      * if they are private.
      *
@@ -79,7 +90,8 @@ class Database {
     public function assertTable($class) {
         $reflection = new \ReflectionClass($class);
         $properties = $reflection->getProperties(\ReflectionProperty::IS_PRIVATE);
-        $table = $reflection->getShortName();
+
+        $table = $this->getTable($class);
         $columns = '';
 
         foreach ($properties as $property) {
@@ -110,17 +122,14 @@ class Database {
     /**
      * Deletes $objects from the database
      *
-     * If $objects is an array all objects in it are deleted
-     *
-     * @param object|array $objects
+     * @param object|array $objects A single object or an array of objects from the same class
      */
     public function delete($objects) {
         if (!is_array($objects)) {
             $objects = [$objects];
         }
 
-        $reflection = new \ReflectionClass($objects[0]);
-        $table = $reflection->getShortName();
+        $table = $this->getTable($objects[0]);
         $ids = [];
 
         foreach ($objects as $object) {
@@ -136,6 +145,30 @@ class Database {
         $this->connection
             ->prepare("DELETE FROM $table WHERE `id` IN ($in)")
             ->execute($ids);
+    }
+
+    /**
+     * Get objects of $class
+     *
+     * @param string $class
+     * @param int|int[] $ids One id or one array of ids to get
+     * @return object|array The object or objects with the corresponding id
+     */
+    public function get($class, $ids) {
+        if (!is_array($ids)) {
+            $ids = [$ids];
+        }
+        $limit = count($ids);
+
+        $where = '`id` ';
+        if ($limit == 1) {
+            $where .= "= ?";
+        } else {
+            $in = join(',', array_fill(0, count($ids), '?'));
+            $where .= "IN ($in)";
+        }
+
+        return $this->select($class, $where, $ids, $limit);
     }
 
     /**
@@ -163,8 +196,7 @@ class Database {
      * @param object $object
      */
     public function save($object) {
-        $reflection = new \ReflectionClass($object);
-        $table = $reflection->getShortName();
+        $table = $this->getTable($object);
         $vars = $this->getProperties($object, true);
 
         if ($vars['id'] === null) {
@@ -195,8 +227,7 @@ class Database {
      * @return array|object An array of objects of $class or just an object of $class if $limit == 1
      */
     public function select($class, $where = '', array $values = [], $limit = 0) {
-        $reflection = new \ReflectionClass($class);
-        $table = $reflection->getShortName();
+        $table = $this->getTable($class);
 
         if ($where) {
             $where = "WHERE $where";

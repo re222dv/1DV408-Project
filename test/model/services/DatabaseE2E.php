@@ -45,6 +45,20 @@ class DatabaseE2E extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('Administrator', $user->getUsername());
     }
 
+    public function testGet() {
+        $selectUsers = $this->database->select(User::class);
+        $ids = [];
+        foreach ($selectUsers as $user) {
+            $ids[] = $user->getId();
+        }
+
+        $user = $this->database->get(User::class, $selectUsers[0]->getId());
+        $users = $this->database->get(User::class, $ids);
+
+        $this->assertEquals($selectUsers[0], $user);
+        $this->assertEquals($selectUsers, $users);
+    }
+
     public function testDelete() {
         $users = $this->database->select(User::class);
         $this->database->delete($users[0]);
@@ -63,6 +77,9 @@ class DatabaseE2E extends \PHPUnit_Framework_TestCase {
 }
 
 class User {
+    /**
+     * @var int A special id that is set to the database id
+     */
     private $id;
     /**
      * [column varchar(20)]
@@ -76,6 +93,10 @@ class User {
     public function __construct($username, $password) {
         $this->username = $username;
         $this->hash = password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    public function getId() {
+        return $this->id;
     }
 
     public function getUsername() {
