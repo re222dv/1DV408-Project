@@ -239,7 +239,12 @@ class Database {
         $query = $this->connection->prepare("SELECT * FROM $table $where");
         $query->execute($values);
         if ($limit == 1) {
-            return $this->instantiate($class, $query->fetch(\PDO::FETCH_ASSOC));
+            $result = $query->fetch(\PDO::FETCH_ASSOC);
+            if ($result) {
+                return $this->instantiate($class, $result);
+            } else {
+                return null;
+            }
         } else {
             $objects = [];
             foreach ($query->fetchAll(\PDO::FETCH_ASSOC) as $attributes) {

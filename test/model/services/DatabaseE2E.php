@@ -59,6 +59,11 @@ class DatabaseE2E extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($selectUsers, $users);
     }
 
+    public function testGetNoResult() {
+        $result = $this->database->get(User::class, -1);
+        $this->assertNull($result);
+    }
+
     public function testDelete() {
         $users = $this->database->select(User::class);
         $this->database->delete($users[0]);
