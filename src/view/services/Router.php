@@ -3,7 +3,7 @@
 namespace view\services;
 
 class Router {
-    const FILENAME = '/\/([A-Z0-9\-\._~:\/\?#\[\]@!\$&\'\(\)\*\+,;=]+).svg/i';
+    const FILENAME = '/\/(.+).svg/i';
 
     private function getCurrentPath() {
         return (isset($_GET['path'])) ? $_GET['path'] : '/';
