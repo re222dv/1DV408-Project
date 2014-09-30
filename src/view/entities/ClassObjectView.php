@@ -8,12 +8,13 @@ use Template\View;
 class ClassObjectView extends View {
     protected $template = 'entities/class.svg';
     private $classObject;
+    public $width = 200;
 
     public function setClass(ClassObject $classObject) {
         $this->classObject = $classObject;
 
         $this->variables = [
-            'width'=> 200,
+            'width'=> $this->width,
             'height'=> 50,
             'headHeight'=> 50,
             'name'=> $classObject->getName(),
