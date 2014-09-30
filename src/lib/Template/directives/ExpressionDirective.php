@@ -120,7 +120,7 @@ class ExpressionDirective extends InlineDirective {
         $this->expression = $view->getVariable($this->expression);
 
         if (is_array($this->expression)) {
-            $this->expression = empty($this->expression);
+            $this->expression = !empty($this->expression);
         }
 
         $this->expression = $this->htmlEscape($this->expression);
