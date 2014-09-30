@@ -1,0 +1,20 @@
+<g>
+    <rect width="{{ width }}" height="{{ height }}" fill="lightgray" />
+    <text x="{{ width / 2 }}" y="{{ headHeight / 2 }}" text-anchor="middle">{{ name }}</text>
+    {? use headHeight as height:
+        {? if {{ attributes or methods }}:
+            <path d="M 0 {{ height }} l {{ width }} 0" stroke="black" stroke-width="1" />
+            {? for attribute in attributes:
+                {% view attribute %}
+                {% set height {{ height + attribute.height }} %}
+            ?}
+        ?}
+        {? if {{ methods }}:
+            <path d="M 0 {{ height }} l {{ width }} 0" stroke="black" stroke-width="1" />
+            {? for method in methods:
+                {% view method %}
+                {% set height {{ height + method.height }} %}
+            ?}
+        ?}
+    ?}
+</g>
