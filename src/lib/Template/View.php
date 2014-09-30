@@ -39,13 +39,16 @@ abstract class View {
      */
     protected $variables = [];
 
-    public function __construct(ViewSettings $settings, View $parent = null) {
+    public function __construct(ViewSettings $settings) {
         $this->settings = $settings;
-        $this->parent = $parent;
     }
 
     public function getParent() {
         return $this->parent;
+    }
+
+    public function setParent(View $parent) {
+        $this->parent = $parent;
     }
 
     public function getSettings() {

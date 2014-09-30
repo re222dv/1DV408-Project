@@ -31,7 +31,8 @@ class PartialView extends View {
     const BLOCK_DIRECTIVE_REGEX = '(({\? ?([a-z][a-zA-Z0-9]*)((?: ?[^ :]*)+) ?:)((?:(?!(?1)|(\?})).|(?R))*)\?})';
 
     public function __construct(View $parent = null) {
-        parent::__construct($parent->getSettings(), $parent);
+        parent::__construct($parent->getSettings());
+        $this->setParent($parent);
     }
 
     /**
