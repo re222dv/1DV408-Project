@@ -87,7 +87,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
         $page = new ExpressionView($this->viewSettings);
         $this->assertEquals("12\n5\n15\n5\n13.5\n9\n20\n20\n11\n24\n18\n7\n9\n\n ".
             "numIsMoreThanFour \n\n numPlusNumIsTwenty \n numIsLessThanElevenAndMoreThanNine ".
-            "\n\n numIsEven \n\n  \n\n", $page->render());
+            "\n\n numIsNotMoreThanElevenOrLessThanNine \n numIsEven \n\n  \n\n", $page->render());
     }
 
     public function testScope() {

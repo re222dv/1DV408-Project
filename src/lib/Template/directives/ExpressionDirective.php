@@ -11,6 +11,7 @@ class ExpressionDirective extends InlineDirective {
     const MATH = '/([a-z0-9.]+)\s*(\+|-|%)\s*([a-z0-9.]+)/i';
     const BOOLEAN_EXPRESSION = '/([a-z0-9.]+)\s*((?:[!=]==?)|[<>])\s*([a-z0-9.]+)/i';
     const LOGIC_EXPRESSION = '/([a-z0-9.]+)\s+(and|or)\s+([a-z0-9.]+)/i';
+    const NEGATION = '/not\s+([a-z0-9.]+)/i';
 
     private $expression;
     /**
@@ -74,10 +75,10 @@ class ExpressionDirective extends InlineDirective {
                     $result = $first > $second;
                     break;
                 case 'and':
-                    $result = $first and $second;
+                    $result = $first && $second;
                     break;
                 case 'or':
-                    $result = $first or $second;
+                    $result = $first || $second;
                     break;
             }
 
@@ -116,6 +117,11 @@ class ExpressionDirective extends InlineDirective {
         $this->calculate(self::MATH);
         $this->check(self::BOOLEAN_EXPRESSION);
         $this->check(self::LOGIC_EXPRESSION);
+
+        if (preg_match(self::NEGATION, $this->expression, $match)) {
+            $result = !$view->getVariable($match[1]) ? 1 : 0;
+            $this->expression = str_replace($match[0], $result, $this->expression);
+        }
 
         $this->expression = $view->getVariable($this->expression);
         $this->expression = $this->htmlEscape($this->expression);

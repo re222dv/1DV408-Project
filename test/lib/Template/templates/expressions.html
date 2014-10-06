@@ -17,6 +17,7 @@
 {? if {{ num + num == 20 }}: numPlusNumIsTwenty ?}
 {? if {{ num < 11 and num > 9 }}: numIsLessThanElevenAndMoreThanNine ?}
 {? if {{ num > 11 or num < 9 }}: numIsMoreThanElevenOrLessThanNine ?}
+{? if {{ not num > 11 or num < 9 }}: numIsNotMoreThanElevenOrLessThanNine ?}
 {? if {{ num % 2 == 0 }}: numIsEven ?}
 {? use {{ num != 10 }} as numIsNotTen:
   {? if numIsNotTen: numIsNotTen ?}
