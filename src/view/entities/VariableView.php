@@ -14,6 +14,7 @@ class VariableView extends View {
         $this->variable = $variable;
         $this->variables = [
             'name' => $variable->getName(),
+            'type' => $variable->getType(),
         ];
     }
 }

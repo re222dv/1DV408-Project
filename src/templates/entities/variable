@@ -1,1 +1,4 @@
 {{ name }}
+{? if type:
+    : {{ type }}
+?}
