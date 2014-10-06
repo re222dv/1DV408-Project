@@ -7,7 +7,7 @@
             {? for attribute in attributes:
                 {% set height {{ height + attribute.height }} %}
                 <g transform="translate(5, {{ height - 5 }})">
-                    {% view attribute %}
+                    <text x="0" y="0">{% view attribute %}</text>
                 </g>
             ?}
         ?}

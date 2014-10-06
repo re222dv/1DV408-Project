@@ -16,6 +16,13 @@ class MethodView extends View {
             'name'=> $method->getName(),
             'returnType'=> $method->getReturnType(),
             'height'=> $this->height,
+            'arguments'=> [],
         ];
+
+        foreach ($method->getArguments() as $argument) {
+            $view = new VariableView($this->settings);
+            $view->setVariableObject($argument);
+            $this->variables['arguments'][] = $view;
+        }
     }
 }
