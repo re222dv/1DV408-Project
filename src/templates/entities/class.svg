@@ -4,8 +4,11 @@
     {? use headHeight as height:
         {? if {{ attributes or methods }}:
             <path d="M 0 {{ height }} l {{ width }} 0" stroke="black" stroke-width="1" />
+            {% set height {{ height + 15 }} %}
             {? for attribute in attributes:
-                {% view attribute %}
+                <g transform="translate(5, {{ height }})">
+                    {% view attribute %}
+                </g>
                 {% set height {{ height + attribute.height }} %}
             ?}
         ?}

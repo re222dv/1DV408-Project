@@ -21,5 +21,11 @@ class ClassObjectView extends View {
             'attributes'=> [],
             'methods'=> [],
         ];
+
+        foreach ($classObject->getAttributes() as $attribute) {
+            $view = new VariableView($this->settings);
+            $view->setVariableObject($attribute);
+            $this->variables['attributes'][] = $view;
+        }
     }
 }

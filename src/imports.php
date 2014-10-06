@@ -12,4 +12,5 @@ require_once('src/model/entities/Method.php');
 require_once('src/model/entities/Variable.php');
 require_once('src/view/diagrams/ClassDiagramView.php');
 require_once('src/view/entities/ClassObjectView.php');
+require_once('src/view/entities/VariableView.php');
 require_once('src/view/services/Router.php');
