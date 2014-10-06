@@ -27,5 +27,11 @@ class ClassObjectView extends View {
             $view->setVariableObject($attribute);
             $this->variables['attributes'][] = $view;
         }
+
+        foreach ($classObject->getMethods() as $method) {
+            $view = new MethodView($this->settings);
+            $view->setMethod($method);
+            $this->variables['methods'][] = $view;
+        }
     }
 }

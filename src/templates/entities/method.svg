@@ -1,0 +1,1 @@
+<text x="0" y="0">{{ name }}(){? if returnType::{{ returnType }}?}</text>
