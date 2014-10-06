@@ -46,43 +46,73 @@ class PartialView extends View {
     }
 
     /**
+     * Splits the string on a regex match and inserts the return value of
+     * $matchCallback in between the parts. If $notMatchedCallback is
+     * specified it's return value is inserted for every part that didn't
+     * match.
+     *
+     * @param String $pattern
+     * @param String $subject
+     * @param callable $matchCallback Called with the match once for every match
+     * @param callable $notMatchedCallback Optional, called for every part that isn't matched
+     * @return array
+     */
+    private function splitOnRegex($pattern, $subject, $matchCallback, $notMatchedCallback = null) {
+        $parts = [];
+
+        preg_match_all($pattern, $subject, $matches, PREG_SET_ORDER);
+        foreach ($matches as $match) {
+            $start = mb_strpos($subject, $match[0]);
+            if ($start > 0) {
+                $before = mb_substr($subject, 0, $start);
+                if ($notMatchedCallback) {
+                    $parts = array_merge($parts, $notMatchedCallback($before));
+                } else {
+                    $parts[] = $before;
+                }
+                $subject = mb_substr($subject, $start);
+            }
+            $parts[] = $matchCallback($match);
+            $subject = mb_substr($subject, mb_strlen($match[0]));
+        }
+        if ($notMatchedCallback) {
+            $parts = array_merge($parts, $notMatchedCallback($subject));
+        } else {
+            $parts[] = $subject;
+        }
+
+        return $parts;
+    }
+
+    /**
      * @param string $string
      * @return string[]
      */
     private function extractArguments($string) {
+        $inlineDirectivesParsed = $this->splitOnRegex(self::INLINE_DIRECTIVE_REGEX, $string,
+            function($match) {
+                return $this->runInlineDirective($match[0]);
+            }
+        );
+
         $arguments = [];
 
-        preg_match_all(self::INLINE_DIRECTIVE_REGEX, $string, $matches, PREG_SET_ORDER);
-        foreach ($matches as $match) {
-            $start = mb_strpos($string, $match[0]);
-            if ($start > 0) {
-                $arguments[] = mb_substr($string, 0, $start);
-                $string = mb_substr($string, $start);
-            }
-            $arguments[] = $this->runInlineDirective($match[0]);
-            $string = mb_substr($string, mb_strlen($match[0]));
-        }
-        $arguments[] = $string;
-
-        $sanitizedArguments = [];
-
-        foreach ($arguments as $argument) {
+        foreach ($inlineDirectivesParsed as $argument) {
             if (!is_string($argument)) {
-                $sanitizedArguments[] = $argument;
-                continue;
-            }
-
-            if (preg_match(self::STRING_LITERAL_REGEX, $argument, $match)) {
-                $sanitizedArguments[] = $match[1];
+                $arguments[] = $argument;
             } else {
-                $sanitizedArguments = array_merge(
-                    $sanitizedArguments,
-                    preg_split('/\s+/', $argument, -1, PREG_SPLIT_NO_EMPTY)
-                );
+                $arguments = array_merge($arguments, $this->splitOnRegex(self::STRING_LITERAL_REGEX, $argument,
+                    function($match) {
+                        return $match[1];
+                    },
+                    function($notMatched) {
+                        return preg_split('/\s+/', $notMatched, -1, PREG_SPLIT_NO_EMPTY);
+                    }
+                ));
             }
         }
 
-        return $sanitizedArguments;
+        return $arguments;
     }
 
     private function renderBlockDirective($template) {

@@ -100,7 +100,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
     public function testArray() {
         $page = new ArrayView($this->viewSettings);
         $render = $page->render();
-        $this->assertEquals("one, two\n", $render);
+        $this->assertEquals("one, two\none, two\n", $render);
     }
 
     /**
