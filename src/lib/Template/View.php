@@ -56,7 +56,7 @@ abstract class View {
     }
 
     public function getVariable($variable) {
-        if (is_numeric($variable) or empty($variable)) {
+        if (is_numeric($variable) or empty($variable) or !is_string($variable)) {
             return $variable;
         }
 

@@ -118,11 +118,6 @@ class ExpressionDirective extends InlineDirective {
         $this->check(self::LOGIC_EXPRESSION);
 
         $this->expression = $view->getVariable($this->expression);
-
-        if (is_array($this->expression)) {
-            $this->expression = !empty($this->expression);
-        }
-
         $this->expression = $this->htmlEscape($this->expression);
 
         return $this->expression;

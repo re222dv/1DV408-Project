@@ -20,7 +20,7 @@ class IfDirective extends BlockDirective {
             throw new \InvalidArgumentException('Exactly one variable name must be specified');
         }
 
-        if (substr($arguments[0], 0, 1) === '!') {
+        if (is_string($arguments[0]) and substr($arguments[0], 0, 1) === '!') {
             $condition = !$view->getVariable(substr($arguments[0], 1));
         } else {
             $condition = $view->getVariable($arguments[0]);
