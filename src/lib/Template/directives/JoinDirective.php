@@ -19,10 +19,23 @@ class JoinDirective extends InlineDirective {
             throw new \InvalidArgumentException('Exactly two arguments must be specified');
         }
 
-        if (is_string($arguments[0])) {
-            $arguments[0] = $view->getVariable($arguments[0]);
+        $glue = $arguments[1];
+        $pieces = $arguments[0];
+
+        if (is_string($pieces)) {
+            $pieces = $view->getVariable($pieces);
         }
 
-        return join($arguments[1], $arguments[0]);
+        $renderedPieces = [];
+
+        foreach ($pieces as $piece) {
+            if ($piece instanceof View) {
+                $renderedPieces[] = $piece->render();
+            } else {
+                $renderedPieces[] = $piece;
+            }
+        }
+
+        return join($glue, $renderedPieces);
     }
 }
