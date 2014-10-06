@@ -6,14 +6,13 @@ use model\entities\Variable;
 use Template\View;
 
 class VariableView extends View {
-    protected $template = 'entities/variable.svg';
+    protected $template = 'entities/variable';
     private $variable;
-    public $height = 20;
+    public $height = 25;
 
     public function setVariableObject(Variable $variable) {
         $this->variable = $variable;
         $this->variables = [
-            'height' => $this->height,
             'name' => $variable->getName(),
         ];
     }

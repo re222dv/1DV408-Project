@@ -8,7 +8,7 @@ use Template\View;
 class MethodView extends View {
     protected $template = 'entities/method.svg';
     private $method;
-    public $height = 20;
+    public $height = 25;
 
     public function setMethod(Method $method) {
         $this->method = $method;

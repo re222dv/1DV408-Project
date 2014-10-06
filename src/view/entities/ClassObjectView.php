@@ -15,7 +15,6 @@ class ClassObjectView extends View {
 
         $this->variables = [
             'width'=> $this->width,
-            'height'=> 50,
             'headHeight'=> 50,
             'name'=> $classObject->getName(),
             'attributes'=> [],
@@ -33,5 +32,27 @@ class ClassObjectView extends View {
             $view->setMethod($method);
             $this->variables['methods'][] = $view;
         }
+    }
+
+    public function onRender() {
+        $height = $this->getVariable('headHeight');
+
+        foreach ($this->getVariable('attributes') as $attribute) {
+            $height += $attribute->height;
+        }
+
+        foreach ($this->getVariable('methods') as $method) {
+            $height += $method->height;
+        }
+
+        if ($this->getVariable('attributes') and $this->getVariable('methods')) {
+            $height += 10;
+        } elseif ($this->getVariable('attributes')) {
+            $height += 5;
+        } elseif ($this->getVariable('methods')) {
+            $height += 15;
+        }
+
+        $this->variables['height'] = $height;
     }
 }

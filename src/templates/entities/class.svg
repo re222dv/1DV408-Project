@@ -1,6 +1,8 @@
 <g>
     <rect width="{{ width }}" height="{{ height }}" fill="lightgray" />
-    <text x="{{ width / 2 }}" y="{{ headHeight / 2 }}" text-anchor="middle">{{ name }}</text>
+    <text x="{{ width / 2 }}" y="{{ {{ headHeight + 10 }} / 2 }}" text-anchor="middle">
+        {{ name }}
+    </text>
     {? use headHeight as height:
         {? if {{ attributes or methods }}:
             <path d="M 0 {{ height }} l {{ width }} 0" stroke="black" stroke-width="1" />
@@ -10,8 +12,10 @@
                     <text x="0" y="0">{% view attribute %}</text>
                 </g>
             ?}
+            {% set height {{ height + 5 }} %}
         ?}
-        {? if {{ methods }}:
+        {? if methods:
+            {? if {{ not attributes }}: {% set height {{ height + 5 }} %} ?}
             <path d="M 0 {{ height }} l {{ width }} 0" stroke="black" stroke-width="1" />
             {? for method in methods:
                 {% set height {{ height + method.height }} %}
