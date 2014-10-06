@@ -97,6 +97,12 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
             "\n\n10\n\n11\n", $render);
     }
 
+    public function testArray() {
+        $page = new ArrayView($this->viewSettings);
+        $render = $page->render();
+        $this->assertEquals("one,two\n", $render);
+    }
+
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage Template file '' don't exists
@@ -190,5 +196,12 @@ class ScopeView extends View {
     protected $template = 'scope.html';
     protected $variables = [
         'num' => 10
+    ];
+}
+
+class ArrayView extends View {
+    protected $template = 'arrays.html';
+    protected $variables = [
+        'array' => ['one', 'two']
     ];
 }
