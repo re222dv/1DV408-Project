@@ -3,6 +3,16 @@
 namespace Template;
 
 class PartialView extends View {
+    /**
+     * Matches string literals
+     *
+     * A string literal starts and ends with double quotes (") and double
+     * quotes inside of it may be escaped by a backslash (\)
+     *
+     * Example:
+     *  "Today's quote: \"Clarity is better than cleverness.\""
+     */
+    const STRING_LITERAL_REGEX = '("((?:\\"|[^"])+)")';
 
     /**
      * Matches inline directives
@@ -57,12 +67,18 @@ class PartialView extends View {
         $sanitizedArguments = [];
 
         foreach ($arguments as $argument) {
-            if (is_string($argument)) {
-                foreach (preg_split('/\s+/', $argument, -1, PREG_SPLIT_NO_EMPTY) as $splitArgument) {
-                    $sanitizedArguments[] = $splitArgument;
-                }
-            } else {
+            if (!is_string($argument)) {
                 $sanitizedArguments[] = $argument;
+                continue;
+            }
+
+            if (preg_match(self::STRING_LITERAL_REGEX, $argument, $match)) {
+                $sanitizedArguments[] = $match[1];
+            } else {
+                $sanitizedArguments = array_merge(
+                    $sanitizedArguments,
+                    preg_split('/\s+/', $argument, -1, PREG_SPLIT_NO_EMPTY)
+                );
             }
         }
 
