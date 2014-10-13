@@ -1,0 +1,32 @@
+main {
+    textarea {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        padding: 10px 10px 100px;
+        box-sizing: border-box;
+        width: 35%;
+        height: 100%;
+    }
+
+    input[type="submit"] {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+
+        height: 100px;
+        width: 35%;
+    }
+
+    svg {
+        position: absolute;
+        top: 0;
+        left: 35%;
+
+        padding: 10px;
+        box-sizing: border-box;
+        width: 65%;
+        height: 100%;
+    }
+}

@@ -3,7 +3,7 @@
 namespace view\services;
 
 class Router {
-    const FILENAME = '/\/(.+).svg/i';
+    const FILENAME = '/\/(.+).svg$/i';
 
     private function getCurrentPath() {
         return (isset($_GET['path'])) ? $_GET['path'] : '/';
@@ -15,5 +15,13 @@ class Router {
         }
 
         return null;
+    }
+
+    public function isFile() {
+        return preg_match(self::FILENAME, $this->getCurrentPath()) > 0;
+    }
+
+    public function isInput() {
+        return $this->getCurrentPath() === '/';
     }
 }

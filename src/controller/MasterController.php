@@ -2,25 +2,41 @@
 
 namespace controller;
 
-use view\diagrams\ClassDiagramView;
+use view\MasterView;
 use view\services\Router;
 
 class MasterController {
     /**
-     * @var ClassDiagramView
+     * @var ClassDiagramController
      */
     private $classDiagramController;
+    /**
+     * @var InputController
+     */
+    private $inputController;
+    /**
+     * @var MasterView
+     */
+    private $masterView;
     /**
      * @var Router
      */
     private $router;
 
-    public function __construct(Router $router, ClassDiagramController $classDiagramController) {
+    public function __construct(Router $router, ClassDiagramController $classDiagramController,
+                                InputController $inputController, MasterView $masterView) {
         $this->router = $router;
         $this->classDiagramController = $classDiagramController;
+        $this->inputController = $inputController;
+        $this->masterView = $masterView;
     }
 
     public function render() {
-        return $this->classDiagramController->render();
+        if ($this->router->isFile()) {
+            return $this->classDiagramController->render();
+        } elseif ($this->router->isInput()) {
+            $this->masterView->setMain($this->inputController->render());
+            return $this->masterView->render();
+        }
     }
 }
