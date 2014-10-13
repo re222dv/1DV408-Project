@@ -8,6 +8,7 @@ use Template\View;
 class ClassObjectView extends View {
     protected $template = 'entities/class.svg';
     private $classObject;
+    public $depth = 0;
     public $width = 200;
 
     public function setClass(ClassObject $classObject) {

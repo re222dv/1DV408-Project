@@ -15,10 +15,22 @@ class ClassDiagramView extends View {
 
         $this->setVariable('classes', []);
 
+        $classes = [];
+
         foreach ($classDiagram->getClasses() as $class) {
             $view = new ClassObjectView($this->settings);
             $view->setClass($class);
             $this->variables['classes'][] = $view;
+            $classes[$class->getName()] = $view;
+        }
+
+        foreach ($classDiagram->getAssociations() as $association) {
+            $from = $classes[$association->getFrom()];
+            $to = $classes[$association->getTo()];
+
+            if ($from->depth >= $to->depth) {
+                $to->depth = $from->depth + 1;
+            }
         }
     }
 }

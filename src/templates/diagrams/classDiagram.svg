@@ -5,13 +5,11 @@
     width="1000px"
     height="1000px">
     {? use 0 as x:
-        {? use 0 as y:
-            {? for class in classes:
-                <g transform="translate({{ x }}, {{ y }})">
-                    {% view class %}
-                </g>
-                {% set x {{ x + class.width + 20 }} %}
-            ?}
+        {? for class in classes:
+            <g transform="translate({{ x }}, {{ class.depth * 200 }})">
+                {% view class %}
+            </g>
+            {% set x {{ x + class.width + 20 }} %}
         ?}
     ?}
 </svg>
