@@ -8,8 +8,15 @@ use Template\View;
 class ClassObjectView extends View {
     protected $template = 'entities/class.svg';
     private $classObject;
-    public $depth = 0;
+    public $top = 0;
+    public $left = 0;
+    public $height = 200;
     public $width = 200;
+    public $y = 0;
+
+    public function getHeight() {
+        return $this->height;
+    }
 
     public function setClass(ClassObject $classObject) {
         $this->classObject = $classObject;
@@ -33,27 +40,28 @@ class ClassObjectView extends View {
             $view->setMethod($method);
             $this->variables['methods'][] = $view;
         }
-    }
 
-    public function onRender() {
-        $height = $this->getVariable('headHeight');
+        $this->height = $this->getVariable('headHeight');
 
         foreach ($this->getVariable('attributes') as $attribute) {
-            $height += $attribute->height;
+            $this->height += $attribute->height;
         }
 
         foreach ($this->getVariable('methods') as $method) {
-            $height += $method->height;
+            $this->height += $method->height;
         }
 
         if ($this->getVariable('attributes') and $this->getVariable('methods')) {
-            $height += 10;
+            $this->height += 10;
         } elseif ($this->getVariable('attributes')) {
-            $height += 5;
+            $this->height += 5;
         } elseif ($this->getVariable('methods')) {
-            $height += 15;
+            $this->height += 15;
         }
+    }
 
-        $this->variables['height'] = $height;
+    public function onRender() {
+
+        $this->variables['height'] = $this->height;
     }
 }

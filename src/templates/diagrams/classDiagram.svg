@@ -4,12 +4,12 @@
     version="1.1"
     width="1000px"
     height="1000px">
-    {? use 0 as x:
-        {? for class in classes:
-            <g transform="translate({{ x }}, {{ class.depth * 200 }})">
-                {% view class %}
-            </g>
-            {% set x {{ x + class.width + 20 }} %}
-        ?}
+    {? for class in classes:
+        <g transform="translate({{ class.left * {{ class.width + 20 }} }}, {{ class.y }})">
+            {% view class %}
+        </g>
+    ?}
+    {? for association in associations:
+        {% view association %}
     ?}
 </svg>
