@@ -68,7 +68,7 @@ class ClassDiagramView extends View {
         } while($modified);
     }
 
-    private function positionClassesStraightBelowAssociativeClasses($classes, $positions) {
+    private function positionClassesStraightBelowAssociativeClasses($classes, &$positions) {
         do {
             $modified = false;
 
@@ -92,7 +92,7 @@ class ClassDiagramView extends View {
         } while($modified);
     }
 
-    private function positionAllClassesNextToEachOther($classes, $positions) {
+    private function positionAllClassesNextToEachOther($classes, &$positions) {
         foreach ($classes as $class) {
             while (isset($positions[$class->top][$class->left]) &&
                    $positions[$class->top][$class->left] !== $class) {
@@ -103,7 +103,7 @@ class ClassDiagramView extends View {
         }
     }
 
-    private function moveClass($positions, $top, $left) {
+    private function moveClass(&$positions, $top, $left) {
         $class = $positions[$top][$left];
 
         if (isset($positions[$top][$left + 1])) {
