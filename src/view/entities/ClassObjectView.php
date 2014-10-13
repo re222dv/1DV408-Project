@@ -13,9 +13,14 @@ class ClassObjectView extends View {
     public $height = 200;
     public $width = 200;
     public $y = 0;
+    public $positioningDone = false;
 
     public function getHeight() {
         return $this->height;
+    }
+
+    public function getName() {
+        return $this->variables['name'];
     }
 
     public function setClass(ClassObject $classObject) {

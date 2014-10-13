@@ -47,7 +47,16 @@ class ClassDiagramView extends View {
 
         $this->positionClassesBelowAssociativeClasses($classes);
         $this->positionAllClassesNextToEachOther($classes, $positions);
-        $this->positionClassesStraightBelowAssociativeClasses($classes, $positions);
+        $this->positionClassesTogetherWithAssociativeClasses($classes, $positions);
+
+        foreach ($positions as $top => $leftArray) {
+            foreach ($leftArray as $left => $positionedClass) {
+                $positions[$top][$left] = true;
+            }
+        }
+
+        var_dump('Map');
+        var_dump($positions);
     }
 
     private function positionClassesBelowAssociativeClasses($classes) {
@@ -68,24 +77,26 @@ class ClassDiagramView extends View {
         } while($modified);
     }
 
-    private function positionClassesStraightBelowAssociativeClasses($classes, &$positions) {
+    private function positionClassesTogetherWithAssociativeClasses($classes, &$positions) {
         do {
             $modified = false;
 
-            $associations = $this->classDiagram->getAssociations();
-
-            foreach ($associations as $association) {
+            foreach ($this->classDiagram->getAssociations() as $association) {
                 $from = $classes[$association->getFrom()];
                 $to = $classes[$association->getTo()];
 
-                if ($to->left < $from->left) {
-                    if (isset($positions[$to->top][$from->left]) &&
-                        $positions[$to->top][$from->left] !== $to) {
-                        $this->moveClass($positions, $to->top, $from->left);
-                    }
+                if (!$to->positioningDone) {
+                    $this->clearClass($positions, $to);
+                    $this->invalidateChildren($classes, $to->getName());
                     $to->left = $from->left;
+
+                    if (isset($positions[$to->top][$to->left]) &&
+                        $positions[$to->top][$to->left] !== $to) {
+                        $this->moveClass($positions, $to->top, $to->left);
+                    }
                     $positions[$to->top][$to->left] = $to;
 
+                    $to->positioningDone = true;
                     $modified = true;
                 }
             }
@@ -99,18 +110,66 @@ class ClassDiagramView extends View {
                 $class->left += 1;
             }
 
+            $this->clearClass($positions, $class);
             $positions[$class->top][$class->left] = $class;
+        }
+    }
+
+    private function clearClass(&$positions, $class) {
+        foreach ($positions as $top => $leftArray) {
+            foreach ($leftArray as $left => $positionedClass) {
+                if ($positionedClass === $class) {
+                    unset($positions[$top][$left]);
+                }
+            }
         }
     }
 
     private function moveClass(&$positions, $top, $left) {
         $class = $positions[$top][$left];
 
-        if (isset($positions[$top][$left + 1])) {
-            $this->moveClass($positions, $top, $left + 1);
+        $length = 0;
+
+        $name = $positions[$top][$left]->getName();
+        var_dump("moving $top $left $name");
+
+        do {
+            $length += 1;
+
+            if (isset($positions[$top][$left + $length])) {
+                $test = $left - $length;
+                var_dump("testing $test with length $length");
+
+                if ($left - $length >= 0 &&
+                    !isset($positions[$top][$left - $length])) {
+                    var_dump("it's empty!");
+                    $length = -$length;
+                }
+            }
+
+            $notEmpty = isset($positions[$top][$left + $length]);
+        } while($notEmpty);
+
+        $class->left = $left + $length;
+        $positions[$top][$left + $length] = $class;
+        unset($positions[$top][$left]);
+    }
+
+    private function getChildren($class) {
+        $children = [];
+
+        foreach ($this->classDiagram->getAssociations() as $association) {
+            if ($association->getFrom() === $class) {
+                $children[] = $association->getTo();
+            }
         }
 
-        $class->left = $left + 1;
-        $positions[$top][$left + 1] = $class;
+        return $children;
+    }
+
+    private function invalidateChildren($classes, $class) {
+        foreach ($this->getChildren($class) as $child) {
+            $classes[$child]->positioningDone = false;
+        }
     }
 }
