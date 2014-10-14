@@ -1,6 +1,6 @@
 <?php
 
-namespace model\entities;
+namespace model\entities\umls;
 
 class Method {
     const PATTERN = '/(\S+?(?=\())\(((?:.*?(?=,|\)),?)+)\)(?:\s?:\s?([a-z]+))?/i';

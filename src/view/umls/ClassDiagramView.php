@@ -2,7 +2,7 @@
 
 namespace view\diagrams;
 
-use model\diagrams\ClassDiagram;
+use model\entities\umls\ClassDiagram;
 use Template\View;
 use view\entities\AssociationView;
 use view\entities\ClassObjectView;

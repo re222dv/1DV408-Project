@@ -2,7 +2,7 @@
 
 namespace view\entities;
 
-use model\entities\Variable;
+use model\entities\umls\Variable;
 use Template\View;
 
 class VariableView extends View {

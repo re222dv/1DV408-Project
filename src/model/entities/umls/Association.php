@@ -1,6 +1,6 @@
 <?php
 
-namespace model\entities;
+namespace model\entities\umls;
 
 class Association {
     private $name;

@@ -2,7 +2,7 @@
 
 namespace view\entities;
 
-use model\entities\Association;
+use model\entities\umls\Association;
 use Template\View;
 
 class AssociationView extends View {

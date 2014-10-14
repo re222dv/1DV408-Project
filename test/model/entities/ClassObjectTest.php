@@ -1,8 +1,8 @@
 <?php
 
-namespace model\entities;
+namespace model\entities\umls;
 
-require_once('src/model/entities/ClassObject.php');
+require_once('src/model/entities/umls/ClassObject.php');
 
 class ClassObjectTest extends \PHPUnit_Framework_TestCase {
 

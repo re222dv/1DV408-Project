@@ -2,8 +2,7 @@
 
 namespace controller;
 
-use model\diagrams\ClassDiagram;
-use view\diagrams\ClassDiagramView;
+use model\entities\umls\ClassDiagram;
 use view\InputView;
 
 class InputController {

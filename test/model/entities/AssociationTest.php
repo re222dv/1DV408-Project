@@ -1,8 +1,8 @@
 <?php
 
-namespace model\entities;
+namespace model\entities\umls;
 
-require_once('src/model/entities/Association.php');
+require_once('src/model/entities/umls/Association.php');
 
 class AssociationTest extends \PHPUnit_Framework_TestCase {
 

@@ -2,7 +2,7 @@
 
 namespace view;
 
-use model\diagrams\ClassDiagram;
+use model\entities\umls\ClassDiagram;
 use Template\View;
 use Template\ViewSettings;
 use view\diagrams\ClassDiagramView;

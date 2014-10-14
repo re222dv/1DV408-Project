@@ -2,7 +2,7 @@
 
 namespace view\entities;
 
-use model\entities\ClassObject;
+use model\entities\umls\ClassObject;
 use Template\View;
 
 class ClassObjectView extends View {

@@ -1,6 +1,6 @@
 <?php
 
-namespace model\entities;
+namespace model\entities\umls;
 
 require_once('Variable.php');
 require_once('Method.php');

@@ -1,8 +1,8 @@
 <?php
 
-namespace model\diagrams;
+namespace model\entities\umls;
 
-require_once('src/model/diagrams/ClassDiagram.php');
+require_once('src/model/entities/umls/ClassDiagram.php');
 
 class ClassDiagramTest extends \PHPUnit_Framework_TestCase {
     public function testThatItCanParseADiagram() {

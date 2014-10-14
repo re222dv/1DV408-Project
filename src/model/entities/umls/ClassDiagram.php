@@ -1,9 +1,6 @@
 <?php
 
-namespace model\diagrams;
-
-use model\entities\Association;
-use model\entities\ClassObject;
+namespace model\entities\umls;
 
 class ClassDiagram {
     /**

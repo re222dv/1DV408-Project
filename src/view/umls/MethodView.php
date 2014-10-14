@@ -2,7 +2,7 @@
 
 namespace view\entities;
 
-use model\entities\Method;
+use model\entities\umls\Method;
 use Template\View;
 
 class MethodView extends View {

@@ -2,7 +2,7 @@
 
 namespace controller;
 
-use model\diagrams\ClassDiagram;
+use model\entities\umls\ClassDiagram;
 use view\diagrams\ClassDiagramView;
 use view\services\Router;
 
