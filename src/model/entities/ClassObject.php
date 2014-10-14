@@ -11,6 +11,8 @@ class ClassObject {
     private $name;
     private $attributes = [];
     private $methods = [];
+    private $parents = [];
+    private $children = [];
 
     /**
      * @param string $string The string to parse
@@ -66,5 +68,13 @@ class ClassObject {
      */
     public function getMethods() {
         return $this->methods;
+    }
+
+    public function getParents() {
+        return $this->parents;
+    }
+
+    public function getChildren() {
+        return $this->children;
     }
 }

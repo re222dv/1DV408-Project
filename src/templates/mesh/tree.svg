@@ -1,0 +1,8 @@
+<g transform="translate({{ left }}, {{ top }})">
+    <g transform="translate({{ nodeLeft }}, 0)">
+        {% view class %}
+    </g>
+    {? for subTree in subTrees:
+        {% view subTree %}
+    ?}
+</g>

@@ -3,19 +3,21 @@
 namespace controller;
 
 use model\diagrams\ClassDiagram;
-use view\diagrams\ClassDiagramView;
+use model\mesh\Network;
+use view\mesh\NetworkView;
 use view\services\Router;
 
 class ClassDiagramController {
     /**
-     * @var ClassDiagramView
+     * @var NetworkView
      */
     private $view;
 
-    public function __construct(Router $router, ClassDiagramView $view) {
+    public function __construct(Router $router, NetworkView $view) {
         $classDiagram = new ClassDiagram($router->getFilename());
+        $network = new Network($classDiagram);
         $this->view = $view;
-        $view->setDiagram($classDiagram);
+        $view->setNetwork($network);
     }
 
     public function render() {

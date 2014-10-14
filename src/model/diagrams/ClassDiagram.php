@@ -23,11 +23,10 @@ class ClassDiagram {
 
         foreach($classMatches as $classMatch) {
             $name = $classMatch[1];
-            $class = $this->getClass($name);
-            if ($class === null) {
-                $this->classes[] = new ClassObject($classMatch[0]);
+            if (isset($this->classes[$name])) {
+                $this->classes[$name] = new ClassObject($classMatch[0], $this->classes[$name]);
             } else {
-                $this->replaceClass($name, new ClassObject($classMatch[0], $class));
+                $this->classes[$name] = new ClassObject($classMatch[0]);
             }
         }
 
@@ -39,7 +38,7 @@ class ClassDiagram {
     }
 
     /**
-     * @returns ClassObject[]
+     * @returns ClassObject[] Assoc array name => object
      */
     public function getClasses() {
         return $this->classes;
@@ -50,32 +49,5 @@ class ClassDiagram {
      */
     public function getAssociations() {
         return $this->associations;
-    }
-
-    /**
-     * @param string $name
-     * @return ClassObject The class object if exists, else null
-     */
-    public function getClass($name) {
-        foreach ($this->classes as $class) {
-            if ($class->getName() === $name) {
-                return $class;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Replaces the class named $name with $new
-     *
-     * @param string $name
-     * @param ClassObject $new
-     */
-    private function replaceClass($name, ClassObject $new) {
-        foreach ($this->classes as $index => $class) {
-            if ($class->getName() === $name) {
-                $this->classes[$index] = $new;
-            }
-        }
     }
 }
