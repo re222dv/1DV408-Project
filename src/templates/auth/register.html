@@ -1,0 +1,30 @@
+<section class="register">
+    <form method="post">
+        {? if errors:
+            <ul class="error">
+                {? for error in errors:
+                    <li>{{ error }}</li>
+                ?}
+            </ul>
+        ?}
+        <label>
+            Username: <input {% input username %} />
+        </label>
+        <label>
+            Password: <input type="password" {% input password %} />
+        </label>
+        <label>
+            Confirm Password: <input type="password" {% input password2 %} />
+        </label>
+        <input type="submit" {% input register %} value="Register" />
+    </form>
+
+    <article>
+        <h2>Register Today!</h2>
+        <p>
+            After registration you will be able to give your diagrams
+            logical names and save them so that you are able to come back
+            later and continue your work!
+        </p>
+    </article>
+</section>

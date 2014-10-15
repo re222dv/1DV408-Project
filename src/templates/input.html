@@ -1,15 +1,15 @@
-<form id="inputForm" method="get">
-    <textarea name="umls">{{ umls }}</textarea>
-    <input type="submit" value="Render" />
-</form>
-<script>
-    function onSubmit() {
-        var textarea = document.querySelector('textarea[name="umls"]');
-        textarea.textContent = textarea.textContent.replace(/\+/g, '%2B');
-    }
+<section class="diagram">
+    <form id="inputForm" method="get">
+        <textarea name="umls">{{ umls }}</textarea>
+        <input type="submit" value="Render" />
+    </form>
+    <script>
+        function onSubmit() {
+            var textarea = document.querySelector('textarea[name="umls"]');
+            textarea.textContent = textarea.textContent.replace(/\+/g, '%2B');
+        }
 
-    document.querySelector('#inputForm').onsubmit = onSubmit;
-</script>
-{? if diagram:
-    {% view diagram %}
-?}
+        document.querySelector('#inputForm').onsubmit = onSubmit;
+    </script>
+    {? if diagram: {% view diagram %} ?}
+</section>

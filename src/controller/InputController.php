@@ -15,6 +15,9 @@ class InputController {
         $this->inputView = $inputView;
     }
 
+    /**
+     * @return InputView
+     */
     public function render() {
         if ($this->inputView->shouldRender()) {
             $umls = $this->inputView->getUmls();

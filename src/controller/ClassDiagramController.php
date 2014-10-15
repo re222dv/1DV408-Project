@@ -10,15 +10,18 @@ class ClassDiagramController {
     /**
      * @var ClassDiagramView
      */
-    private $view;
+    private $classDiagramView;
 
     public function __construct(Router $router, ClassDiagramView $view) {
         $classDiagram = new ClassDiagram($router->getFilename());
-        $this->view = $view;
+        $this->classDiagramView = $view;
         $view->setDiagram($classDiagram);
     }
 
+    /**
+     * @return ClassDiagramView
+     */
     public function render() {
-        return $this->view->render();
+        return $this->classDiagramView;
     }
 }

@@ -1,32 +1,170 @@
+@mixin header-link {
+    display: block;
+
+    box-sizing: border-box;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    height: 100%;
+
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+
+    font-size: 1rem;
+    text-decoration: none;
+    line-height: 60px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+.error {
+    color: darkred;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: "Cabin", Arial, sans-serif;
+}
+
+header {
+    box-sizing: border-box;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    width: 100%;
+    height: 60px;
+
+    color: white;
+    background-color: #005580;
+
+    a { @include header-link }
+
+    section.auth {
+        float: right;
+        height: 100%;
+
+        p {
+            display: flex;
+            align-items: center;
+            text-align: center;
+
+            float: left;
+            margin: 0;
+
+            height: 100%;
+            max-width: 15rem;
+
+            padding-right: 1rem;
+        }
+
+        form {
+            float: left;
+
+            section.credentials {
+                float: left;
+
+                input {
+                    display: block;
+                    margin: 0.3rem;
+                    padding: 0.15rem 0.5rem;
+                }
+            }
+
+            input[type="submit"] { @include header-link }
+        }
+
+        a {
+            float: right;
+            margin-left: -1px;
+        }
+    }
+}
+
 main {
-    textarea {
-        position: absolute;
-        top: 0;
-        left: 0;
+    position: relative;
 
-        padding: 10px 10px 100px;
-        box-sizing: border-box;
-        width: 35%;
-        height: 100%;
+    flex-grow: 1;
+    width: 100%;
+
+    section.register {
+        display: flex;
+        justify-content: space-around;
+
+        form, article {
+            padding: 5rem;
+        }
+
+        form {
+            label {
+                display: block;
+
+                padding: 1rem;
+                width: 20rem;
+
+                font-weight: bold;
+
+                input {
+                    float: right;
+                }
+            }
+
+            input[type="submit"] {
+                margin-top: 3rem;
+
+                width: 100%;
+                height: 4rem;
+            }
+        }
+
+        article {
+            width: 30rem;
+
+            text-align: center;
+        }
     }
 
-    input[type="submit"] {
-        position: absolute;
-        left: 0;
-        bottom: 0;
+    section.diagram {
+        textarea {
+            position: absolute;
+            top: 0;
+            left: 0;
 
-        height: 100px;
-        width: 35%;
-    }
+            padding: 10px 10px 100px;
+            box-sizing: border-box;
+            width: 35%;
+            height: 100%;
+        }
 
-    svg {
-        position: absolute;
-        top: 0;
-        left: 35%;
+        input[type="submit"] {
+            position: absolute;
+            left: 0;
+            bottom: 0;
 
-        padding: 10px;
-        box-sizing: border-box;
-        width: 65%;
-        height: 100%;
+            height: 100px;
+            width: 35%;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 35%;
+
+            padding: 10px;
+            box-sizing: border-box;
+            width: 65%;
+            height: 100%;
+        }
     }
 }

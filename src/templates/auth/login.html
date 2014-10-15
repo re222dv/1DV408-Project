@@ -1,0 +1,11 @@
+{? if loginFailed:
+    <p>The supplied username and password combination does not exist</p>
+?}
+<form method="post">
+    <section class="credentials">
+        <input placeholder="Username" {% input username %} />
+        <input type="password" placeholder="Password" {% input password %} />
+    </section>
+    <input type="submit" {% input login %} value="Login" />
+</form>
+<a href="{{ registerUrl }}">Register</a>

@@ -3,14 +3,16 @@
 namespace view\services;
 
 class Router {
-    const FILENAME = '/\/(.+).svg$/i';
+    const FILENAME_REGEX = '/\/(.+).svg$/i';
+    const INDEX = '/';
+    const REGISTER = '/register';
 
-    private function getCurrentPath() {
-        return (isset($_GET['path'])) ? $_GET['path'] : '/';
+    public function getCurrentPath() {
+        return (isset($_GET['path'])) ? $_GET['path'] : self::INDEX;
     }
 
     public function getFilename() {
-        if (preg_match(self::FILENAME, $this->getCurrentPath(), $match)) {
+        if (preg_match(self::FILENAME_REGEX, $this->getCurrentPath(), $match)) {
             return $match[1];
         }
 
@@ -18,10 +20,10 @@ class Router {
     }
 
     public function isFile() {
-        return preg_match(self::FILENAME, $this->getCurrentPath()) > 0;
+        return preg_match(self::FILENAME_REGEX, $this->getCurrentPath()) > 0;
     }
 
-    public function isInput() {
-        return $this->getCurrentPath() === '/';
+    public function redirectTo($url) {
+        header('location: '.$url);
     }
 }

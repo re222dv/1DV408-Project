@@ -40,7 +40,7 @@ class InputDirective extends InlineDirective {
             if (in_array('checkbox', $flags) && $_POST[$inputName] === 'on') {
                 return 'name="'.$inputName.'" checked';
             }
-            return 'name="'.$inputName.'" value="{{ '.$inputName.' }}"';
+            return 'name="'.$inputName.'" value="'.$view->getVariable($inputName).'"';
         }
 
         return 'name="'.$inputName.'"';
