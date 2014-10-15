@@ -7,6 +7,16 @@ use Template\View;
 use Template\ViewSettings;
 use view\umls\ClassDiagramView;
 
+const EXAMPLE = <<<EXAMPLE
+// Class declarations
+[Post|-text:string|getText():string;setText(text:string)]
+[User|username;password|login(username, password)l]
+
+// Associations
+[Post]-author-[User]
+EXAMPLE;
+
+
 class InputView extends View {
     protected $template = 'input.html';
 
@@ -18,12 +28,9 @@ class InputView extends View {
     public function getUmls() {
         if (isset($_GET['umls'])) {
             return urldecode($_GET['umls']);
+        } else {
+            return EXAMPLE;
         }
-        return null;
-    }
-
-    public function shouldRender() {
-        return isset($_GET['umls']);
     }
 
     public function setDiagram(ClassDiagram $classDiagram) {

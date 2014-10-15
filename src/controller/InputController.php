@@ -19,10 +19,8 @@ class InputController {
      * @return InputView
      */
     public function render() {
-        if ($this->inputView->shouldRender()) {
-            $umls = $this->inputView->getUmls();
-            $this->inputView->setDiagram(new ClassDiagram($umls));
-        }
+        $umls = $this->inputView->getUmls();
+        $this->inputView->setDiagram(new ClassDiagram($umls));
 
         return $this->inputView;
     }
