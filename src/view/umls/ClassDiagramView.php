@@ -1,11 +1,9 @@
 <?php
 
-namespace view\diagrams;
+namespace view\umls;
 
 use model\entities\umls\ClassDiagram;
 use Template\View;
-use view\entities\AssociationView;
-use view\entities\ClassObjectView;
 
 class ClassDiagramView extends View {
     protected $template = 'diagrams/classDiagram.svg';

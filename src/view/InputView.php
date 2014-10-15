@@ -5,7 +5,7 @@ namespace view;
 use model\entities\umls\ClassDiagram;
 use Template\View;
 use Template\ViewSettings;
-use view\diagrams\ClassDiagramView;
+use view\umls\ClassDiagramView;
 
 class InputView extends View {
     protected $template = 'input.html';

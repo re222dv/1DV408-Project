@@ -1,6 +1,6 @@
 <?php
 
-namespace view\entities;
+namespace view\umls;
 
 use model\entities\umls\ClassObject;
 use Template\View;
