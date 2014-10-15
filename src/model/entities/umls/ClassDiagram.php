@@ -3,6 +3,8 @@
 namespace model\entities\umls;
 
 class ClassDiagram {
+    const COMMENT_PATTERN = '%//.*$%m';
+
     /**
      * @var ClassObject[]
      */
@@ -16,6 +18,7 @@ class ClassDiagram {
      * @param string $string The string to parse
      */
     public function __construct($string) {
+        $string = preg_replace(self::COMMENT_PATTERN, '', $string);
         preg_match_all('/'.ClassObject::PATTERN.'/i', $string, $classMatches, PREG_SET_ORDER);
 
         foreach($classMatches as $classMatch) {

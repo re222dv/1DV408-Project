@@ -7,6 +7,7 @@ require_once('src/model/entities/umls/ClassDiagram.php');
 class ClassDiagramTest extends \PHPUnit_Framework_TestCase {
     public function testThatItCanParseADiagram() {
         $diagram = new ClassDiagram('
+            // [comment]
             [Post||post(text)]
             [Member|/name:string;email|login( username : string, password ):bool;logout()]
             [Member]-Comments-[Comment]
