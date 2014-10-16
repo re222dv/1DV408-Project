@@ -12,7 +12,7 @@ class PartialView extends View {
      * Example:
      *  "Today's quote: \"Clarity is better than cleverness.\""
      */
-    const STRING_LITERAL_REGEX = '("((?:\\"|[^"])+)")';
+    const STRING_LITERAL_REGEX = '("((?:[^"])+)")';
 
     /**
      * Matches inline directives

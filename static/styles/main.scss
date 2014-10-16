@@ -10,9 +10,8 @@
     display: block;
 
     box-sizing: border-box;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    height: 100%;
+    padding: 0 2rem;
+    height: 4rem;
 
     color: white;
     background-color: transparent;
@@ -84,12 +83,12 @@ header {
 
     section.auth {
         float: right;
+        display: flex;
         height: 100%;
 
         p {
             @include center-vertically;
 
-            float: left;
             margin: 0;
             padding-right: 1rem;
             max-width: 15rem;
@@ -100,7 +99,6 @@ header {
         }
 
         form {
-            float: left;
 
             section.credentials {
                 float: left;
@@ -115,8 +113,7 @@ header {
             input[type="submit"] { @include header-link }
         }
 
-        a {
-            float: right;
+        form + a, a + form input[type="submit"] {
             border-left: none;
         }
     }

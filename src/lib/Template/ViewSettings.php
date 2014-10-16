@@ -4,6 +4,7 @@ namespace Template;
 
 require_once('directives/ExpressionDirective.php');
 require_once('directives/ForDirective.php');
+require_once('directives/FormatDirective.php');
 require_once('directives/IfDirective.php');
 require_once('directives/InjectViewDirective.php');
 require_once('directives/InputDirective.php');
@@ -28,6 +29,7 @@ class ViewSettings {
 
     public function __construct(directives\ExpressionDirective $expression,
                                 directives\ForDirective $for,
+                                directives\FormatDirective $format,
                                 directives\IfDirective $if,
                                 directives\InjectViewDirective $injectView,
                                 directives\InputDirective $input,
@@ -43,6 +45,7 @@ class ViewSettings {
 
         $this->inlineDirectives = [
             'expression' => $expression,
+            'format' => $format,
             'injectView' => $injectView,
             'input' => $input,
             'join' => $join,

@@ -6,6 +6,7 @@ use model\services\Auth;
 use Template\directives\InputDirective;
 use Template\View;
 use Template\ViewSettings;
+use view\services\Router;
 
 class UserView extends View {
     protected $template = 'auth/user.html';
@@ -32,5 +33,6 @@ class UserView extends View {
 
     public function onRender() {
         $this->variables['username'] = $this->auth->getUser()->getUsername();
+        $this->variables['myDiagramsUrl'] = Router::MY_DIAGRAMS;
     }
 }

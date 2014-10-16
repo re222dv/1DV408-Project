@@ -23,18 +23,25 @@ class MasterController {
      */
     private $masterView;
     /**
+     * @var MyDiagramsController
+     */
+    private $myDiagramsController;
+    /**
      * @var Router
      */
     private $router;
 
     public function __construct(Router $router, AuthController $authController,
                                 ClassDiagramController $classDiagramController,
-                                InputController $inputController, MasterView $masterView) {
+                                InputController $inputController,
+                                MyDiagramsController $myDiagramsController,
+                                MasterView $masterView) {
         $this->router = $router;
         $this->authController = $authController;
         $this->classDiagramController = $classDiagramController;
         $this->inputController = $inputController;
         $this->masterView = $masterView;
+        $this->myDiagramsController = $myDiagramsController;
     }
 
     public function render() {
@@ -49,8 +56,13 @@ class MasterController {
                 $this->masterView->setMain($this->inputController->render());
                 break;
 
+            case Router::MY_DIAGRAMS:
+                $this->masterView->setMain($this->myDiagramsController->render());
+                break;
+
             case Router::REGISTER:
                 $this->masterView->setMain($this->authController->register());
+                break;
         }
 
         return $this->masterView->render();
