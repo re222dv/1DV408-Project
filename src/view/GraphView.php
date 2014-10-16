@@ -1,24 +1,16 @@
 <?php
 
-namespace view\umls;
+namespace view;
 
 use model\entities\umls\ClassDiagram;
 use Template\View;
-use view\services\spring\Graph;
-use view\services\spring\Node;
 
-class ClassDiagramView extends View {
-    use Graph;
-
+class GraphView extends View {
     protected $template = 'diagrams/classDiagram.svg';
     /**
      * @var ClassDiagram
      */
     private $classDiagram;
-    /**
-     * @var ClassObjectView[]
-     */
-    private $classes;
 
     public function setDiagram(ClassDiagram $classDiagram) {
         $this->classDiagram = $classDiagram;
@@ -26,41 +18,25 @@ class ClassDiagramView extends View {
         $this->setVariable('classes', []);
         $this->setVariable('associations', []);
 
-        $this->classes = [];
+        $classes = [];
 
         foreach ($classDiagram->getClasses() as $class) {
             $view = new ClassObjectView($this->settings);
             $view->setClass($class);
             $this->variables['classes'][] = $view;
-            $this->classes[$class->getName()] = $view;
+            $classes[$class->getName()] = $view;
         }
 
-        $this->positionClasses($this->classes);
+        $this->positionClasses($classes);
 
         foreach ($classDiagram->getAssociations() as $association) {
-            $from = $this->classes[$association->getFrom()];
-            $to = $this->classes[$association->getTo()];
+            $from = $classes[$association->getFrom()];
+            $to = $classes[$association->getTo()];
 
             $view = new AssociationView($this->settings);
             $view->setAssociation($association, $from, $to);
             $this->variables['associations'][] = $view;
         }
-
-        $this->applyForce();
-    }
-
-    /**
-     * @return Node[] All nodes in the graph with name as keys
-     */
-    public function getNodes() {
-        foreach ($this->classDiagram->getAssociations() as $association) {
-            $from = $this->classes[$association->getFrom()];
-            $to = $this->classes[$association->getTo()];
-            $from->addFriend($to);
-            $to->addFriend($from);
-        }
-
-        return $this->classes;
     }
 
     private function positionClasses($classes) {
@@ -72,9 +48,6 @@ class ClassDiagramView extends View {
         $this->positionAllClassesNextToEachOther($classes, $positions);
     }
 
-    /**
-     * @param ClassObjectView[] $classes
-     */
     private function positionClassesBelowAssociativeClasses($classes) {
         do {
             $modified = false;
@@ -83,8 +56,9 @@ class ClassDiagramView extends View {
                 $from = $classes[$association->getFrom()];
                 $to = $classes[$association->getTo()];
 
-                if ($from->y >= $to->y) {
-                    $to->y = $from->y + 200;
+                if ($from->top >= $to->top) {
+                    $to->top = $from->top + 1;
+                    $to->y = $from->y + $from->height + 50;
 
                     $modified = true;
                 }
@@ -92,48 +66,37 @@ class ClassDiagramView extends View {
         } while($modified);
     }
 
-    /**
-     * @param ClassObjectView[] $classes
-     * @param array $positions
-     */
     private function positionAssociatedClassesNextToEachOther($classes, $positions) {
         foreach ($this->classDiagram->getAssociations() as $association) {
             $from = $classes[$association->getFrom()];
 
-            if (isset($positions[$from->y])) {
-                while (isset($positions[$from->y][$from->x])) {
-                    $from->x += 200;
+            if (isset($positions[$from->top])) {
+                while (isset($positions[$from->top][$from->left])) {
+                    $from->left += 1;
                 }
             }
 
-            $positions[$from->y][$from->x] = $from;
+            $positions[$from->top][$from->left] = $from;
         }
     }
 
-    /**
-     * @param ClassObjectView[] $classes
-     */
     private function positionClassesStraightBelowAssociativeClasses($classes) {
         foreach ($this->classDiagram->getAssociations() as $association) {
             $from = $classes[$association->getFrom()];
             $to = $classes[$association->getTo()];
 
-            $to->x = $from->x;
+            $to->left = $from->left;
         }
     }
 
-    /**
-     * @param ClassObjectView[] $classes
-     * @param array $positions
-     */
     private function positionAllClassesNextToEachOther($classes, $positions) {
         foreach ($classes as $class) {
-            while (isset($positions[$class->y][$class->x]) &&
-                $positions[$class->y][$class->x] !== $class) {
-                $class->x += 200;
+            while (isset($positions[$class->top][$class->left]) &&
+                $positions[$class->top][$class->left] !== $class) {
+                $class->left += 1;
             }
 
-            $positions[$class->y][$class->x] = $class;
+            $positions[$class->top][$class->left] = $class;
         }
     }
 }

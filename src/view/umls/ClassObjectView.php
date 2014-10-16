@@ -4,22 +4,20 @@ namespace view\umls;
 
 use model\entities\umls\ClassObject;
 use Template\View;
+use view\services\spring\Node;
 
 class ClassObjectView extends View {
-    protected $template = 'entities/class.svg';
-    private $classObject;
-    public $top = 0;
-    public $left = 0;
-    public $height = 200;
-    public $width = 200;
-    public $y = 0;
+    use Node;
 
-    public function getHeight() {
-        return $this->height;
-    }
+    protected $template = 'entities/class.svg';
+    /**
+     * @var ClassObject
+     */
+    private $classObject;
 
     public function setClass(ClassObject $classObject) {
         $this->classObject = $classObject;
+        $this->width = 200;
 
         $this->variables = [
             'width'=> $this->width,
@@ -61,7 +59,10 @@ class ClassObjectView extends View {
     }
 
     public function onRender() {
-
         $this->variables['height'] = $this->height;
+    }
+
+    public function getName() {
+        return $this->classObject->getName();
     }
 }
