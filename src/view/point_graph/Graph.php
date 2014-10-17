@@ -36,7 +36,7 @@ trait Graph {
      */
     private function getTopNodes($nodes) {
         foreach ($nodes as $node) {
-            if (!$node->isTopNode()) {
+            if (!$node->isTopNode() && !$node->isFreeNode()) {
                 unset($nodes[$node->getName()]);
             }
         }
