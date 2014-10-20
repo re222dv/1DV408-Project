@@ -8,28 +8,34 @@ use Template\View;
 use Template\ViewSettings;
 
 class RegisterView extends View {
+    const TV_ERRORS = 'errors';
+    const TV_PASSWORD = 'password';
+    const TV_PASSWORD2 = 'password2';
+    const TV_REGISTER = 'register';
+    const TV_USERNAME = 'username';
+
     protected $template = 'auth/register.html';
 
     public function __construct(InputDirective $inputDirective, ViewSettings $viewSettings) {
         parent::__construct($viewSettings);
 
-        $inputDirective->registerInput($this, 'username');
-        $inputDirective->registerInput($this, 'password');
-        $inputDirective->registerInput($this, 'password2');
-        $inputDirective->registerInput($this, 'register');
+        $inputDirective->registerInput($this, self::TV_REGISTER);
+        $inputDirective->registerInput($this, self::TV_PASSWORD);
+        $inputDirective->registerInput($this, self::TV_PASSWORD2);
+        $inputDirective->registerInput($this, self::TV_USERNAME);
     }
 
     /**
      * @return User
      */
     public function getUser() {
-        if ($this->variables['password'] !== $this->variables['password2']) {
+        if ($this->variables[self::TV_PASSWORD] !== $this->variables[self::TV_PASSWORD2]) {
             $this->addError('The passwords does not match');
         }
 
         $user = new User();
         try {
-            $user->setUsername($this->variables['username']);
+            $user->setUsername($this->variables[self::TV_USERNAME]);
         } catch (\InvalidArgumentException $e) {
             $length = $e->getMessage();
             switch ($e->getCode()) {
@@ -42,7 +48,7 @@ class RegisterView extends View {
             }
         }
 
-        $user->setPassword($this->variables['password']);
+        $user->setPassword($this->variables[self::TV_PASSWORD]);
 
         return $user;
     }
@@ -55,13 +61,13 @@ class RegisterView extends View {
      * @return bool
      */
     public function haveRegistered() {
-        return isset($this->variables['register']);
+        return isset($this->variables[self::TV_REGISTER]);
     }
 
     /**
      * @param string $message
      */
     private function addError($message) {
-        $this->variables['errors'][] = $message;
+        $this->variables[self::TV_ERRORS][] = $message;
     }
 }

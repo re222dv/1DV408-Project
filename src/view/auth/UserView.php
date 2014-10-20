@@ -9,6 +9,10 @@ use Template\ViewSettings;
 use view\services\Router;
 
 class UserView extends View {
+    const TV_LOGOUT = 'logout';
+    const TV_USERNAME = 'username';
+    const TV_MY_DIAGRAMS_URL = 'myDiagramsUrl';
+
     protected $template = 'auth/user.html';
     /**
      * @var Auth
@@ -21,18 +25,18 @@ class UserView extends View {
 
         $this->auth = $auth;
 
-        $inputDirective->registerInput($this, 'logout');
+        $inputDirective->registerInput($this, self::TV_LOGOUT);
     }
 
     /**
      * @return bool
      */
     public function haveLoggedOut() {
-        return isset($this->variables['logout']);
+        return isset($this->variables[self::TV_LOGOUT]);
     }
 
     public function onRender() {
-        $this->variables['username'] = $this->auth->getUser()->getUsername();
-        $this->variables['myDiagramsUrl'] = Router::MY_DIAGRAMS;
+        $this->variables[self::TV_USERNAME] = $this->auth->getUser()->getUsername();
+        $this->variables[self::TV_MY_DIAGRAMS_URL] = Router::MY_DIAGRAMS;
     }
 }

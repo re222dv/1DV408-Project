@@ -6,6 +6,10 @@ use model\entities\umls\Method;
 use Template\View;
 
 class MethodView extends View {
+    const TV_ARGUMENTS = 'arguments';
+    const TV_NAME = 'name';
+    const TV_RETURN_TYPE = 'returnType';
+
     protected $template = 'entities/method.svg';
     private $method;
     public $height = 25;
@@ -13,10 +17,9 @@ class MethodView extends View {
     public function setMethod(Method $method) {
         $this->method = $method;
         $this->variables = [
-            'name'=> $method->getName(),
-            'returnType'=> $method->getReturnType(),
-            'height'=> $this->height,
-            'arguments'=> [],
+            self::TV_NAME => $method->getName(),
+            self::TV_RETURN_TYPE => $method->getReturnType(),
+            self::TV_ARGUMENTS => [],
         ];
 
         $arguments = [];
@@ -28,6 +31,6 @@ class MethodView extends View {
         }
 
         $arguments = join(', ', $arguments);
-        $this->variables['arguments'] = $arguments;
+        $this->variables[self::TV_ARGUMENTS] = $arguments;
     }
 }

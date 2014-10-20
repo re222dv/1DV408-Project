@@ -19,60 +19,74 @@ class InputView extends View {
 [Post]-author-[User]
 EXAMPLE;
 
+    const GV_RENDER = 'render';
+    const PV_SAVE = 'save';
+    const RV_NAME = 'name';
+    const RV_UMLS = 'umls';
+
+    const TV_DIAGRAM_VIEW = 'diagram';
+    const TV_LOGGED_IN = 'loggedIn';
+    const TV_NAME = self::RV_NAME;
+    const TV_UMLS = self::RV_UMLS;
+
     protected $template = 'input.html';
 
     public function __construct(Auth $auth, ClassDiagramView $classDiagramView,
                                 ViewSettings $viewSettings) {
         parent::__construct($viewSettings);
 
-        $this->setVariable('loggedIn', $auth->isLoggedIn());
-        $this->setVariable('diagram', $classDiagramView);
+        $this->variables = [
+            self::TV_DIAGRAM_VIEW => $classDiagramView,
+            self::TV_LOGGED_IN => $auth->isLoggedIn(),
+        ];
     }
 
     public function getName() {
-        if (isset($_POST['name'])) {
-            return $_POST['name'];
-        } elseif (isset($_GET['name'])) {
-            return urldecode($_GET['name']);
+        if (isset($_POST[self::RV_NAME])) {
+            return $_POST[self::RV_NAME];
+        } elseif (isset($_GET[self::RV_NAME])) {
+            return urldecode($_GET[self::RV_NAME]);
         }
 
         return null;
     }
 
     public function getUmls() {
-        if (isset($_POST['umls'])) {
-            return $_POST['umls'];
-        } elseif (isset($_GET['umls'])) {
-            return urldecode($_GET['umls']);
+        if (isset($_POST[self::RV_UMLS])) {
+            return $_POST[self::RV_UMLS];
+        } elseif (isset($_GET[self::RV_UMLS])) {
+            return urldecode($_GET[self::RV_UMLS]);
         }
 
         return self::EXAMPLE;
     }
 
     public function setName($name) {
-        $this->variables['name'] = $name;
+        $this->variables[self::TV_NAME] = $name;
     }
 
     public function setUmls($umls) {
-        $this->setVariable('umls', $umls);
+        $this->setVariable(self::TV_UMLS, $umls);
     }
 
     public function onRender() {
-        if (!isset($this->variables['umls'])) {
-            $this->variables['umls'] = $this->getUmls();
+        if (!isset($this->variables[self::TV_UMLS])) {
+            $this->variables[self::TV_UMLS] = $this->getUmls();
         }
-        $this->getVariable('diagram')->setDiagram(new ClassDiagram($this->variables['umls']));
+        $this->variables[self::TV_DIAGRAM_VIEW]->setDiagram(
+            new ClassDiagram($this->variables[self::TV_UMLS])
+        );
 
-        if (!isset($this->variables['name'])) {
+        if (!isset($this->variables[self::TV_NAME])) {
             $this->setName($this->getName());
         }
     }
 
     public function wantToRender() {
-        return isset($_GET['render']);
+        return isset($_GET[self::GV_RENDER]);
     }
 
     public function wantToSave() {
-        return isset($_POST['save']);
+        return isset($_POST[self::PV_SAVE]);
     }
 }

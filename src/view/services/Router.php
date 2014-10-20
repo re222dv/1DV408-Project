@@ -41,6 +41,6 @@ class Router {
     }
 
     public function redirectTo($url) {
-        header('location: '.$url);
+        header("location: $url");
     }
 }

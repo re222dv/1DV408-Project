@@ -7,6 +7,8 @@ require_once('Method.php');
 
 class ClassObject {
     const PATTERN = '\[([^\s\]]+?(?=\||\]))((?:\|[^\|\]]*)+)?\]';
+    const PATTERN_NAME_GROUP = 1;
+    const PATTERN_GROUP_COUNT = 2;
 
     private $name;
     private $attributes = [];
@@ -24,7 +26,7 @@ class ClassObject {
 
         $pattern = '/'.self::PATTERN.'/i';
         preg_match($pattern, $string, $matches);
-        $this->name = $matches[1];
+        $this->name = $matches[self::PATTERN_NAME_GROUP];
 
         if (count($matches) > 2) {
             $blocks = preg_split('/\|/', $matches[2]);

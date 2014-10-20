@@ -6,6 +6,11 @@ use model\entities\umls\Association;
 use Template\View;
 
 class AssociationView extends View {
+    const TV_FROM_X = 'fromX';
+    const TV_FROM_Y = 'fromY';
+    const TV_TO_X = 'toX';
+    const TV_TO_Y = 'toY';
+
     protected $template = 'entities/association.svg';
     /**
      * @var ClassObjectView
@@ -23,9 +28,9 @@ class AssociationView extends View {
     }
 
     public function onRender() {
-        $this->variables['fromX'] = $this->from->x + $this->from->width / 2;
-        $this->variables['fromY'] = $this->from->y + $this->from->height;
-        $this->variables['toX'] = $this->to->x + $this->to->width / 2;
-        $this->variables['toY'] = $this->to->y;
+        $this->variables[self::TV_FROM_X] = $this->from->x + $this->from->width / 2;
+        $this->variables[self::TV_FROM_Y] = $this->from->y + $this->from->height;
+        $this->variables[self::TV_TO_X] = $this->to->x + $this->to->width / 2;
+        $this->variables[self::TV_TO_Y] = $this->to->y;
     }
 }

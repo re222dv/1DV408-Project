@@ -10,6 +10,10 @@ use view\point_graph\Node;
 class ClassDiagramView extends View {
     use Graph;
 
+    const TV_ASSOCIATIONS = 'associations';
+    const TV_CHECKBOARD = 'checkboard';
+    const TV_CLASSES = 'classes';
+
     protected $template = 'diagrams/classDiagram.svg';
     /**
      * @var ClassDiagram
@@ -19,8 +23,8 @@ class ClassDiagramView extends View {
     public function setDiagram(ClassDiagram $classDiagram) {
         $this->classDiagram = $classDiagram;
 
-        $this->setVariable('classes', []);
-        $this->setVariable('associations', []);
+        $this->variables[self::TV_CLASSES] = [];
+        $this->variables[self::TV_ASSOCIATIONS] = [];
 
         $nodes = [];
 
@@ -30,7 +34,7 @@ class ClassDiagramView extends View {
 
             $nodes[$class->getName()] = $view;
 
-            $this->variables['classes'][] = $view;
+            $this->variables[self::TV_CLASSES][] = $view;
         }
 
         foreach ($classDiagram->getAssociations() as $association) {
@@ -43,7 +47,7 @@ class ClassDiagramView extends View {
             $from->linksOutgoing[$to->getName()] = $to;
             $to->linksIncoming[$from->getName()] = $from;
 
-            $this->variables['associations'][] = $view;
+            $this->variables[self::TV_ASSOCIATIONS][] = $view;
         }
 
         $this->calculatePositions($nodes);
@@ -54,6 +58,6 @@ class ClassDiagramView extends View {
     }
 
     public function onRender() {
-        $this->variables['checkboard'] = isset($_GET['checkboard']);
+        $this->variables[self::TV_CHECKBOARD] = isset($_GET['checkboard']);
     }
 }

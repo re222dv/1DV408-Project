@@ -3,6 +3,9 @@
 namespace model\entities\umls;
 
 class ClassDiagram {
+    /**
+     * Matches end of line comments starting with //
+     */
     const COMMENT_PATTERN = '%//.*$%m';
 
     /**
@@ -22,7 +25,7 @@ class ClassDiagram {
         preg_match_all('/'.ClassObject::PATTERN.'/i', $string, $classMatches, PREG_SET_ORDER);
 
         foreach($classMatches as $classMatch) {
-            $name = $classMatch[1];
+            $name = $classMatch[ClassObject::PATTERN_NAME_GROUP];
             $class = $this->getClass($name);
             if ($class === null) {
                 $this->classes[] = new ClassObject($classMatch[0]);

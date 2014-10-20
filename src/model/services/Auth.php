@@ -7,6 +7,8 @@ use model\entities\auth\User;
 use model\repositories\UserRepository;
 
 class Auth {
+    const SV_USERNAME = 'Auth::username';
+
     /**
      * @var UserRepository
      */
@@ -86,13 +88,13 @@ class Auth {
     }
 
     private function getSession() {
-        if (isset($_SESSION['username'])) {
-            return $_SESSION['username'];
+        if (isset($_SESSION[self::SV_USERNAME])) {
+            return $_SESSION[self::SV_USERNAME];
         }
         return null;
     }
 
     private function setSession($username) {
-        $_SESSION['username'] = $username;
+        $_SESSION[self::SV_USERNAME] = $username;
     }
 }

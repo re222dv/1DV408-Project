@@ -19,9 +19,9 @@ class Association {
 
         preg_match($pattern, $string, $matches);
 
-        $this->name = $matches[3];
-        $this->from = $matches[1];
-        $this->to = $matches[4];
+        $this->name = $matches[ClassObject::PATTERN_GROUP_COUNT + 1];
+        $this->from = $matches[ClassObject::PATTERN_NAME_GROUP];
+        $this->to = $matches[ClassObject::PATTERN_GROUP_COUNT + 1 + ClassObject::PATTERN_NAME_GROUP];
     }
 
     /**
