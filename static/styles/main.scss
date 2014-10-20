@@ -54,6 +54,14 @@ body, input {
     font-family: 'Alegreya Sans SC', sans-serif;
 }
 
+input {
+    border: 1px solid gray;
+
+    &[type="submit"] {
+        background-color: whitesmoke;
+    }
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -117,9 +125,6 @@ header {
                     display: block;
                     margin: 0.3rem;
                     padding: 0.15rem 0.5rem;
-
-                    border: 1px solid gray;
-                    border-radius: 3px;
                 }
             }
 
@@ -141,6 +146,10 @@ main {
 
     flex-grow: 1;
     width: 100%;
+
+    section {
+        height: 100%;
+    }
 
     section.register {
         display: flex;
@@ -184,7 +193,6 @@ main {
     }
 
     section.diagram {
-        height: 100%;
 
         form {
             display: flex;
@@ -248,6 +256,82 @@ main {
             height: 100%;
 
             font-family: monospace;
+        }
+    }
+
+    section.myDiagrams ul {
+        margin: 0;
+        padding: 0;
+        width: 35%;
+        height: 100%;
+        background-color: whitesmoke;
+
+        li {
+            position: relative;
+
+            a {
+                display: block;
+                padding: 1rem 2rem;
+
+                color: darkslategray;
+                text-decoration: none;
+
+                &:hover {
+                    font-weight: 500;
+                }
+            }
+
+            .delete {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+
+                transition: color 0.5s;
+
+                span, input {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    height: 2rem;
+                }
+
+                span {
+                    font-size: 1.3rem;
+                    line-height: 2.1rem;
+
+                    transition: transform 0.5s;
+                }
+
+                input {
+                    padding: 0;
+                    max-width: 0;
+                    background: transparent;
+                    border: none;
+
+                    transition: color 0.5s, max-width 0.5s;
+                }
+
+                &:hover {
+                    color: red;
+
+                    span {
+                        transform: rotate(-180deg);
+                    }
+
+                    input {
+                        padding-right: 1rem;
+                        max-width: 5rem;
+
+                        color: red;
+                        background: transparent;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        li + li {
+            border-top: 1px solid black;
         }
     }
 }

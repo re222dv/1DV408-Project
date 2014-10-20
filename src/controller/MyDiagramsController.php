@@ -26,6 +26,17 @@ class MyDiagramsController {
 
     public function render() {
         $diagrams = $this->diagramRepository->getByUser($this->auth->getUser());
+
+        $idToDelete = $this->myDiagramsView->shouldDelete();
+        if ($idToDelete != null) {
+            foreach ($diagrams as $index => $diagram) {
+                if ($diagram->getId() == $idToDelete) {
+                    $this->diagramRepository->delete($diagram);
+                    unset($diagrams[$index]);
+                }
+            }
+        }
+
         $this->myDiagramsView->setDiagrams($diagrams);
 
         return $this->myDiagramsView;

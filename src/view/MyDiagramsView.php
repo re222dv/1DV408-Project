@@ -24,6 +24,14 @@ class MyDiagramsView extends View {
     public function onRender() {
         $this->setVariable('diagramUrl', Router::DIAGRAM_FORMAT);
     }
+
+    public function shouldDelete() {
+        if (isset($_POST['delete'])) {
+            return $_POST['id'];
+        }
+
+        return null;
+    }
 }
 
 class DiagramViewModel {

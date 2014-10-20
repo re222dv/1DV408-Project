@@ -1,7 +1,16 @@
 <section class="myDiagrams">
     <ul>
         {? for diagram in diagrams:
-            <li><a href="{% format {{ diagramUrl }} {{ diagram.id }} %}">{{ diagram.name }}</a></li>
+            <li>
+                <a href="{% format {{ diagramUrl }} {{ diagram.id }} %}">{{ diagram.name }}</a>
+                <div class="delete">
+                    <span>&#x2715;</span>
+                    <form method="post">
+                        <input type="hidden" name="id" value="{{ diagram.id }}" />
+                        <input type="submit" name="delete" value="Delete" />
+                    </form>
+                </div>
+            </li>
         ?}
     </ul>
 </section>

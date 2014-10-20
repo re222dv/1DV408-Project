@@ -133,7 +133,7 @@ class Database {
         $ids = [];
 
         foreach ($objects as $object) {
-            $reflection = new \ReflectionClass($objects[0]);
+            $reflection = new \ReflectionClass($object);
             $idProperty = $reflection->getProperty('id');
             $idProperty->setAccessible(true);
             $ids[] = $idProperty->getValue($object);

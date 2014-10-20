@@ -42,4 +42,8 @@ class DiagramRepository {
 
         $this->database->save($diagram);
     }
+
+    public function delete($diagram) {
+        $this->database->delete($diagram);
+    }
 }
