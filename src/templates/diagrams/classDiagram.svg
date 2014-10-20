@@ -5,6 +5,14 @@
     width="100%"
     height="100%"
     style="font-family: monospace;">
+    <defs>
+        <pattern id="checkboard" width="50" height="50" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="50" height="50" fill="white" />
+            <rect x="0" y="0" width="25" height="25" fill="whitesmoke" />
+            <rect x="25" y="25" width="25" height="25" fill="whitesmoke" />
+        </pattern>
+    </defs>
+    <!--<rect x="0" y="0" width="100%" height="100%" fill="url(#checkboard)" />-->
     {? for class in classes:
         <g transform="translate({{ class.x }}, {{ class.y }})">
             {% view class %}

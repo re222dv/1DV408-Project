@@ -257,6 +257,7 @@ main {
             top: 0;
             left: 35%;
 
+            padding: 1rem;
             box-sizing: border-box;
             width: 65%;
             height: 100%;
@@ -341,6 +342,8 @@ main {
                 top: 4rem;
                 left: 35%;
 
+                padding: 0.5rem;
+                box-sizing: border-box;
                 width: 65%;
                 height: calc(100% - 4rem);
             }

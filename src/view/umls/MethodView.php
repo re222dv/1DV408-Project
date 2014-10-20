@@ -19,10 +19,15 @@ class MethodView extends View {
             'arguments'=> [],
         ];
 
+        $arguments = [];
+
         foreach ($method->getArguments() as $argument) {
             $view = new VariableView($this->settings);
             $view->setVariableObject($argument);
-            $this->variables['arguments'][] = $view;
+            $arguments[] = trim($view->render());
         }
+
+        $arguments = join(', ', $arguments);
+        $this->variables['arguments'] = $arguments;
     }
 }

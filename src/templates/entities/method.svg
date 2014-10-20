@@ -1,4 +1,4 @@
-<text x="0" y="0">{{ name }}({% join arguments ", " %})
+<text x="0" y="0">{{ name }}({{ arguments }})
     {? if returnType:
         : {{ returnType }}
     ?}
