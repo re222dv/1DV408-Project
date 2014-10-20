@@ -22,6 +22,6 @@ class ClassDiagramController {
      * @return ClassDiagramView
      */
     public function render() {
-        return $this->classDiagramView;
+        return $this->classDiagramView->render();
     }
 }
