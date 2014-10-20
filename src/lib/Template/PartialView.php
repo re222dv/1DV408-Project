@@ -125,7 +125,9 @@ class PartialView extends View {
 
             $partial = new PartialView($this);
 
-            $rendered = $partial->render($this->settings->blockDirectives[$name]->render($partial, $arguments, $body));
+            $rendered = $partial->renderPartial(
+                $this->settings->blockDirectives[$name]->render($partial, $arguments, $body)
+            );
 
             $template = preg_replace('/'.preg_quote($match[0], '/').'/', $rendered, $template, 1);
 
@@ -163,7 +165,7 @@ class PartialView extends View {
      * @param string $template Template code
      * @return string rendered HTML
      */
-    public function render($template) {
+    public function renderPartial($template) {
         $template = str_replace(['{{', '}}'], ['{% expression ', '%}'], $template);
 
         preg_match_all('/'.self::BLOCK_DIRECTIVE_REGEX.'|'.self::INLINE_DIRECTIVE_REGEX.'/s', $template, $matches, PREG_SET_ORDER);

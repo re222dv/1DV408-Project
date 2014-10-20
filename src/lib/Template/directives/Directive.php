@@ -2,6 +2,7 @@
 
 namespace Template\directives;
 
+use Template\PartialView;
 use Template\View;
 
 /**
@@ -20,12 +21,12 @@ use Template\View;
  */
 abstract class BlockDirective {
     /**
-     * @param View $view       The View this directive is rendered in.
-     * @param array $arguments All arguments specified in the template.
-     * @param string $body     The body of this template.
+     * @param PartialView $view The PartialView this directive is rendered in.
+     * @param array $arguments  All arguments specified in the template.
+     * @param string $body      The body of this template.
      * @return string Return a rendered version of this directive.
      */
-    abstract function render(View $view, array $arguments, $body);
+    abstract function render(PartialView $view, array $arguments, $body);
 }
 
 /**

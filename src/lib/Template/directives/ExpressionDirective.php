@@ -6,6 +6,15 @@ use Template\View;
 
 require_once('Directive.php');
 
+/**
+ * Inserts variables and evaluates math, boolean and logic expressions.
+ * Is shorthanded to {{ and }}.
+ *
+ * Example:
+ *   {{ {{ 1 + 2 }} * 3 > 1 + 2 * 3 }}
+ *
+ * @package Template\directives
+ */
 class ExpressionDirective extends InlineDirective {
     const PRIORITY_MATH = '/([a-z0-9.]+)\s*(\*|\/)\s*([a-z0-9.]+)/i';
     const MATH = '/([a-z0-9.]+)\s*(\+|-|%)\s*([a-z0-9.]+)/i';

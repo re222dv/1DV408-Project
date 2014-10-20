@@ -102,6 +102,6 @@ abstract class View {
         $template = file_get_contents($this->settings->templatePath.$this->template);
         $partial = new PartialView($this);
 
-        return $partial->render($template);
+        return $partial->renderPartial($template);
     }
 }

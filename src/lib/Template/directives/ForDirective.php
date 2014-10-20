@@ -5,18 +5,20 @@ namespace Template\directives;
 require_once('Directive.php');
 
 use Template\PartialView;
-use Template\View;
 
+/**
+ * Evaluates the body once for every item in the array, with the item in the scope.
+ *
+ * Example:
+ *   {? for link in links:
+ *      <a href="{{ link.url }}">{{ link.name }}</a>
+ *   ?}
+ *
+ * @package Template\directives
+ */
 class ForDirective extends BlockDirective {
 
-    /**
-     * @param View $view       The View this directive is rendered in.
-     * @param array $arguments All arguments specified in the template.
-     * @param string $body     The body of this template.
-     * @throws \InvalidArgumentException If more or less than one argument specified.
-     * @return string Return a rendered version of this directive.
-     */
-    function render(View $view, array $arguments, $body) {
+    function render(PartialView $view, array $arguments, $body) {
         if (count($arguments) !== 3) {
             throw new \InvalidArgumentException('Exactly three arguments must be specified');
         } elseif ($arguments[1] !== 'in') {
@@ -28,7 +30,7 @@ class ForDirective extends BlockDirective {
         foreach ($view->getVariable($arguments[2]) as $value) {
             $partial = new PartialView($view);
             $partial->setVariable($arguments[0], $value);
-            $rendered .= $partial->render($body);
+            $rendered .= $partial->renderPartial($body);
         }
 
         return $rendered;

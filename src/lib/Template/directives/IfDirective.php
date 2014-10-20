@@ -4,18 +4,21 @@ namespace Template\directives;
 
 require_once('Directive.php');
 
-use Template\View;
+use Template\PartialView;
 
+/**
+ * Renders the body if the expression evaluates to true.
+ *
+ * Example:
+ *   {? if isLoggedIn:
+ *      Hello, {{ user }}
+ *   ?}
+ *
+ * @package Template\directives
+ */
 class IfDirective extends BlockDirective {
 
-    /**
-     * @param View $view       The View this directive is rendered in.
-     * @param array $arguments All arguments specified in the template.
-     * @param string $body     The body of this template.
-     * @throws \InvalidArgumentException If more or less than one argument specified.
-     * @return string Return a rendered version of this directive.
-     */
-    function render(View $view, array $arguments, $body) {
+    function render(PartialView $view, array $arguments, $body) {
         if (count($arguments) !== 1) {
             throw new \InvalidArgumentException('Exactly one variable name must be specified');
         }
