@@ -89,7 +89,11 @@ header {
         font-weight: 300;
 
         a {
+            padding-left: 45px;
+
             color: white;
+            background: url("/static/logo.svg") no-repeat;
+            background-size: contain;
             text-decoration: none;
         }
 
@@ -125,6 +129,8 @@ header {
                     display: block;
                     margin: 0.3rem;
                     padding: 0.15rem 0.5rem;
+                    box-sizing: border-box;
+                    height: 1.55rem;
                 }
             }
 
@@ -215,6 +221,7 @@ main {
                     &[type="text"] {
                         flex-grow: 1;
                         padding: 0 1rem;
+                        background-color: whitesmoke;
                     }
 
                     &[type="submit"] {
@@ -250,7 +257,6 @@ main {
             top: 0;
             left: 35%;
 
-            padding: 10px;
             box-sizing: border-box;
             width: 65%;
             height: 100%;
