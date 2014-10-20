@@ -48,4 +48,8 @@ class ClassDiagramView extends View {
 
         $this->calculatePositions($nodes);
     }
+
+    public function setMimeType() {
+        header('Content-Type: image/svg+xml');
+    }
 }

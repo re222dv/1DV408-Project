@@ -23,6 +23,7 @@ class MyDiagramsView extends View {
 
     public function onRender() {
         $this->setVariable('diagramUrl', Router::DIAGRAM_FORMAT);
+        $this->setVariable('fileUrl', Router::FILENAME_FORMAT);
     }
 
     public function shouldDelete() {

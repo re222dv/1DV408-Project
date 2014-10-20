@@ -22,6 +22,7 @@ class ClassDiagramController {
      * @return ClassDiagramView
      */
     public function render() {
+        $this->classDiagramView->setMimeType();
         return $this->classDiagramView->render();
     }
 }

@@ -5,9 +5,11 @@ namespace view\services;
 class Router {
     const DIAGRAM_REGEX = '/^\/diagram\/(\d+)$/i';
     const FILENAME_REGEX = '/^\/(.+).svg$/is';
+
+    const DIAGRAM_FORMAT = '/diagram/{id}';
+    const FILENAME_FORMAT = '/{umls}.svg';
     const INDEX = '/';
     const MY_DIAGRAMS = '/diagrams';
-    const DIAGRAM_FORMAT = '/diagram/{id}';
     const REGISTER = '/register';
 
     public function getCurrentPath() {
