@@ -1,7 +1,13 @@
 <section class="diagram">
     <form id="inputForm" method="get">
+        {? if loggedIn:
+            <div>
+                <input type="text" name="name" placeholder="Name" value="{{ name }}" />
+                <input type="submit" name="save" value="Save" formmethod="post" />
+            </div>
+        ?}
         <textarea name="umls">{{ umls }}</textarea>
-        <input type="submit" value="Render" />
+        <input type="submit" name="render" value="Render" />
     </form>
     <script>
         function onSubmit() {

@@ -3,18 +3,18 @@
 namespace view\services;
 
 class Router {
-    const DIAGRAM_REGEX = '/^\/diagram/([^\/]+)$/i';
+    const DIAGRAM_REGEX = '/^\/diagram\/(\d+)$/i';
     const FILENAME_REGEX = '/^\/([^\/]+).svg$/i';
     const INDEX = '/';
     const MY_DIAGRAMS = '/diagrams';
-    const DIAGRAM_FORMAT = '/diagram/{name}';
+    const DIAGRAM_FORMAT = '/diagram/{id}';
     const REGISTER = '/register';
 
     public function getCurrentPath() {
         return (isset($_GET['path'])) ? $_GET['path'] : self::INDEX;
     }
 
-    public function geDiagramName() {
+    public function getDiagramId() {
         if (preg_match(self::DIAGRAM_REGEX, $this->getCurrentPath(), $match)) {
             return $match[1];
         }

@@ -7,7 +7,7 @@
 }
 
 @mixin header-link {
-    display: block;
+    display: table-cell;
 
     box-sizing: border-box;
     padding: 0 2rem;
@@ -21,12 +21,22 @@
 
     font-size: 1rem;
     text-decoration: none;
-    line-height: 3.75rem;
+    vertical-align: middle;
 
     &:hover {
         cursor: pointer;
         background-color: rgba(255, 255, 255, 0.2);
     }
+}
+
+@mixin bar {
+    width: 100%;
+    height: 4rem;
+
+    color: white;
+    background-color: #005580;
+
+    overflow: hidden;
 }
 
 .error {
@@ -50,16 +60,15 @@ body {
 }
 
 header {
+    @include bar;
+
     box-sizing: border-box;
     padding-left: 4rem;
     padding-right: 4rem;
-    width: 100%;
-    height: 4rem;
 
-    color: white;
-    background-color: #005580;
-
-    overflow: hidden;
+    section {
+        display: table; // Fix centering of links in Chrome
+    }
 
     section:not(.logo) a { @include header-link }
 
@@ -83,15 +92,16 @@ header {
 
     section.auth {
         float: right;
-        display: flex;
         height: 100%;
 
         p {
-            @include center-vertically;
+            display:table-cell;
 
             margin: 0;
             padding-right: 1rem;
             max-width: 15rem;
+
+            vertical-align: middle;
 
             &.username {
                 font-weight: 500;
@@ -174,26 +184,57 @@ main {
     }
 
     section.diagram {
-        textarea {
-            position: absolute;
-            top: 0;
-            left: 0;
+        height: 100%;
 
-            padding: 10px 10px 100px;
-            box-sizing: border-box;
+        form {
+            display: flex;
+            flex-direction: column;
             width: 35%;
             height: 100%;
 
-            font-family: monospace;
-        }
+            div {
+                @include bar;
 
-        input[type="submit"] {
-            position: absolute;
-            left: 0;
-            bottom: 0;
+                display: flex;
+                flex-direction: row;
 
-            height: 100px;
-            width: 35%;
+                height: 2rem;
+
+                input {
+                    border: none;
+                    border-radius: 0;
+
+                    &[type="text"] {
+                        flex-grow: 1;
+                        padding: 0 1rem;
+                    }
+
+                    &[type="submit"] {
+                        @include header-link;
+
+                        height: 100%;
+                        line-height: inherit;
+                    }
+                }
+            }
+
+            textarea {
+                flex-grow: 1;
+
+                margin: 0;
+                box-sizing: border-box;
+                padding: 10px 10px 100px;
+                width: 100%;
+                border: none;
+
+                font-family: monospace;
+                resize: none;
+            }
+
+            input[type="submit"][value="Render"] {
+                width: 100%;
+                height: 100px;
+            }
         }
 
         svg {

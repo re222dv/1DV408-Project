@@ -175,6 +175,7 @@ class Database {
      * Insert $object into its corresponding table
      *
      * @param object $object
+     * @returns int The id of the created row
      */
     public function insert($object) {
         $reflection = new \ReflectionClass($object);
@@ -187,6 +188,10 @@ class Database {
         $this->connection
             ->prepare("INSERT INTO $table (`$columns`) VALUES ($placeholders)")
             ->execute(array_values($vars));
+
+        $property = $reflection->getProperty('id');
+        $property->setAccessible(true);
+        $property->setValue($object, $this->connection->lastInsertId());
     }
 
     /**

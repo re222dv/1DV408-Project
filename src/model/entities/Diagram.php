@@ -2,9 +2,13 @@
 
 namespace model\entities;
 
+use model\entities\auth\User;
+
 class Diagram {
     const TOO_SHORT = 1;
     const TOO_LONG = 2;
+
+    private $id;
 
     /**
      * @var string
@@ -24,8 +28,9 @@ class Diagram {
      */
     private $userId;
 
-    public function __construct($userId) {
-        $this->userId = $userId;
+    public function __construct($id, User $user) {
+        $this->id = $id;
+        $this->userId = $user->getId();
     }
 
     /**
@@ -48,6 +53,13 @@ class Diagram {
         }
 
         $this->name = $name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
     }
 
     /**

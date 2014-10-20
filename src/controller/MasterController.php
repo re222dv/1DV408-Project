@@ -63,6 +63,10 @@ class MasterController {
             case Router::REGISTER:
                 $this->masterView->setMain($this->authController->register());
                 break;
+            default:
+                if ($this->router->isDiagram()) {
+                    $this->masterView->setMain($this->inputController->render($this->router->getDiagramId()));
+                }
         }
 
         return $this->masterView->render();
