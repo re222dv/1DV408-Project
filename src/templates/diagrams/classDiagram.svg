@@ -12,7 +12,9 @@
             <rect x="25" y="25" width="25" height="25" fill="whitesmoke" />
         </pattern>
     </defs>
-    <!--<rect x="0" y="0" width="100%" height="100%" fill="url(#checkboard)" />-->
+    {? if checkboard:
+        <rect x="0" y="0" width="100%" height="100%" fill="url(#checkboard)" />
+    ?}
     {? for class in classes:
         <g transform="translate({{ class.x }}, {{ class.y }})">
             {% view class %}

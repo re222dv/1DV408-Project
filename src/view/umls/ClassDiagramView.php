@@ -52,4 +52,8 @@ class ClassDiagramView extends View {
     public function setMimeType() {
         header('Content-Type: image/svg+xml');
     }
+
+    public function onRender() {
+        $this->variables['checkboard'] = isset($_GET['checkboard']);
+    }
 }
