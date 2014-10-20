@@ -1,4 +1,4 @@
-<text x="0" y="0">{{ name }}({{ arguments }})
+<text x="0" y="0" class="method">{{ name }}({{ arguments }})
     {? if returnType:
         : {{ returnType }}
     ?}
