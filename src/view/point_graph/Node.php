@@ -114,7 +114,7 @@ trait Node {
      */
     public function collidesWith($node) {
         return !(
-            $this->isBellow($node) ||
+            $this->isBelow($node) ||
             $this->isAbove($node)  ||
             $this->isLeftOf($node) ||
             $this->isRightOf($node)
@@ -185,7 +185,7 @@ trait Node {
 
     public function isVerticalPositionAllowed() {
         foreach ($this->nodesAbove as $node) {
-            if (!$this->isBellow($node)) {
+            if (!$this->isBelow($node)) {
                 return false;
             }
         }
@@ -235,9 +235,9 @@ trait Node {
 
     /**
      * @param Node $other
-     * @return bool True if $this is bellow $other
+     * @return bool True if $this is below $other
      */
-    private function isBellow($other) {
+    private function isBelow($other) {
         return $this->y > $other->y + $other->height;
     }
 
