@@ -4,7 +4,7 @@ namespace view\services;
 
 class Router {
     const DIAGRAM_REGEX = '/^\/diagram\/(\d+)$/i';
-    const FILENAME_REGEX = '/^\/([^\/]+).svg$/i';
+    const FILENAME_REGEX = '/^\/(.+).svg$/is';
     const INDEX = '/';
     const MY_DIAGRAMS = '/diagrams';
     const DIAGRAM_FORMAT = '/diagram/{id}';
@@ -23,7 +23,7 @@ class Router {
     }
 
     public function getFilename() {
-        if (preg_match(self::FILENAME_REGEX, $this->getCurrentPath(), $match)) {
+        if (preg_match(self::FILENAME_REGEX, rawurldecode($this->getCurrentPath()), $match)) {
             return $match[1];
         }
 

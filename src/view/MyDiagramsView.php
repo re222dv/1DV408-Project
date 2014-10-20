@@ -37,9 +37,11 @@ class MyDiagramsView extends View {
 class DiagramViewModel {
     public $name;
     public $id;
+    public $umls;
 
     public function __construct(Diagram $diagram) {
         $this->name = $diagram->getName();
         $this->id = $diagram->getId();
+        $this->umls = rawurlencode($diagram->getUmls());
     }
 }
