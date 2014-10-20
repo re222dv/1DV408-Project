@@ -107,10 +107,17 @@ header {
                     display: block;
                     margin: 0.3rem;
                     padding: 0.15rem 0.5rem;
+
+                    border: 1px solid gray;
+                    border-radius: 3px;
                 }
             }
 
-            input[type="submit"] { @include header-link }
+            input[type="submit"] {
+                @include header-link;
+
+                float: right;
+            }
         }
 
         form + a, a + form input[type="submit"] {
