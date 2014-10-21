@@ -23,10 +23,16 @@
                 var section = document.querySelector('body>main>section');
 
                 if (main.offsetHeight > section.offsetHeight) {
-                    console.log('Your browser sucks and I now have to do a f\'ugly workaround' +
+                    console.log('Your browser sucks and I now have to do a f\'ugly workaround ' +
                                 'for one of its many bugs.');
 
-                    section.style.height = main.offsetHeight + 'px';
+                    window.onresize = function() {
+                        section.style.height = '0px';
+                        window.setTimeout(function () {
+                            section.style.height = main.clientHeight + 'px';
+                        }, 0);
+                    };
+                    window.onresize();
                 }
             };
         </script>
