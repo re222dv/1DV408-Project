@@ -149,7 +149,6 @@ trait Node {
             /** @var Node[] $nodesAbove */
             $nodesAbove = $this->diff($nodeToMove->linksIncoming, $nodeToMove->nodesBelow);
 
-            //var_dump(count($nodeToMove->nodesAbove));
             if (count($nodesAbove) === 1 &&
                 count(array_values($nodesAbove)[0]->linksOutgoing) > 1) {
                 /** @var Node $parent */
@@ -157,29 +156,39 @@ trait Node {
                 $siblings = $this->diff($parent->linksOutgoing, $parent->nodesAbove);
                 $width = -20;
 
-                foreach ($siblings as $node) {
-                    $width += $node->width + 20;
+                foreach ($siblings as $sibling) {
+                    $width += $sibling->width + 20;
                 }
 
                 $x = $parent->centerX() - $width / 2;
                 $x = max(0, $x);
 
-                foreach ($siblings as $node) {
-                    $node->x = $x;
-                    $x += $node->width + 20;
+                foreach ($siblings as $sibling) {
+                    $sibling->x = $x;
+                    $x += $sibling->width + 20;
                 }
             }
         }
 
         if ($this->collidesWith($node)) {
             $length = ($this->width + $node->width) / 4 + 10;
-            $this->x -= $length;
-            $node->x += $length;
 
-            if ($this->x < 0) {
-                $node->x -= $this->x;
-                $this->x = 0;
+            $left = $this->x < $node->x ? $this : $node;
+            $right = $this->x > $node->x ? $this : $node;
+
+            $left->x -= $length;
+            $right->x += $length;
+
+            if ($left->x < 0) {
+                $right->x -= $left->x;
+                $left->x = 0;
             }
+        }
+
+        if ($this->collidesWith($node)) {
+            // Still colliding, try to move the other node
+            $nodeToMove = $this->diff([$this, $node], [$nodeToMove])[0];
+            $nodeToMove->positionHorizontally();
         }
     }
 
@@ -238,7 +247,7 @@ trait Node {
             }
         }
 
-        $this->y += 50;
+        $this->y += 80;
     }
 
     /**
