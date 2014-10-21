@@ -211,6 +211,22 @@ trait Node {
             $above = array_values($nodesAbove)[0];
             $this->x = $above->x;
         }
+
+        foreach($nodesAbove as $node) {
+            $commonAncestors = $this->common($this->nodesAbove, $node->nodesAbove);
+
+            foreach ($commonAncestors as $ancestor) {
+
+                if ($this->x + $this->width > $ancestor->centerX() &&
+                    $this->x < $ancestor->centerX()) {
+                    if ($ancestor->x - $this->x > 0) {
+                        $this->x = $ancestor->x - $this->width / 2;
+                    } else {
+                        $this->x = $ancestor->x + $ancestor->width - $this->width / 2;
+                    }
+                }
+            }
+        }
     }
 
     public function positionVertically() {
@@ -283,6 +299,23 @@ trait Node {
         }
 
         return $minuend;
+    }
+
+    /**
+     * @param array $left
+     * @param array $right
+     * @return Node[]
+     */
+    private function common(array $left, array $right) {
+        $common = [];
+
+        foreach ($left as $node) {
+            if (isset($right[$node->getName()])) {
+                $common[] = $node;
+            }
+        }
+
+        return $common;
     }
 
     /**
