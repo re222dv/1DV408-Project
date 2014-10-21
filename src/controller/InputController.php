@@ -3,7 +3,6 @@
 namespace controller;
 
 use model\entities\Diagram;
-use model\entities\umls\ClassDiagram;
 use model\repositories\DiagramRepository;
 use model\services\Auth;
 use view\InputView;
@@ -36,15 +35,14 @@ class InputController {
         $id = $this->router->getDiagramId();
 
         if ($this->inputView->wantToSave()) {
-            $name = $this->inputView->getName();
-            $umls = $this->inputView->getUmls();
 
             $diagram = new Diagram($id, $this->auth->getUser());
-            $diagram->setUmls($umls);
-            $diagram->setName($name);
+            $this->inputView->populateDiagram($diagram);
 
-            $this->diagramRepository->save($diagram);
-            $this->router->redirectTo(str_replace('{id}', $diagram->getId(), Router::DIAGRAM_FORMAT));
+            if ($diagram->isValid()) {
+                $this->diagramRepository->save($diagram);
+                $this->router->redirectTo(str_replace('{id}', $diagram->getId(), Router::DIAGRAM_FORMAT));
+            }
 
         } elseif (!$this->inputView->wantToRender() && $id != null) {
             $diagram = $this->diagramRepository->getById($id);

@@ -6,6 +6,13 @@
                 <input type="submit" name="save" value="Save" formmethod="post" />
             </div>
         ?}
+        {? if errors:
+            <ul class="error">
+                {? for error in errors:
+                    <li>{{ error }}</li>
+                ?}
+            </ul>
+        ?}
         <textarea name="umls">{{ umls }}</textarea>
         <input type="submit" name="render" value="Render" />
     </form>

@@ -2,6 +2,7 @@
 
 namespace view;
 
+use model\entities\Diagram;
 use model\entities\umls\ClassDiagram;
 use model\services\Auth;
 use Template\View;
@@ -25,6 +26,7 @@ EXAMPLE;
     const RV_UMLS = 'umls';
 
     const TV_DIAGRAM_VIEW = 'diagram';
+    const TV_ERRORS = 'errors';
     const TV_LOGGED_IN = 'loggedIn';
     const TV_NAME = self::RV_NAME;
     const TV_UMLS = self::RV_UMLS;
@@ -37,6 +39,7 @@ EXAMPLE;
 
         $this->variables = [
             self::TV_DIAGRAM_VIEW => $classDiagramView,
+            self::TV_ERRORS => [],
             self::TV_LOGGED_IN => $auth->isLoggedIn(),
         ];
     }
@@ -88,5 +91,29 @@ EXAMPLE;
 
     public function wantToSave() {
         return isset($_POST[self::PV_SAVE]);
+    }
+
+    public function populateDiagram(Diagram $diagram) {
+        $diagram->setUmls($this->getUmls());
+        try {
+            $diagram->setName($this->getName());
+        } catch (\InvalidArgumentException $e) {
+            $length = $e->getMessage();
+            switch ($e->getCode()) {
+                case Diagram::TOO_SHORT:
+                    $this->addError("The name is too short, a minimum of $length characters is required");
+                    break;
+                case Diagram::TOO_LONG:
+                    $this->addError("The name is too long, a maximum of $length characters is required");
+                    break;
+            }
+        }
+    }
+
+    /**
+     * @param string $message
+     */
+    private function addError($message) {
+        $this->variables[self::TV_ERRORS][] = $message;
     }
 }
