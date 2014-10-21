@@ -2,11 +2,15 @@
 
 namespace controller;
 
+use model\entities\auth\Token;
+use model\repositories\TokenRepository;
 use model\repositories\UserRepository;
 use model\services\Auth;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use view\auth\LoginView;
 use view\auth\RegisterView;
 use view\auth\UserView;
+use view\services\CredentialsHandler;
 use view\services\Router;
 
 class AuthController {
@@ -14,6 +18,10 @@ class AuthController {
      * @var Auth
      */
     private $auth;
+    /**
+     * @var CredentialsHandler
+     */
+    private $credentialsHandler;
     /**
      * @var LoginView
      */
@@ -27,6 +35,10 @@ class AuthController {
      */
     private $router;
     /**
+     * @var TokenRepository
+     */
+    private $tokenRepository;
+    /**
      * @var UserRepository
      */
     private $userRepository;
@@ -35,11 +47,14 @@ class AuthController {
      */
     private $userView;
 
-    public function __construct(Auth $auth, Router $router, UserRepository $userRepository,
+    public function __construct(Auth $auth, CredentialsHandler $credentialsHandler, Router $router,
+                                TokenRepository $tokenRepository, UserRepository $userRepository,
                                 LoginView $loginView, RegisterView $registerView,
                                 UserView $userView) {
         $this->auth = $auth;
+        $this->credentialsHandler = $credentialsHandler;
         $this->router = $router;
+        $this->tokenRepository = $tokenRepository;
         $this->userRepository = $userRepository;
         $this->loginView = $loginView;
         $this->registerView = $registerView;
@@ -74,15 +89,29 @@ class AuthController {
     public function render() {
         if ($this->auth->isLoggedIn() && $this->userView->haveLoggedOut()) {
             $this->auth->logOut();
+            $this->credentialsHandler->deleteSecret();
             $this->router->redirectTo(Router::INDEX);
-        } elseif (!$this->auth->isLoggedIn() && $this->loginView->haveLoggedIn()) {
-            $username = $this->loginView->getUsername();
-            $password = $this->loginView->getPassword();
+        }
 
-            if ($this->auth->logInByCredentials($username, $password)) {
-                $this->router->redirectTo(Router::INDEX);
-            } else {
-                $this->loginView->loginFailed();
+        if (!$this->auth->isLoggedIn()) {
+            if ($this->loginView->haveLoggedIn()) {
+                $username = $this->loginView->getUsername();
+                $password = $this->loginView->getPassword();
+
+                if ($this->auth->logInByCredentials($username, $password)) {
+                    $token = new Token($this->auth->getUser());
+                    $this->tokenRepository->insert($token);
+                    $this->credentialsHandler->saveSecret($token);
+                    $this->router->redirectTo(Router::INDEX);
+                } else {
+                    $this->loginView->loginFailed();
+                }
+            } elseif ($this->credentialsHandler->hasSecret()) {
+                $secret = $this->credentialsHandler->getSecret();
+                try {
+                    $token = $this->tokenRepository->getBySecret($secret);
+                    $this->auth->logInByToken($token);
+                } catch (\Exception $e) {}
             }
         }
 

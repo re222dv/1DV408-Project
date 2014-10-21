@@ -189,9 +189,11 @@ class Database {
             ->prepare("INSERT INTO $table (`$columns`) VALUES ($placeholders)")
             ->execute(array_values($vars));
 
-        $property = $reflection->getProperty('id');
-        $property->setAccessible(true);
-        $property->setValue($object, $this->connection->lastInsertId());
+        if ($reflection->hasProperty('id')) {
+            $property = $reflection->getProperty('id');
+            $property->setAccessible(true);
+            $property->setValue($object, $this->connection->lastInsertId());
+        }
     }
 
     /**
