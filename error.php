@@ -4,9 +4,9 @@
     <head lang="en">
         <meta charset="UTF-8">
         <title>UMLS</title>
-        <link rel="stylesheet" href="/static/styles/main.css" />
-        <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,300,500,700' rel='stylesheet' type='text/css' />
-        <link href='http://fonts.googleapis.com/css?family=Halant' rel='stylesheet' type='text/css' />
+        <link href="/static/styles/main.css" rel="stylesheet" type="text/css" />
+        <link href="http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,300,500,700" rel="stylesheet" type="text/css" />
+        <link href="http://fonts.googleapis.com/css?family=Halant" rel="stylesheet" type="text/css" />
         <style>
             main {
                 margin: auto;

@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'DejaVu Sans Mono';
+    src: local('DejaVu Sans Mono'),
+         url('fonts/DejaVuSansMono.woff') format('woff'),
+         url('fonts/DejaVuSansMono.ttf') format('truetype');
+}
+
 @mixin center-vertically {
     display: flex;
     align-items: center;

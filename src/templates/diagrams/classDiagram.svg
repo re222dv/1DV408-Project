@@ -6,6 +6,14 @@
     height="100%"
     style="font: 12px 'DejaVu Sans Mono', monospace;">
     <defs>
+        <style type="text/css">
+            @font-face {
+                font-family: 'DejaVu Sans Mono';
+                src: local('DejaVu Sans Mono'),
+                     url('http://umls.eneman.eu/fonts/DejaVuSansMono.woff') format('woff'),
+                     url('http://umls.eneman.eu/fonts/DejaVuSansMono.ttf') format('truetype');
+            }
+        </style>
         <pattern id="checkboard" width="50" height="50" patternUnits="userSpaceOnUse">
             <rect x="0" y="0" width="50" height="50" fill="white" />
             <rect x="0" y="0" width="25" height="25" fill="whitesmoke" />
