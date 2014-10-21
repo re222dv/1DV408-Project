@@ -63,6 +63,7 @@ class MasterController {
                     $this->masterView->setMain($this->myDiagramsController->render());
                 } else {
                     $this->router->redirectTo(Router::INDEX);
+                    return null;
                 }
                 break;
 
@@ -76,6 +77,9 @@ class MasterController {
             default:
                 if ($this->router->isDiagram()) {
                     $this->masterView->setMain($this->inputController->render());
+                } else {
+                    $this->router->redirectTo(Router::INDEX);
+                    return null;
                 }
         }
 
