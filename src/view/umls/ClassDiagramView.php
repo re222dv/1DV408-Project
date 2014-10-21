@@ -72,7 +72,8 @@ class ClassDiagramView extends View {
             $width = max($width, $class->x + $class->width);
         }
 
-        $this->variables[self::TV_HEIGHT] = $height;
-        $this->variables[self::TV_WIDTH] = $width;
+        // Set the width and height with an extra marginal to make sure we aren't clipped
+        $this->variables[self::TV_HEIGHT] = $height + 1;
+        $this->variables[self::TV_WIDTH] = $width + 1;
     }
 }

@@ -382,8 +382,8 @@ main {
 
                 padding: 1rem;
                 box-sizing: border-box;
-                width: 65%;
-                height: calc(100% - 4rem);
+                max-width: 65%;
+                max-height: calc(100% - 4rem);
             }
 
             &:hover img {
