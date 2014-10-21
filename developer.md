@@ -1,3 +1,7 @@
+# CI
+Travis is used as CI and will run the tests on push, you can find it on
+<https://travis-ci.org/re222dv/1DV408-Project>
+
 # Location Constants
 Locations in _GET, _POST, _SESSION or variables that are sent to the template should be
 specified in a named constant at the top of the class so that it's possible to see
