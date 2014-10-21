@@ -290,7 +290,7 @@ main {
             }
         }
 
-        svg {
+        div.render {
             position: absolute;
             top: 0;
             left: 35%;
@@ -299,6 +299,8 @@ main {
             box-sizing: border-box;
             width: 65%;
             height: 100%;
+
+            overflow: auto;
         }
     }
 

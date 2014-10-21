@@ -24,5 +24,7 @@
 
         document.querySelector('#inputForm').onsubmit = onSubmit;
     </script>
-    {? if diagram: {% view diagram %} ?}
+    <div class="render">
+        {? if diagram: {% view diagram %} ?}
+    </div>
 </section>

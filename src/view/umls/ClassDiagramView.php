@@ -10,9 +10,13 @@ use view\point_graph\Node;
 class ClassDiagramView extends View {
     use Graph;
 
+    const GV_CHECKBOARD = 'checkboard';
+
     const TV_ASSOCIATIONS = 'associations';
-    const TV_CHECKBOARD = 'checkboard';
+    const TV_CHECKBOARD = self::GV_CHECKBOARD;
     const TV_CLASSES = 'classes';
+    const TV_HEIGHT = 'height';
+    const TV_WIDTH = 'width';
 
     protected $template = 'diagrams/classDiagram.svg';
     /**
@@ -58,6 +62,17 @@ class ClassDiagramView extends View {
     }
 
     public function onRender() {
-        $this->variables[self::TV_CHECKBOARD] = isset($_GET['checkboard']);
+        $this->variables[self::TV_CHECKBOARD] = isset($_GET[self::GV_CHECKBOARD]);
+
+        $height = 0;
+        $width = 0;
+
+        foreach ($this->variables[self::TV_CLASSES] as $class) {
+            $height = max($height, $class->y + $class->height);
+            $width = max($width, $class->x + $class->width);
+        }
+
+        $this->variables[self::TV_HEIGHT] = $height;
+        $this->variables[self::TV_WIDTH] = $width;
     }
 }
