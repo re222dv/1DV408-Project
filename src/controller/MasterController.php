@@ -2,10 +2,15 @@
 
 namespace controller;
 
+use model\services\Auth;
 use view\MasterView;
 use view\services\Router;
 
 class MasterController {
+    /**
+     * @var Auth
+     */
+    private $auth;
     /**
      * @var AuthController
      */
@@ -31,11 +36,12 @@ class MasterController {
      */
     private $router;
 
-    public function __construct(Router $router, AuthController $authController,
+    public function __construct(Auth $auth, Router $router, AuthController $authController,
                                 FileController $fileController,
                                 InputController $inputController,
                                 MyDiagramsController $myDiagramsController,
                                 MasterView $masterView) {
+        $this->auth = $auth;
         $this->router = $router;
         $this->authController = $authController;
         $this->fileController = $fileController;
@@ -53,8 +59,11 @@ class MasterController {
                 break;
 
             case Router::MY_DIAGRAMS:
-
-                $this->masterView->setMain($this->myDiagramsController->render());
+                if ($this->auth->isLoggedIn()) {
+                    $this->masterView->setMain($this->myDiagramsController->render());
+                } else {
+                    $this->router->redirectTo(Router::INDEX);
+                }
                 break;
 
             case Router::REGISTER:
