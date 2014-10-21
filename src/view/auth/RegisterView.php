@@ -48,7 +48,11 @@ class RegisterView extends View {
             }
         }
 
-        $user->setPassword($this->variables[self::TV_PASSWORD]);
+        try {
+            $user->setPassword($this->variables[self::TV_PASSWORD]);
+        } catch (\InvalidArgumentException $e) {
+            $this->addError('The password can not be empty');
+        }
 
         return $user;
     }

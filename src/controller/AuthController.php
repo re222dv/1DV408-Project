@@ -6,7 +6,6 @@ use model\entities\auth\Token;
 use model\repositories\TokenRepository;
 use model\repositories\UserRepository;
 use model\services\Auth;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use view\auth\LoginView;
 use view\auth\RegisterView;
 use view\auth\UserView;

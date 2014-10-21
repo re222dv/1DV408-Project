@@ -47,8 +47,12 @@ class User {
 
     /**
      * @param string $password
+     * @throws \InvalidArgumentException If the password is empty
      */
     public function setPassword($password) {
+        if (empty($password)) {
+            throw new \InvalidArgumentException();
+        }
         $this->hash = password_hash($password, PASSWORD_BCRYPT);
     }
 
