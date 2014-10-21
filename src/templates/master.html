@@ -17,5 +17,18 @@
             <section class="auth">{% view auth %}</section>
         </header>
         <main>{% view main %}</main>
+        <script type="application/javascript">
+            window.onload = function() {
+                var main = document.querySelector('body>main');
+                var section = document.querySelector('body>main>section');
+
+                if (main.offsetHeight > section.offsetHeight) {
+                    console.log('Your browser sucks and I now have to do a f\'ugly workaround' +
+                                'for one of its many bugs.');
+
+                    section.style.height = main.offsetHeight + 'px';
+                }
+            };
+        </script>
     </body>
 </html>
