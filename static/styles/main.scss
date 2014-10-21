@@ -41,6 +41,31 @@
 
 .error {
     color: darkred;
+
+    -webkit-animation: errorAlert 2s ease;
+    animation: errorAlert 2s ease;
+}
+
+@-webkit-keyframes errorAlert {
+    0% {
+        color: red;
+        text-shadow: 0 0 10px darkred;
+    }
+    100% {
+        color: darkred;
+        text-shadow: none;
+    }
+}
+
+@keyframes errorAlert {
+    0% {
+        color: red;
+        text-shadow: 0 0 10px darkred;
+    }
+    100% {
+        color: darkred;
+        text-shadow: none;
+    }
 }
 
 html, body {
