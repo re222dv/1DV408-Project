@@ -85,6 +85,10 @@ body, input {
     font-family: 'Alegreya Sans SC', sans-serif;
 }
 
+p {
+    font-family: 'Halant', serif;
+}
+
 input {
     border: 1px solid gray;
 
@@ -137,7 +141,7 @@ header {
         float: right;
         height: 100%;
 
-        p {
+        span {
             display:table-cell;
 
             margin: 0;
@@ -222,10 +226,6 @@ main {
             width: 30rem;
 
             text-align: center;
-
-            p {
-                font-family: 'Halant', serif;
-            }
         }
     }
 
