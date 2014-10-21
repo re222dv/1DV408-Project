@@ -46,6 +46,12 @@
     animation: errorAlert 2s ease;
 }
 
+
+input[type="text"]:active, input[type="text"]:focus,
+textarea:active, textarea:focus {
+    outline: none; // Fix border in chrome
+}
+
 @-webkit-keyframes errorAlert {
     0% {
         color: red;
@@ -267,7 +273,7 @@ main {
                 width: 100%;
                 border: none;
 
-                font-family: monospace;
+                font-family: "DejaVu Sans Mono" monospace;
                 resize: none;
             }
 
@@ -286,8 +292,6 @@ main {
             box-sizing: border-box;
             width: 65%;
             height: 100%;
-
-            font-family: monospace;
         }
     }
 
@@ -361,7 +365,7 @@ main {
                 }
             }
 
-            object {
+            img {
                 display: none;
                 position: fixed;
                 top: 4rem;
@@ -373,7 +377,7 @@ main {
                 height: calc(100% - 4rem);
             }
 
-            &:hover object {
+            &:hover img {
                 display: block;
             }
         }

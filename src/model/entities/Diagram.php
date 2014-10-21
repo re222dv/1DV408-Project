@@ -12,7 +12,7 @@ class Diagram {
 
     /**
      * @var string
-     * [column varchar(20)]
+     * [column varchar(40)]
      */
     private $name;
 
@@ -41,15 +41,15 @@ class Diagram {
     }
 
     /**
-     * @param string $name [3, 20]
+     * @param string $name [3, 40]
      * @throws \InvalidArgumentException If at least one of the rules are not met
      */
     public function setName($name) {
         $length = mb_strlen($name);
         if ($length < 3) {
             throw new \InvalidArgumentException(3, self::TOO_SHORT);
-        } elseif ($length > 20) {
-            throw new \InvalidArgumentException(20, self::TOO_LONG);
+        } elseif ($length > 40) {
+            throw new \InvalidArgumentException(40, self::TOO_LONG);
         }
 
         $this->name = $name;
