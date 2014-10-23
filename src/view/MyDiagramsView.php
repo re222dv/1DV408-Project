@@ -13,8 +13,6 @@ class MyDiagramsView extends View {
 
     const TV_DIAGRAMS = 'diagrams';
     const TV_DIAGRAM_URL = 'diagramUrl';
-    const TV_FILE_URL = 'fileUrl';
-    const TV_FILE_GV = 'fileGetVariable';
 
     protected $template = 'myDiagrams.html';
 
@@ -31,8 +29,6 @@ class MyDiagramsView extends View {
 
     public function onRender() {
         $this->variables[self::TV_DIAGRAM_URL] = Router::DIAGRAM_FORMAT;
-        $this->variables[self::TV_FILE_GV] = FileView::RV_UMLS;
-        $this->variables[self::TV_FILE_URL] = Router::FILE;
     }
 
     public function shouldDelete() {
@@ -47,11 +43,11 @@ class MyDiagramsView extends View {
 class DiagramViewModel {
     public $name;
     public $id;
-    public $umls;
+    public $url;
 
     public function __construct(Diagram $diagram) {
         $this->name = $diagram->getName();
         $this->id = $diagram->getId();
-        $this->umls = rawurlencode($diagram->getUmls());
+        $this->url = Router::FILE.'?'.FileView::RV_UMLS.'='.rawurlencode($diagram->getUmls());
     }
 }
