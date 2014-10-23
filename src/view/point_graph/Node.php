@@ -3,6 +3,9 @@
 namespace view\point_graph;
 
 trait Node {
+    protected static $X_MARGIN = 20;
+    protected static $Y_MARGIN = 80;
+
     /**
      * @var Node[]
      */
@@ -150,7 +153,7 @@ trait Node {
         }
 
         if ($this->collidesWith($node)) {
-            $length = ($this->width + $node->width) / 4 + 10;
+            $length = ($this->width + $node->width) / 4 + self::$X_MARGIN / 2;
 
             $left = $this->x < $node->x ? $this : $node;
             $right = $this->x > $node->x ? $this : $node;
@@ -226,10 +229,10 @@ trait Node {
             /** @var Node $parent */
             $parent = array_values($nodesAbove)[0];
             $siblings = $this->diff($parent->linksOutgoing, $parent->nodesAbove);
-            $width = -20;
+            $width = -self::$X_MARGIN;
 
             foreach ($siblings as $sibling) {
-                $width += $sibling->width + 20;
+                $width += $sibling->width + self::$X_MARGIN;
             }
 
             $x = $parent->centerX() - $width / 2;
@@ -237,7 +240,7 @@ trait Node {
 
             foreach ($siblings as $sibling) {
                 $sibling->x = $x;
-                $x += $sibling->width + 20;
+                $x += $sibling->width + self::$X_MARGIN;
             }
         }
     }
@@ -251,7 +254,7 @@ trait Node {
             }
         }
 
-        $this->y += 80;
+        $this->y += self::$Y_MARGIN;
     }
 
     /**
@@ -336,7 +339,7 @@ trait Node {
      */
     public function setRightOf($other) {
         if (!$this->isRightOf($other)) {
-            $this->x = $other->x + $other->width + 20;
+            $this->x = $other->x + $other->width + self::$X_MARGIN;
         }
     }
 }
