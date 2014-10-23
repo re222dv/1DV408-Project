@@ -15,7 +15,7 @@ require_once('Directive.php');
  *
  * @package Template\directives
  */
-class ExpressionDirective extends InlineDirective {
+class ExpressionDirective implements InlineDirective {
     const PRIORITY_MATH = '/([a-z0-9.]+)\s*(\*|\/)\s*([a-z0-9.]+)/i';
     const MATH = '/([a-z0-9.]+)\s*(\+|-|%)\s*([a-z0-9.]+)/i';
     const BOOLEAN_EXPRESSION = '/([a-z0-9.]+)\s*((?:[!=]==?)|[<>])\s*([a-z0-9.]+)/i';

@@ -15,7 +15,7 @@ use Template\View;
  *
  * @package Template\directives
  */
-class InjectViewDirective extends InlineDirective {
+class InjectViewDirective implements InlineDirective {
     /**
      * @var Injector
      */

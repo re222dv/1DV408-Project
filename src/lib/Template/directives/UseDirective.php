@@ -16,7 +16,7 @@ use Template\PartialView;
  *
  * @package Template\directives
  */
-class UseDirective extends BlockDirective {
+class UseDirective implements BlockDirective {
 
     function render(PartialView $view, array $arguments, $body) {
         if (count($arguments) !== 3) {

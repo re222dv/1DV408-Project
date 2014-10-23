@@ -14,7 +14,7 @@ require_once('Directive.php');
  *
  * @package Template\directives
  */
-class ViewDirective extends InlineDirective {
+class ViewDirective implements InlineDirective {
 
     function render(View $view, array $arguments) {
         if (count($arguments) !== 1) {

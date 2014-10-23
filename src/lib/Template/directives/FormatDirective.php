@@ -14,7 +14,7 @@ require_once('Directive.php');
  *
  * @package Template\directives
  */
-class FormatDirective extends InlineDirective {
+class FormatDirective implements InlineDirective {
     const REPLACEMENTS = '/\{\w+\}/';
 
     function render(View $view, array $arguments) {

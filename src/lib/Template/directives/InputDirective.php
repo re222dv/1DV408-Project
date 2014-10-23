@@ -7,7 +7,7 @@ use Template\View;
 require_once('Directive.php');
 
 /**
- * Handles formfields sent with POST, values are set and read using template variables
+ * Handles form fields sent with POST, values are set and read using template variables
  * and fields are autofilled with the previously posted value if not overridden.
  * Inputs must be registered before rendering, it's preferably done in the constructor.
  *
@@ -17,7 +17,7 @@ require_once('Directive.php');
  *
  * @package Template\directives
  */
-class InputDirective extends InlineDirective {
+class InputDirective implements InlineDirective {
     private $registeredInputs = [];
 
     function registerInput(View $view, $modelName) {

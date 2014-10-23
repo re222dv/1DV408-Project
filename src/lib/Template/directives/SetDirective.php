@@ -14,7 +14,7 @@ require_once('Directive.php');
  *
  * @package Template\directives
  */
-class SetDirective extends InlineDirective {
+class SetDirective implements InlineDirective {
 
     function render(View $view, array $arguments) {
         if (count($arguments) !== 2) {
@@ -23,6 +23,7 @@ class SetDirective extends InlineDirective {
         $name = $arguments[0];
         $value = $arguments[1];
 
+        /** @var View $definedIn */
         $definedIn = null;
 
         for ($current = $view;

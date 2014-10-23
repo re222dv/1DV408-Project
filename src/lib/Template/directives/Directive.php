@@ -19,14 +19,14 @@ use Template\View;
  *     Hello, {{ userName }}!
  *  ?}
  */
-abstract class BlockDirective {
+interface BlockDirective {
     /**
      * @param PartialView $view The PartialView this directive is rendered in.
      * @param array $arguments  All arguments specified in the template.
      * @param string $body      The body of this template.
      * @return string Return a rendered version of this directive.
      */
-    abstract function render(PartialView $view, array $arguments, $body);
+    function render(PartialView $view, array $arguments, $body);
 }
 
 /**
@@ -39,11 +39,11 @@ abstract class BlockDirective {
  * Example:
  *  {% view content %}
  */
-abstract class InlineDirective {
+interface InlineDirective {
     /**
      * @param View $view       The View this directive is rendered in.
      * @param array $arguments All arguments specified in the template.
      * @return string Return a rendered version of this directive.
      */
-    abstract function render(View $view, array $arguments);
+    function render(View $view, array $arguments);
 }

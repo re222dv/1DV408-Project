@@ -14,7 +14,7 @@ require_once('Directive.php');
  *
  * @package Template\directives
  */
-class JoinDirective extends InlineDirective {
+class JoinDirective implements InlineDirective {
 
     function render(View $view, array $arguments) {
         if (count($arguments) !== 2) {
