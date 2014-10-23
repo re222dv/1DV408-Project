@@ -8,18 +8,13 @@ Login with the username `Test` and password `tester` and go through the saved di
 to make sure the look correct and doesn't have regressed.
 
 The current output for the diagrams are:
-### Test Example
-![Test Example](output/example.svg)
-### Test Associations
-![Test Associations](output/associations.svg)
-### Test Loop 1
-![Test Loop 1](output/loop1.svg)
-### Test Loop 2
-![Test Loop 2](output/loop2.svg)
-### Test MVC
-![Test MVC](output/mvc.svg)
-### Test Advanced
-![Test Advanced](output/advanced.svg)
+
+1. [Test Example](output/example.svg)
+1. [Test Associations](output/associations.svg)
+1. [Test Loop 1](output/loop1.svg)
+1. [Test Loop 2](output/loop2.svg)
+1. [Test MVC](output/mvc.svg)
+1. [Test Advanced](output/advanced.svg)
 
 ## Checking the application
 ### Test register
