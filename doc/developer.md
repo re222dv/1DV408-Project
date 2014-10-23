@@ -8,11 +8,11 @@ specified in a named constant at the top of the class so that it's possible to s
 communications just by a quick overview.
 
 Use a prefix for the specific use case
-`GV_` a GET variable
-`PV_` a POST variable
-`RV_` a variable than can be sent as both GET and POST
-`SV_` a SESSION variable
-`TV_` a template variable
+- `GV_` for a GET variable
+- `PV_` for a POST variable
+- `RV_` for a variable than can be sent as both GET and POST
+- `SV_` for a SESSION variable
+- `TV_` for a template variable
 
 When the InputDirective is used the variable is still a `TV_` as the input is registered
 in the constructor and the _POST superglobal is never accessed in the class. 
