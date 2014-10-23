@@ -1,0 +1,311 @@
+@font-face {
+  font-family: 'DejaVu Sans Mono';
+  src: local("DejaVu Sans Mono"), url("fonts/DejaVuSansMono.woff") format("woff"), url("fonts/DejaVuSansMono.ttf") format("truetype"); }
+
+.error {
+  color: darkred;
+  -webkit-animation: errorAlert 2s ease;
+  animation: errorAlert 2s ease; }
+
+input[type="text"]:active, input[type="text"]:focus,
+textarea:active, textarea:focus {
+  outline: none; }
+
+@-webkit-keyframes errorAlert {
+  0% {
+    color: red;
+    text-shadow: 0 0 10px darkred; }
+
+  100% {
+    color: darkred;
+    text-shadow: none; } }
+
+@keyframes errorAlert {
+  0% {
+    color: red;
+    text-shadow: 0 0 10px darkred; }
+
+  100% {
+    color: darkred;
+    text-shadow: none; } }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0; }
+
+body, input {
+  font-family: 'Alegreya Sans SC', sans-serif; }
+
+p {
+  font-family: 'Halant', serif; }
+
+input {
+  border: 1px solid gray; }
+  input[type="submit"] {
+    background-color: whitesmoke; }
+
+body {
+  display: flex;
+  flex-direction: column; }
+
+header {
+  width: 100%;
+  height: 4rem;
+  color: white;
+  background-color: #005580;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-left: 4rem;
+  padding-right: 4rem; }
+  header section {
+    display: table; }
+  header section:not(.logo) a {
+    display: table-cell;
+    box-sizing: border-box;
+    padding: 0 2rem;
+    height: 4rem;
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    font-size: 1rem;
+    text-decoration: none;
+    vertical-align: middle; }
+    header section:not(.logo) a:hover {
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.2); }
+  header section.logo {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    float: left;
+    font-size: 2.5rem;
+    font-weight: 300; }
+    header section.logo a {
+      padding-left: 45px;
+      color: white;
+      background: url("/static/logo.svg") no-repeat;
+      background-size: contain;
+      text-decoration: none; }
+    header section.logo .uml {
+      font-weight: 500; }
+  header section.auth {
+    float: right;
+    height: 100%; }
+    header section.auth span {
+      display: table-cell;
+      margin: 0;
+      padding-right: 1rem;
+      max-width: 15rem;
+      vertical-align: middle; }
+      header section.auth span.username {
+        font-weight: 500; }
+    header section.auth form section.credentials {
+      float: left; }
+      header section.auth form section.credentials input {
+        display: block;
+        margin: 0.3rem;
+        padding: 0.15rem 0.5rem;
+        box-sizing: border-box;
+        height: 1.55rem; }
+    header section.auth form input[type="submit"] {
+      display: table-cell;
+      box-sizing: border-box;
+      padding: 0 2rem;
+      height: 4rem;
+      color: white;
+      background-color: transparent;
+      border: none;
+      border-left: 1px solid lightgray;
+      border-right: 1px solid lightgray;
+      font-size: 1rem;
+      text-decoration: none;
+      vertical-align: middle;
+      float: right; }
+      header section.auth form input[type="submit"]:hover {
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.2); }
+    header section.auth form + a, header section.auth a + form input[type="submit"] {
+      border-left: none; }
+
+main {
+  position: relative;
+  flex-grow: 1;
+  width: 100%; }
+  main section {
+    height: 100%; }
+  main section.register {
+    display: flex;
+    justify-content: space-around; }
+    main section.register form, main section.register article {
+      padding: 5rem; }
+    main section.register form label {
+      display: block;
+      padding: 1rem;
+      width: 20rem;
+      font-weight: 500; }
+      main section.register form label input {
+        float: right; }
+    main section.register form input[type="submit"] {
+      margin-top: 3rem;
+      width: 100%;
+      height: 4rem; }
+    main section.register article {
+      width: 30rem;
+      text-align: center; }
+  main section.diagram form {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    height: 100%; }
+    main section.diagram form div {
+      width: 100%;
+      height: 4rem;
+      color: white;
+      background-color: #005580;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      height: 2rem; }
+      main section.diagram form div input {
+        border: none;
+        border-radius: 0; }
+        main section.diagram form div input[type="text"] {
+          flex-grow: 1;
+          padding: 0 1rem;
+          background-color: whitesmoke; }
+        main section.diagram form div input[type="submit"] {
+          display: table-cell;
+          box-sizing: border-box;
+          padding: 0 2rem;
+          height: 4rem;
+          color: white;
+          background-color: transparent;
+          border: none;
+          border-left: 1px solid lightgray;
+          border-right: 1px solid lightgray;
+          font-size: 1rem;
+          text-decoration: none;
+          vertical-align: middle;
+          height: 100%;
+          line-height: inherit; }
+          main section.diagram form div input[type="submit"]:hover {
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.2); }
+    main section.diagram form textarea {
+      flex-grow: 1;
+      margin: 0;
+      box-sizing: border-box;
+      padding: 10px 10px 100px;
+      width: 100%;
+      border: none;
+      font-family: "DejaVu Sans Mono" monospace;
+      resize: none; }
+    main section.diagram form input[type="submit"][value="Render"] {
+      width: 100%;
+      height: 100px; }
+  main section.diagram div.render {
+    position: absolute;
+    top: 0;
+    left: 35%;
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 65%;
+    height: 100%;
+    overflow: auto; }
+    main section.diagram div.render .link {
+      position: fixed;
+      bottom: 0;
+      left: 35%;
+      padding: 0.5rem;
+      color: dodgerblue;
+      background-color: rgba(255, 255, 255, 0.7);
+      transition: background-color 0.2s; }
+      main section.diagram div.render .link a {
+        color: dodgerblue;
+        text-decoration: none; }
+      main section.diagram div.render .link:hover {
+        background-color: rgba(255, 255, 255, 0.95); }
+  main section.myDiagrams ul {
+    margin: 0;
+    padding: 0;
+    width: 35%;
+    height: 100%;
+    background-color: whitesmoke; }
+    main section.myDiagrams ul li {
+      position: relative; }
+      main section.myDiagrams ul li a {
+        display: block;
+        padding: 1rem 2rem;
+        color: darkslategray;
+        text-decoration: none; }
+        main section.myDiagrams ul li a:hover {
+          font-weight: 500; }
+      main section.myDiagrams ul li .hidden {
+        position: absolute;
+        top: 5px;
+        transition: color 0.5s, opacity 0.5s; }
+        main section.myDiagrams ul li .hidden span, main section.myDiagrams ul li .hidden input, main section.myDiagrams ul li .hidden a {
+          position: absolute;
+          top: 0;
+          right: 0;
+          height: 2rem; }
+        main section.myDiagrams ul li .hidden span {
+          font-size: 1.3rem;
+          line-height: 2.1rem;
+          transition: transform 0.5s; }
+          main section.myDiagrams ul li .hidden span.fa {
+            font-size: 1.1rem; }
+        main section.myDiagrams ul li .hidden a, main section.myDiagrams ul li .hidden input {
+          display: block;
+          padding: 0;
+          max-width: 0;
+          overflow: hidden;
+          background: transparent;
+          border: none;
+          font-size: 13px;
+          font-weight: normal;
+          line-height: 2rem;
+          white-space: nowrap;
+          transition: color 0.5s, max-width 0.5s; }
+        main section.myDiagrams ul li .hidden:hover a, main section.myDiagrams ul li .hidden:hover input {
+          padding-right: 1.1rem;
+          max-width: 15rem;
+          background: transparent;
+          cursor: pointer; }
+      main section.myDiagrams ul li .delete {
+        right: 10px;
+        z-index: 2; }
+        main section.myDiagrams ul li .delete:hover {
+          color: red; }
+          main section.myDiagrams ul li .delete:hover span {
+            transform: rotate(-180deg); }
+          main section.myDiagrams ul li .delete:hover input {
+            color: red; }
+          main section.myDiagrams ul li .delete:hover + .link {
+            opacity: 0; }
+      main section.myDiagrams ul li .link {
+        right: 40px;
+        z-index: 1; }
+        main section.myDiagrams ul li .link:hover {
+          color: dodgerblue; }
+          main section.myDiagrams ul li .link:hover span {
+            transform: rotate(-180deg); }
+          main section.myDiagrams ul li .link:hover a {
+            color: dodgerblue; }
+      main section.myDiagrams ul li img {
+        display: none;
+        position: fixed;
+        top: 4rem;
+        left: 35%;
+        padding: 1rem;
+        box-sizing: border-box;
+        max-width: 65%;
+        max-height: calc(100% - 4rem); }
+      main section.myDiagrams ul li:hover img {
+        display: block; }
+    main section.myDiagrams ul li + li {
+      border-top: 1px solid black; }
