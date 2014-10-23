@@ -76,7 +76,6 @@ EXAMPLE;
 
     public function setUmls($umls) {
         $this->setVariable(self::TV_UMLS, $umls);
-        $this->setVariable(self::TV_ENCODED_UMLS, rawurlencode($umls));
     }
 
     public function onRender() {
@@ -90,6 +89,8 @@ EXAMPLE;
         if (!isset($this->variables[self::TV_NAME])) {
             $this->setName($this->getName());
         }
+
+        $this->setVariable(self::TV_ENCODED_UMLS, rawurlencode($this->variables[self::TV_UMLS]));
     }
 
     public function wantToRender() {
