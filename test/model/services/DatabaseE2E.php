@@ -4,6 +4,11 @@ namespace model\services;
 
 require_once(__DIR__.'/../../../src/model/services/Database.php');
 
+const DB_HOST = '127.0.0.1';
+const DB_NAME = 'testproject';
+const DB_USER = 'Sven';
+const DB_PASS = 'Åke';
+
 class DatabaseE2E extends \PHPUnit_Framework_TestCase {
     /**
      * @var Database
@@ -11,6 +16,10 @@ class DatabaseE2E extends \PHPUnit_Framework_TestCase {
     private $database;
 
     public function __construct() {
+        $this->database = new Database();
+    }
+
+    public function testConstructor() {
         $this->database = new Database();
     }
 
