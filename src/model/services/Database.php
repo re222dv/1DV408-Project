@@ -10,13 +10,11 @@ namespace model\services;
 class Database {
     const COLUMN_DECLARATION = '/\[column ([a-z0-9()]+)( null)?\]/';
 
-    private $connectionString = 'mysql:host=127.0.0.1;dbname=project';
-    private $user = 'Sven';
-    private $password = 'Åke';
     private $connection;
 
     public function __construct() {
-        $this->connection = new \PDO($this->connectionString, $this->user, $this->password);
+        $connectionString = 'mysql:host='.DB_HOST.';dbname='.DB_NAME;
+        $this->connection = new \PDO($connectionString, DB_USER, DB_PASS);
         $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
