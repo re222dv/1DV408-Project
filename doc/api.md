@@ -4,10 +4,11 @@ sending a GET or POST request to <http://umls.eneman.eu/file.svg> UMLS for the
 diagram is passed as a GET or POST variable.
 
 For example does `http://umls.eneman.eu/file.svg?umls=[A]-[C][B]-[C][C]-[D][D]-[E][D]-[F]`
-produce the diagram ![umls](http://umls.eneman.eu/file.svg?umls=[A]-[C][B]-[C][C]-[D][D]-[E][D]-[F])
+produce the diagram  
+![umls](http://umls.eneman.eu/file.svg?umls=[A]-[C][B]-[C][C]-[D][D]-[E][D]-[F])
 
 A checkboard background will be rendered if the checkboard get variable is set
-`http://umls.eneman.eu/file.svg?umls=[A]-[C][B]-[C][C]-[D][D]-[E][D]-[F]&checkboard`
+`http://umls.eneman.eu/file.svg?umls=[A]-[C][B]-[C][C]-[D][D]-[E][D]-[F]&checkboard`  
 ![umls](http://umls.eneman.eu/file.svg?umls=[A]-[C][B]-[C][C]-[D][D]-[E][D]-[F]&checkboard)
 
 # Scripting
