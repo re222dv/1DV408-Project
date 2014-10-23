@@ -1,10 +1,10 @@
 <?php
 
-namespace view\point_graph;
+namespace view\graph;
 
 trait Node {
-    protected static $X_MARGIN = 20;
-    protected static $Y_MARGIN = 80;
+    protected static $horizontalMargin = 20;
+    protected static $verticalMargin = 80;
 
     /**
      * @var Node[]
@@ -64,10 +64,10 @@ trait Node {
     public function findTree() {
         $this->addAll($this->linksIncoming, $this->nodesAbove);
         $this->addAll($this->linksOutgoing, $this->nodesBelow);
-        $this->find($this);
+        $this->findNodesBelow($this);
     }
 
-    public function fix() {
+    public function fixTree() {
         foreach ($this->nodesAbove as $above) {
             if ($this->inArray($above, $this->nodesBelow)) {
                 // We have the same node above and below
@@ -79,6 +79,7 @@ trait Node {
                     unset($this->nodesBelow[$above->getName()]);
                     $this->addAll($above->nodesAbove, $this->nodesAbove);
                 } else {
+                    // Move up
                     $above->nodesAbove[$this->getName()] = $this;
                     unset($above->nodesBelow[$this->getName()]);
                     unset($this->nodesAbove[$above->getName()]);
@@ -94,7 +95,7 @@ trait Node {
     /**
      * @param Node $node
      */
-    private function find($node) {
+    private function findNodesBelow($node) {
         unset($node->nodesAbove[$node->getName()]);
         unset($node->nodesBelow[$node->getName()]);
 
@@ -106,7 +107,7 @@ trait Node {
 
             $node->nodesBelow[$below->getName()] = $below;
             $this->addAll($node->nodesAbove, $below->nodesAbove);
-            $this->find($below);
+            $this->findNodesBelow($below);
             $this->addAll($below->nodesBelow, $node->nodesBelow);
         }
     }
@@ -153,7 +154,7 @@ trait Node {
         }
 
         if ($this->collidesWith($node)) {
-            $length = ($this->width + $node->width) / 4 + self::$X_MARGIN / 2;
+            $length = ($this->width + $node->width) / 4 + self::$horizontalMargin / 2;
 
             $left = $this->x < $node->x ? $this : $node;
             $right = $this->x > $node->x ? $this : $node;
@@ -174,6 +175,9 @@ trait Node {
         }
     }
 
+    /**
+     * @return bool True if this node is below all $nodesAbove
+     */
     public function isVerticalPositionAllowed() {
         foreach ($this->nodesAbove as $node) {
             if (!$this->isBelow($node)) {
@@ -184,6 +188,9 @@ trait Node {
         return true;
     }
 
+    /**
+     * Tries to find a good horizontal position using neighbour nodes
+     */
     public function positionHorizontally() {
         /** @var Node[] $nodesAbove */
         $nodesAbove = $this->diff($this->linksIncoming, $this->nodesBelow);
@@ -220,6 +227,10 @@ trait Node {
         }
     }
 
+    /**
+     * Tries to find a good horizontal position for this and sibling nodes
+     * (nodes sharing the same $linksIncoming that should be above them)
+     */
     public function positionSiblingsHorizontally() {
         /** @var Node[] $nodesAbove */
         $nodesAbove = $this->diff($this->linksIncoming, $this->nodesBelow);
@@ -229,10 +240,10 @@ trait Node {
             /** @var Node $parent */
             $parent = array_values($nodesAbove)[0];
             $siblings = $this->diff($parent->linksOutgoing, $parent->nodesAbove);
-            $width = -self::$X_MARGIN;
+            $width = -self::$horizontalMargin;
 
             foreach ($siblings as $sibling) {
-                $width += $sibling->width + self::$X_MARGIN;
+                $width += $sibling->width + self::$horizontalMargin;
             }
 
             $x = $parent->centerX() - $width / 2;
@@ -240,11 +251,14 @@ trait Node {
 
             foreach ($siblings as $sibling) {
                 $sibling->x = $x;
-                $x += $sibling->width + self::$X_MARGIN;
+                $x += $sibling->width + self::$horizontalMargin;
             }
         }
     }
 
+    /**
+     * Positions this node below the lowest node that is required to be above it
+     */
     public function positionVertically() {
         $this->y = 0;
 
@@ -254,7 +268,16 @@ trait Node {
             }
         }
 
-        $this->y += self::$Y_MARGIN;
+        $this->y += self::$verticalMargin;
+    }
+
+    /**
+     * @param Node $other
+     */
+    public function setRightOf($other) {
+        if (!$this->isRightOf($other)) {
+            $this->x = $other->x + $other->width + self::$horizontalMargin;
+        }
     }
 
     /**
@@ -289,16 +312,26 @@ trait Node {
         return $this->x > $other->x + $other->width;
     }
 
-    private function inArray($needle, $haystack) {
+    // Array functions
+    /**
+     * @param Node $needle
+     * @param Node[] $haystack
+     * @return bool True if $needle is in $haystack
+     */
+    private function inArray($needle, array $haystack) {
         foreach($haystack as $straw) {
-            if ($straw === $needle) {
+            if ($straw->getName() === $needle->getName()) {
                 return true;
             }
         }
         return false;
     }
 
-    private function addAll($array, &$to) {
+    /**
+     * @param Node[] $array
+     * @param Node[] $to
+     */
+    private function addAll(array $array, array &$to) {
         foreach ($array as $key => $value) {
             $to[$key] = $value;
         }
@@ -307,7 +340,7 @@ trait Node {
     /**
      * @param Node[] $minuend
      * @param Node[] $subtrahend
-     * @return Node[]
+     * @return Node[] Nodes that exist in $minuend but not in $subtrahend
      */
     private function diff(array $minuend, array $subtrahend) {
         foreach ($subtrahend as $removal) {
@@ -318,9 +351,9 @@ trait Node {
     }
 
     /**
-     * @param array $left
-     * @param array $right
-     * @return Node[]
+     * @param Node[] $left
+     * @param Node[] $right
+     * @return Node[] Nodes that exists in both $left and $right
      */
     private function common(array $left, array $right) {
         $common = [];
@@ -332,14 +365,5 @@ trait Node {
         }
 
         return $common;
-    }
-
-    /**
-     * @param Node $other
-     */
-    public function setRightOf($other) {
-        if (!$this->isRightOf($other)) {
-            $this->x = $other->x + $other->width + self::$X_MARGIN;
-        }
     }
 }

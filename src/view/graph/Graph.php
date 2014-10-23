@@ -1,9 +1,6 @@
 <?php
 
-namespace view\point_graph;
-
-const C1 = 2, C2 = 1, C3 = 1, C4 = 0.1;
-const M = 100;
+namespace view\graph;
 
 trait Graph {
     /**
@@ -16,7 +13,7 @@ trait Graph {
                 $node->findTree();
             }
             foreach ($nodes as $node) {
-                $node->fix();
+                $node->fixTree();
             }
         }
 
@@ -26,8 +23,6 @@ trait Graph {
         while ($positionedNodes = $this->positionNodesHorizontallyBelow($positionedNodes));
 
         $this->positionHorizontally($nodes);
-
-        //var_dump($nodes);
     }
 
     /**
@@ -54,7 +49,7 @@ trait Graph {
 
             foreach ($nodes as $node) {
                 foreach ($nodes as $node2) {
-                    if ($node === $node2) {
+                    if ($node->getName() === $node2->getName()) {
                         continue;
                     }
 

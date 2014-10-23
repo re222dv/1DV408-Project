@@ -4,8 +4,8 @@ namespace view\umls;
 
 use model\entities\umls\ClassDiagram;
 use Template\View;
-use view\point_graph\Graph;
-use view\point_graph\Node;
+use view\graph\Graph;
+use view\graph\Node;
 
 class ClassDiagramView extends View {
     use Graph;

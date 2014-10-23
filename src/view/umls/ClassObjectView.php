@@ -4,7 +4,7 @@ namespace view\umls;
 
 use model\entities\umls\ClassObject;
 use Template\View;
-use view\point_graph\Node;
+use view\graph\Node;
 
 class ClassObjectView extends View {
     use Node;
