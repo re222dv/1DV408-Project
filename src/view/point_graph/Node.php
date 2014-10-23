@@ -146,28 +146,7 @@ trait Node {
         $nodeToMove->positionHorizontally();
 
         if ($this->collidesWith($node)) {
-            /** @var Node[] $nodesAbove */
-            $nodesAbove = $this->diff($nodeToMove->linksIncoming, $nodeToMove->nodesBelow);
-
-            if (count($nodesAbove) === 1 &&
-                count(array_values($nodesAbove)[0]->linksOutgoing) > 1) {
-                /** @var Node $parent */
-                $parent = array_values($nodesAbove)[0];
-                $siblings = $this->diff($parent->linksOutgoing, $parent->nodesAbove);
-                $width = -20;
-
-                foreach ($siblings as $sibling) {
-                    $width += $sibling->width + 20;
-                }
-
-                $x = $parent->centerX() - $width / 2;
-                $x = max(0, $x);
-
-                foreach ($siblings as $sibling) {
-                    $sibling->x = $x;
-                    $x += $sibling->width + 20;
-                }
-            }
+            $nodeToMove->positionSiblingsHorizontally();
         }
 
         if ($this->collidesWith($node)) {
@@ -234,6 +213,31 @@ trait Node {
                         $this->x = $ancestor->x + $ancestor->width - $this->width / 2;
                     }
                 }
+            }
+        }
+    }
+
+    public function positionSiblingsHorizontally() {
+        /** @var Node[] $nodesAbove */
+        $nodesAbove = $this->diff($this->linksIncoming, $this->nodesBelow);
+
+        if (count($nodesAbove) === 1 &&
+            count(array_values($nodesAbove)[0]->linksOutgoing) > 1) {
+            /** @var Node $parent */
+            $parent = array_values($nodesAbove)[0];
+            $siblings = $this->diff($parent->linksOutgoing, $parent->nodesAbove);
+            $width = -20;
+
+            foreach ($siblings as $sibling) {
+                $width += $sibling->width + 20;
+            }
+
+            $x = $parent->centerX() - $width / 2;
+            $x = max(0, $x);
+
+            foreach ($siblings as $sibling) {
+                $sibling->x = $x;
+                $x += $sibling->width + 20;
             }
         }
     }
