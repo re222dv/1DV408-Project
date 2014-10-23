@@ -3,7 +3,7 @@ Travis is used as CI and will run the tests on push, you can find it on
 <https://travis-ci.org/re222dv/1DV408-Project>
 
 # Location Constants
-Locations in _GET, _POST, _SESSION or variables that are sent to the template should be
+Locations in _COOKIE, _GET, _POST, _SESSION or variables that are sent to the template should be
 specified in a named constant at the top of the class so that it's possible to see
 communications just by a quick overview.
 
@@ -11,6 +11,7 @@ Use a prefix for the specific use case
 `GV_` a GET variable
 `PV_` a POST variable
 `RV_` a variable than can be sent as both GET and POST
+`CV_` a COOKIE variable
 `SV_` a SESSION variable
 `TV_` a template variable
 
