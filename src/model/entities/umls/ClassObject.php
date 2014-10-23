@@ -43,7 +43,9 @@ class ClassObject {
             // Methods block
             if (count($blocks) > 2) {
                 foreach (mb_split(';', $blocks[2]) as $method) {
-                    $this->methods[] = new Method($method);
+                    try {
+                        $this->methods[] = new Method($method);
+                    } catch(\InvalidArgumentException $e) {}
                 }
             }
         }

@@ -14,6 +14,11 @@ class Method {
      */
     public function __construct($string) {
         preg_match(self::PATTERN, $string, $matches);
+
+        if (count($matches) < 2) {
+            throw new \InvalidArgumentException('Not a valid input string');
+        }
+
         $this->name = $matches[1];
 
         foreach (mb_split(',', $matches[2]) as $argument) {
