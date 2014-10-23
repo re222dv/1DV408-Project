@@ -2,7 +2,6 @@
 
 namespace view\umls;
 
-use model\entities\umls\Association;
 use Template\View;
 
 class AssociationView extends View {
@@ -21,8 +20,7 @@ class AssociationView extends View {
      */
     private $to;
 
-    public function setAssociation(Association $association, ClassObjectView $from,
-                                   ClassObjectView $to) {
+    public function setAssociation(ClassObjectView $from, ClassObjectView $to) {
         $this->from = $from;
         $this->to = $to;
     }

@@ -2,7 +2,6 @@
 
 namespace view\umls;
 
-use model\entities\umls\ClassObject;
 use model\entities\umls\Method;
 use Template\View;
 
@@ -26,7 +25,11 @@ class MethodView extends View {
     private $method;
     public $height = 25;
 
-    public function setMethod(Method $method) {
+    /**
+     * @param Method $method
+     * @param int $maxWidth Optional, maximum width in pixels. Will never break if negative
+     */
+    public function setMethod(Method $method, $maxWidth = -1) {
         $this->method = $method;
         $this->variables = [
             self::TV_NAME => $method->getName(),
@@ -50,7 +53,7 @@ class MethodView extends View {
                       mb_strlen($joinedArguments) +
                       mb_strlen($method->getReturnType());
 
-        if ($characters * self::FONT_WIDTH < ClassObjectView::INNER_WIDTH) {
+        if ($characters * self::FONT_WIDTH < $maxWidth || $maxWidth < 0) {
             $this->variables[self::TV_ARGUMENTS] = $joinedArguments;
         } else {
             $this->height = count($arguments) * self::FONT_HEIGHT + 40;

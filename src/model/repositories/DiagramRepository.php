@@ -2,7 +2,6 @@
 
 namespace model\repositories;
 
-use model\entities\auth\Token;
 use model\entities\auth\User;
 use model\entities\Diagram;
 use model\services\Database;

@@ -5,7 +5,6 @@ namespace view\umls;
 use model\entities\umls\ClassDiagram;
 use Template\View;
 use view\graph\Graph;
-use view\graph\Node;
 
 class ClassDiagramView extends View {
     use Graph;
@@ -46,7 +45,7 @@ class ClassDiagramView extends View {
             $to = $nodes[$association->getTo()];
 
             $view = new AssociationView($this->settings);
-            $view->setAssociation($association, $from, $to);
+            $view->setAssociation($from, $to);
 
             $from->linksOutgoing[$to->getName()] = $to;
             $to->linksIncoming[$from->getName()] = $from;

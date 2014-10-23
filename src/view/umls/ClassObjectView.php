@@ -9,6 +9,9 @@ use view\graph\Node;
 class ClassObjectView extends View {
     use Node;
 
+    /**
+     * Maximum allowed width of text inside of the class, in pixels
+     */
     const INNER_WIDTH = 185;
 
     const TV_ATTRIBUTES = 'attributes';
@@ -48,7 +51,7 @@ class ClassObjectView extends View {
 
         foreach ($classObject->getMethods() as $method) {
             $view = new MethodView($this->settings);
-            $view->setMethod($method);
+            $view->setMethod($method, self::INNER_WIDTH);
             $this->variables[self::TV_METHODS][] = $view;
         }
 
