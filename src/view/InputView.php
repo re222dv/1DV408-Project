@@ -7,6 +7,7 @@ use model\entities\umls\ClassDiagram;
 use model\services\Auth;
 use Template\View;
 use Template\ViewSettings;
+use view\services\Router;
 use view\umls\ClassDiagramView;
 
 
@@ -27,9 +28,12 @@ EXAMPLE;
 
     const TV_DIAGRAM_VIEW = 'diagram';
     const TV_ERRORS = 'errors';
+    const TV_FILE_GV = 'fileGetVariable';
+    const TV_FILE_URL = 'fileUrl';
     const TV_LOGGED_IN = 'loggedIn';
     const TV_NAME = self::RV_NAME;
     const TV_UMLS = self::RV_UMLS;
+    const TV_ENCODED_UMLS = 'encodedUmls';
 
     protected $template = 'input.html';
 
@@ -41,6 +45,8 @@ EXAMPLE;
             self::TV_DIAGRAM_VIEW => $classDiagramView,
             self::TV_ERRORS => [],
             self::TV_LOGGED_IN => $auth->isLoggedIn(),
+            self::TV_FILE_GV => FileView::RV_UMLS,
+            self::TV_FILE_URL => Router::FILE,
         ];
     }
 
@@ -70,6 +76,7 @@ EXAMPLE;
 
     public function setUmls($umls) {
         $this->setVariable(self::TV_UMLS, $umls);
+        $this->setVariable(self::TV_ENCODED_UMLS, rawurlencode($umls));
     }
 
     public function onRender() {

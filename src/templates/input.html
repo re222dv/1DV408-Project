@@ -25,6 +25,12 @@
         document.querySelector('#inputForm').onsubmit = onSubmit;
     </script>
     <div class="render">
-        {? if diagram: {% view diagram %} ?}
+        {? if diagram:
+            {% view diagram %}
+            <div class="link">
+                <span class="fa fa-link"></span>
+                <a href="{{ fileUrl }}?{{ fileGetVariable }}={{ encodedUmls }}">Image Link</a>
+            </div>
+        ?}
     </div>
 </section>

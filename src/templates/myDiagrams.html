@@ -3,12 +3,16 @@
         {? for diagram in diagrams:
             <li>
                 <a href="{% format {{ diagramUrl }} {{ diagram.id }} %}">{{ diagram.name }}</a>
-                <div class="delete">
+                <div class="hidden delete">
                     <span>&#x2715;</span>
                     <form method="post">
                         <input type="hidden" name="id" value="{{ diagram.id }}" />
                         <input type="submit" name="delete" value="Delete" />
                     </form>
+                </div>
+                <div class="hidden link">
+                    <span class="fa fa-link"></span>
+                    <a href="{{ fileUrl }}?{{ fileGetVariable }}={{ diagram.umls }}">Image Link</a>
                 </div>
                 <img src="{{ fileUrl }}?{{ fileGetVariable }}={{ diagram.umls }}" />
             </li>

@@ -301,6 +301,20 @@ main {
             height: 100%;
 
             overflow: auto;
+
+            .link {
+                position: fixed;
+                bottom: 1rem;
+                left: 35%;
+                padding-left: 1rem;
+
+                color: dodgerblue;
+
+                a {
+                    color: dodgerblue;
+                    text-decoration: none;
+                }
+            }
         }
     }
 
@@ -326,14 +340,13 @@ main {
                 }
             }
 
-            .delete {
+            .hidden {
                 position: absolute;
                 top: 5px;
-                right: 10px;
 
-                transition: color 0.5s;
+                transition: color 0.5s, opacity 0.5s;
 
-                span, input {
+                span, input, a {
                     position: absolute;
                     top: 0;
                     right: 0;
@@ -345,16 +358,43 @@ main {
                     line-height: 2.1rem;
 
                     transition: transform 0.5s;
+
+                    &.fa {
+                        font-size: 1.1rem;
+                    }
                 }
 
-                input {
+                a, input {
+                    display: block;
                     padding: 0;
                     max-width: 0;
+                    overflow: hidden;
+
                     background: transparent;
                     border: none;
 
+                    font-size: 13px;
+                    font-weight: normal;
+                    line-height: 2rem;
+                    white-space: nowrap;
+
                     transition: color 0.5s, max-width 0.5s;
                 }
+
+                &:hover {
+                    a, input {
+                        padding-right: 1.1rem;
+                        max-width: 15rem;
+
+                        background: transparent;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .delete {
+                right: 10px;
+                z-index: 2;
 
                 &:hover {
                     color: red;
@@ -364,12 +404,28 @@ main {
                     }
 
                     input {
-                        padding-right: 1rem;
-                        max-width: 5rem;
-
                         color: red;
-                        background: transparent;
-                        cursor: pointer;
+                    }
+
+                    &+.link {
+                        opacity: 0;
+                    }
+                }
+            }
+
+            .link {
+                right: 40px;
+                z-index: 1;
+
+                &:hover {
+                    color: dodgerblue;
+
+                    span {
+                        transform: rotate(-180deg);
+                    }
+
+                    a {
+                        color: dodgerblue;
                     }
                 }
             }
