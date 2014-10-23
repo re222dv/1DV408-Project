@@ -1,0 +1,1319 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    width="1081"
+    height="1261"
+    style="font: 12px 'DejaVu Sans Mono', monospace; overflow: visible;">
+    <defs>
+        <style type="text/css">
+            @font-face {
+                font-family: 'DejaVu Sans Mono';
+                src: local('DejaVu Sans Mono'),
+                     url('http://umls.eneman.eu/fonts/DejaVuSansMono.woff') format('woff'),
+                     url('http://umls.eneman.eu/fonts/DejaVuSansMono.ttf') format('truetype');
+            }
+        </style>
+        <pattern id="checkboard" width="50" height="50" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="50" height="50" fill="white" />
+            <rect x="0" y="0" width="25" height="25" fill="whitesmoke" />
+            <rect x="25" y="25" width="25" height="25" fill="whitesmoke" />
+        </pattern>
+    </defs>
+    
+    
+        <g transform="translate(0, 0)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="160" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        Boat
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+                
+                <g transform="translate(5, 70)">
+                    <text x="0" y="0" class="attribute">TYPE
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 95)">
+                    <text x="0" y="0" class="attribute">LENGTH
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 120)">
+                    <text x="0" y="0" class="attribute">length
+
+    : num
+
+</text>
+                </g>
+            
+            
+        
+        
+            
+            <path d="M 0 130 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 150)">
+                    
+<text x="0" y="0" class="method">toJson()
+    
+        : Map
+    
+</text>
+
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(0, 240)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="265" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        BoatType
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+                
+                <g transform="translate(5, 70)">
+                    <text x="0" y="0" class="attribute">SAILBOAT
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 95)">
+                    <text x="0" y="0" class="attribute">MOTORSAILOR
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 120)">
+                    <text x="0" y="0" class="attribute">MOTORBOAT
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 145)">
+                    <text x="0" y="0" class="attribute">CANOE
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 170)">
+                    <text x="0" y="0" class="attribute">OTHER
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 195)">
+                    <text x="0" y="0" class="attribute">value
+
+    : int
+
+</text>
+                </g>
+            
+            
+        
+        
+            
+            <path d="M 0 205 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 225)">
+                    
+
+<text x="0" y="0" class="method">==(
+
+    
+        <tspan x="28" y="15">other
+
+    : BoatType</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+            : bool
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(220, 0)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="310" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        Member
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+                
+                <g transform="translate(5, 70)">
+                    <text x="0" y="0" class="attribute">NAME
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 95)">
+                    <text x="0" y="0" class="attribute">SOCIAL_SECURITY_NUMBER
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 120)">
+                    <text x="0" y="0" class="attribute">MEMBER_NUMBER
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 145)">
+                    <text x="0" y="0" class="attribute">BOATS
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 170)">
+                    <text x="0" y="0" class="attribute">_name
+
+    : String
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 195)">
+                    <text x="0" y="0" class="attribute">_socialSecurityNumber
+
+    : String
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 220)">
+                    <text x="0" y="0" class="attribute">memberNumber
+
+    : int
+
+</text>
+                </g>
+            
+                
+                <g transform="translate(5, 245)">
+                    <text x="0" y="0" class="attribute">boats
+
+    : List
+
+</text>
+                </g>
+            
+            
+        
+        
+            
+            <path d="M 0 255 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 275)">
+                    
+<text x="0" y="0" class="method">clone()
+    
+        : Member
+    
+</text>
+
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 300)">
+                    
+<text x="0" y="0" class="method">toJson()
+    
+        : Map
+    
+</text>
+
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(440, 0)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="110" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        Repository
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+                
+                <g transform="translate(5, 70)">
+                    <text x="0" y="0" class="attribute">db
+
+    : Db
+
+</text>
+                </g>
+            
+            
+        
+        
+            
+            <path d="M 0 80 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 100)">
+                    
+<text x="0" y="0" class="method">openDb()
+    
+        : Future
+    
+</text>
+
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(275, 880)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="345" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        MemberRepository
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+                
+                <g transform="translate(5, 70)">
+                    <text x="0" y="0" class="attribute">COLLECTION_NAME
+
+</text>
+                </g>
+            
+            
+        
+        
+            
+            <path d="M 0 80 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 100)">
+                    
+
+<text x="0" y="0" class="method">_databaseSecure(
+
+    
+        <tspan x="28" y="15">json
+
+    : Map</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+            : Map
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 155)">
+                    
+
+<text x="0" y="0" class="method">add(
+
+    
+        <tspan x="28" y="15">member
+
+    : Member</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+            : Future
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 210)">
+                    
+
+<text x="0" y="0" class="method">delete(
+
+    
+        <tspan x="28" y="15">member
+
+    : Member</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+            : Future
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 265)">
+                    
+
+<text x="0" y="0" class="method">update(
+
+    
+        <tspan x="28" y="15">oldMember
+
+    : Member</tspan>
+        
+    
+        <tspan x="28" y="30">updatedMember
+
+    : Member</tspan>
+        
+    
+    <tspan x="0" y="45">
+        ) 
+            : Future
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 335)">
+                    
+<text x="0" y="0" class="method">getAll()
+    
+        : Future
+    
+</text>
+
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(450, 1080)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="180" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        BoatView
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+                
+                <g transform="translate(5, 70)">
+                    <text x="0" y="0" class="attribute">_BOAT_TYPE_NAMES
+
+</text>
+                </g>
+            
+            
+        
+        
+            
+            <path d="M 0 80 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 100)">
+                    
+<text x="0" y="0" class="method">chooseType()
+    
+        : BoatType
+    
+</text>
+
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 125)">
+                    
+
+<text x="0" y="0" class="method">render(
+
+    
+        <tspan x="28" y="15">boat
+
+    : Boat</tspan>
+        
+    
+        <tspan x="28" y="30">prefix</tspan>
+        
+    
+    <tspan x="0" y="45">
+        ) 
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(0, 820)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="120" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        MemberAdministerView
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+        
+        
+              
+            <path d="M 0 60 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 80)">
+                    
+
+<text x="0" y="0" class="method">administer(
+
+    
+        <tspan x="28" y="15">member
+
+    : Member</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(660, 540)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="215" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        MemberView
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+        
+        
+              
+            <path d="M 0 60 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 80)">
+                    
+
+<text x="0" y="0" class="method">getChosenBoat(
+
+    
+        <tspan x="28" y="15">boats
+
+    : List</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+            : Boat
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 135)">
+                    
+
+<text x="0" y="0" class="method">getChosenMenuItem(
+
+    
+    <tspan x="0" y="15">
+        ) 
+            : dynamic
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 175)">
+                    
+
+<text x="0" y="0" class="method">render(
+
+    
+        <tspan x="28" y="15">member
+
+    : Member</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(880, 170)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="130" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        MainView
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+        
+        
+              
+            <path d="M 0 60 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 80)">
+                    
+
+<text x="0" y="0" class="method">getChosenMenuItem(
+
+    
+    <tspan x="0" y="15">
+        ) 
+            : MainViewMenuItem
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 120)">
+                    
+<text x="0" y="0" class="method">render()
+    
+</text>
+
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(860, 880)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="120" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        BoatAdministerView
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+        
+        
+              
+            <path d="M 0 60 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 80)">
+                    
+
+<text x="0" y="0" class="method">administer(
+
+    
+        <tspan x="28" y="15">boat
+
+    : Boat</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(660, 340)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="230" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        MemberListView
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+        
+        
+              
+            <path d="M 0 60 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 80)">
+                    
+
+<text x="0" y="0" class="method">getChosenMember(
+
+    
+        <tspan x="28" y="15">memberList
+
+    : List</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+            : Optional
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 135)">
+                    
+
+<text x="0" y="0" class="method">renderCompact(
+
+    
+        <tspan x="28" y="15">memberList
+
+    : Iterable</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 190)">
+                    
+
+<text x="0" y="0" class="method">renderDetailed(
+
+    
+        <tspan x="28" y="15">memberList
+
+    : Iterable</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(440, 540)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="200" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        MemberAdministerController
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+        
+        
+              
+            <path d="M 0 60 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 80)">
+                    
+<text x="0" y="0" class="method">add()
+    
+        : Future
+    
+</text>
+
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 105)">
+                    
+
+<text x="0" y="0" class="method">update(
+
+    
+        <tspan x="28" y="15">member
+
+    : Member</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+            : Future
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 160)">
+                    
+
+<text x="0" y="0" class="method">delete(
+
+    
+        <tspan x="28" y="15">member
+
+    : Member</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+            : Future
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(220, 540)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="260" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        BoatAdministerController
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+        
+        
+              
+            <path d="M 0 60 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 80)">
+                    
+
+<text x="0" y="0" class="method">add(
+
+    
+        <tspan x="28" y="15">member
+
+    : Member</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+            : Future
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 135)">
+                    
+
+<text x="0" y="0" class="method">update(
+
+    
+        <tspan x="28" y="15">member
+
+    : Member</tspan>
+        
+    
+        <tspan x="28" y="30">boat
+
+    : Boat</tspan>
+        
+    
+    <tspan x="0" y="45">
+        ) 
+            : Future
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+                <g transform="translate(5, 205)">
+                    
+
+<text x="0" y="0" class="method">delete(
+
+    
+        <tspan x="28" y="15">member
+
+    : Member</tspan>
+        
+    
+        <tspan x="28" y="30">boat
+
+    : Boat</tspan>
+        
+    
+    <tspan x="0" y="45">
+        ) 
+            : Future
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(440, 340)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="120" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        MemberController
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+        
+        
+              
+            <path d="M 0 60 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 80)">
+                    
+
+<text x="0" y="0" class="method">run(
+
+    
+        <tspan x="28" y="15">member
+
+    : Member</tspan>
+        
+    
+    <tspan x="0" y="30">
+        ) 
+            : Future
+        
+    </tspan>
+
+</text>
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(660, 170)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="90" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        MemberListController
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+        
+        
+              
+            <path d="M 0 60 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 80)">
+                    
+<text x="0" y="0" class="method">run(detailed)
+    
+        : Future
+    
+</text>
+
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+        <g transform="translate(660, 0)">
+            <g class="class">
+    <defs>
+        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="whitesmoke"/>
+            <stop offset="100%" stop-color="lightgray"/>
+        </linearGradient>
+    </defs>
+    <rect width="200" height="90" fill="url(#gradient)" stroke="black" />
+    <text x="100" y="30" text-anchor="middle"
+          class="className">
+        MainController
+    </text>
+    
+        
+            <path d="M 0 50 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+        
+        
+              
+            <path d="M 0 60 l 200 0" stroke="black" stroke-width="1" />
+            
+            
+                <g transform="translate(5, 80)">
+                    
+<text x="0" y="0" class="method">run()
+    
+</text>
+
+
+
+                </g>
+                
+            
+        
+    
+</g>
+
+        </g>
+    
+    
+        <path d="M 100 160 L 100 240" stroke="black" />
+
+    
+        <path d="M 100 940 L 550 1080" stroke="black" />
+
+    
+        <path d="M 760 755 L 550 1080" stroke="black" />
+
+    
+        <path d="M 960 1000 L 550 1080" stroke="black" />
+
+    
+        <path d="M 760 570 L 550 1080" stroke="black" />
+
+    
+        <path d="M 540 740 L 375 880" stroke="black" />
+
+    
+        <path d="M 540 740 L 100 820" stroke="black" />
+
+    
+        <path d="M 320 800 L 375 880" stroke="black" />
+
+    
+        <path d="M 320 800 L 960 880" stroke="black" />
+
+    
+        <path d="M 540 460 L 320 540" stroke="black" />
+
+    
+        <path d="M 540 460 L 540 540" stroke="black" />
+
+    
+        <path d="M 540 460 L 760 540" stroke="black" />
+
+    
+        <path d="M 760 260 L 540 340" stroke="black" />
+
+    
+        <path d="M 760 260 L 760 340" stroke="black" />
+
+    
+        <path d="M 760 260 L 375 880" stroke="black" />
+
+    
+        <path d="M 760 90 L 540 540" stroke="black" />
+
+    
+        <path d="M 760 90 L 760 170" stroke="black" />
+
+    
+        <path d="M 760 90 L 980 170" stroke="black" />
+
+    
+</svg>
