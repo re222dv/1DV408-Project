@@ -24,11 +24,12 @@
         {? if methods:
             {? if {{ not attributes }}: {% set height {{ height + 5 }} %} ?}
             <path d="M 0 {{ height }} l {{ width }} 0" stroke="black" stroke-width="1" />
+            {% set height {{ height + 25 }} %}
             {? for method in methods:
-                {% set height {{ height + method.height }} %}
                 <g transform="translate(5, {{ height - 5 }})">
                     {% view method %}
                 </g>
+                {% set height {{ height + method.height }} %}
             ?}
         ?}
     ?}

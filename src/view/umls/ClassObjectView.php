@@ -9,6 +9,8 @@ use view\point_graph\Node;
 class ClassObjectView extends View {
     use Node;
 
+    const INNER_WIDTH = 185;
+
     const TV_ATTRIBUTES = 'attributes';
     const TV_HEAD_HEIGHT = 'headHeight';
     const TV_HEIGHT = 'height';

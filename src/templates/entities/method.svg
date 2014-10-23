@@ -1,5 +1,22 @@
+{? if !multiLine:
 <text x="0" y="0" class="method">{{ name }}({{ arguments }})
     {? if returnType:
         : {{ returnType }}
     ?}
 </text>
+?}
+{? if multiLine:
+<text x="0" y="0" class="method">{{ name }}(
+{? use fontHeight as y:
+    {? for argument in arguments:
+        <tspan x="28" y="{{ y }}">{{ argument }}</tspan>
+        {% set y {{ y + fontHeight }} %}
+    ?}
+    <tspan x="0" y="{{ y }}">
+        ) {? if returnType:
+            : {{ returnType }}
+        ?}
+    </tspan>
+?}
+</text>
+?}
