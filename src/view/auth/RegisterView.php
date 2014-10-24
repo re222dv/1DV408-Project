@@ -29,10 +29,6 @@ class RegisterView extends View {
      * @return User
      */
     public function getUser() {
-        if ($this->variables[self::TV_PASSWORD] !== $this->variables[self::TV_PASSWORD2]) {
-            $this->addError('The passwords does not match');
-        }
-
         $user = new User();
         try {
             $user->setUsername($this->variables[self::TV_USERNAME]);
@@ -48,10 +44,14 @@ class RegisterView extends View {
             }
         }
 
-        try {
-            $user->setPassword($this->variables[self::TV_PASSWORD]);
-        } catch (\InvalidArgumentException $e) {
-            $this->addError('The password can not be empty');
+        if ($this->variables[self::TV_PASSWORD] !== $this->variables[self::TV_PASSWORD2]) {
+            $this->addError('The passwords does not match');
+        } else {
+            try {
+                $user->setPassword($this->variables[self::TV_PASSWORD]);
+            } catch (\InvalidArgumentException $e) {
+                $this->addError('The password can not be empty');
+            }
         }
 
         return $user;

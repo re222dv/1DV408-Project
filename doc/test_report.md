@@ -22,7 +22,7 @@ The diagram all look like the reference images
   - Creating a user without a password
     - Pass
   - Creating a user when the password confirmation doesn't match
-    - `Password`, `Another Password` Fail, the user got registered
+    - `Password`, `Another Password` Pass
   - Creating a user with an existing username (for example Test)
     - `Test` Pass
 1. Make sure that you are logged in after registration.
