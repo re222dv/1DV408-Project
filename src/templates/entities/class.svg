@@ -1,11 +1,5 @@
 <g class="class">
-    <defs>
-        <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stop-color="whitesmoke"/>
-            <stop offset="100%" stop-color="lightgray"/>
-        </linearGradient>
-    </defs>
-    <rect width="{{ width }}" height="{{ height }}" fill="url(#gradient)" stroke="black" />
+    <rect width="{{ width }}" height="{{ height }}" fill="url(#classGradient)" stroke="black" />
     <text x="{{ width / 2 }}" y="{{ {{ headHeight + 10 }} / 2 }}" text-anchor="middle"
           class="className">
         {{ name }}

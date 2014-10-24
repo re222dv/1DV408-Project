@@ -6,6 +6,7 @@ use view\umls\ClassDiagramView;
 
 class FileView extends ClassDiagramView {
     const RV_UMLS = 'umls';
+    const TV_EXTERNAL = 'external';
 
     public function getUmls() {
         if (isset($_POST[self::RV_UMLS])) {
@@ -15,5 +16,11 @@ class FileView extends ClassDiagramView {
         }
 
         return null;
+    }
+
+    public function onRender() {
+        parent::onRender();
+
+        $this->variables[self::TV_EXTERNAL] = true;
     }
 }
