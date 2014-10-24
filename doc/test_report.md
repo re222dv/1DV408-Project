@@ -40,8 +40,7 @@ The diagram all look like the reference images
 1. Make sure that you can log in with your registered user
   - Pass
 1. Make sure that you remain logged in after a browser restart
-  - Fail, the user is logged in but the edit view are shown like the user is logged out
-  (The save button isn't shown, but it is after a reload)
+  - Pass
 
 ### Creating diagram tests
 #### Logged in

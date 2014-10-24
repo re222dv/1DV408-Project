@@ -90,9 +90,7 @@ class AuthController {
             $this->auth->logOut();
             $this->credentialsHandler->deleteSecret();
             $this->router->redirectTo(Router::INDEX);
-        }
-
-        if (!$this->auth->isLoggedIn()) {
+        } elseif (!$this->auth->isLoggedIn()) {
             if ($this->loginView->haveLoggedIn()) {
                 $username = $this->loginView->getUsername();
                 $password = $this->loginView->getPassword();
@@ -110,6 +108,7 @@ class AuthController {
                 try {
                     $token = $this->tokenRepository->getBySecret($secret);
                     $this->auth->logInByToken($token);
+                    $this->router->redirectTo(Router::INDEX);
                 } catch (\Exception $e) {}
             }
         }
