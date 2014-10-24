@@ -19,11 +19,11 @@ The current output for the diagrams are:
 ## Checking the application
 ### Test register
 1. Make sure that you can not and get friendly errors for
-  - Creating a user with too short (less than three characters) or without a username
-  - Creating a user with too long (more than 20 characters) username
-  - Creating a user without a password
-  - Creating a user when the password confirmation doesn't match
-  - Creating a user with an existing username (for example Test)
+  1. Creating a user with too short (less than three characters) or without a username
+  1. Creating a user with too long (more than 20 characters) username
+  1. Creating a user without a password
+  1. Creating a user when the password confirmation doesn't match
+  1. Creating a user with an existing username (for example Test)
 1. Make sure that you are logged in after registration.
 1. Make sure that you remain logged in after a browser restart
 

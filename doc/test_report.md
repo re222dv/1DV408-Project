@@ -14,16 +14,16 @@ The diagram all look like the reference images
 ## Manual testing
 ### Registration tests
 1. Make sure that you can not and get friendly errors for
-  - Creating a user with too short (less than three characters) or without a username
+  1. Creating a user with too short (less than three characters) or without a username
     - `<empty>` Pass
     - `ad` Pass
-  - Creating a user with too long (more than 20 characters) username
+  1. Creating a user with too long (more than 20 characters) username
     - `A very, very long username` Pass
-  - Creating a user without a password
+  1. Creating a user without a password
     - Pass
-  - Creating a user when the password confirmation doesn't match
+  1. Creating a user when the password confirmation doesn't match
     - `Password`, `Another Password` Pass
-  - Creating a user with an existing username (for example Test)
+  1. Creating a user with an existing username (for example Test)
     - `Test` Pass
 1. Make sure that you are logged in after registration.
   - `Username`, `Password`, `Password` Pass
