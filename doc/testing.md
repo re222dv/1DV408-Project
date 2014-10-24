@@ -19,7 +19,8 @@ The current output for the diagrams are:
 ## Checking the application
 ### Test register
 1. Make sure that you can not and get friendly errors for
-  - Creating a user with too short (less than the characters) or without a username
+  - Creating a user with too short (less than three characters) or without a username
+  - Creating a user with too long (more than 20 characters) username
   - Creating a user without a password
   - Creating a user when the password confirmation doesn't match
   - Creating a user with an existing username (for example Test)
@@ -39,26 +40,28 @@ Should be done both when logged out and when logged in.
 Write code for diagrams and make sure the rendered version is correct.
 Remember to test
 
-- Multiple classes
-- Class extension (that you can define a class and then add methods or attributes to it)
-- Associations, make sure you get in:
-  - Previously defined classed
-  - Not previously defined classes
-  - Named (although the name won't show for now)
-- Attributes
-  - With type
-  - Without type
-- Methods
-  - With parameters
-  - Without parameters
-  - With return type
-  - Without return type
+1. Multiple classes
+1. Class extension (that you can define a class and then add methods or attributes to it)
+1. Associations, make sure you get in:
+  1. Previously defined classed
+  1. Not previously defined classes
+  1. Named (although the name won't show for now)
+1. Attributes
+  1. With type
+  1. Without type
+1. Methods
+  1. With parameters
+  1. Without parameters
+  1. With return type
 
 ### Test links to diagrams
 As logged out and when logged in that that the link to the image is correct when editing the diagram
 As logged in that the links to the images is correct on the "My Diagrams" page
 
 ### Test Saving a diagram
+1. Make sure that you can not save a diagram with a name that is:
+  1. Too short (less than three characters)
+  1. Too long (more than 40 characters)
 1. Make sure that you can create a new diagram and save it
 1. Make sure that it shows up on the "My Diagrams" page
 1. Log out and login as another user
