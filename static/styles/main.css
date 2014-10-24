@@ -202,7 +202,7 @@ main {
       padding: 10px 10px 100px;
       width: 100%;
       border: none;
-      font-family: "DejaVu Sans Mono" monospace;
+      font-family: "DejaVu Sans Mono", monospace;
       resize: none; }
     main section.diagram form input[type="submit"][value="Render"] {
       width: 100%;
