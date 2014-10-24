@@ -72,6 +72,11 @@ class AuthController {
                     $this->userRepository->create($user);
 
                     $this->auth->login($user);
+
+                    $token = new Token($this->auth->getUser());
+                    $this->tokenRepository->insert($token);
+                    $this->credentialsHandler->saveSecret($token);
+
                     $this->router->redirectTo(Router::INDEX);
                 } catch (\DomainException $e) {
                     $this->registerView->addUsernameExistsError();

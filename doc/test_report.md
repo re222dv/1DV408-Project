@@ -28,7 +28,7 @@ The diagram all look like the reference images
 1. Make sure that you are logged in after registration.
   - `Username`, `Password`, `Password` Pass
 1. Make sure that you remain logged in after a browser restart
-  - Fail, the user does not remain logged in
+  - Pass
 
 ### Logout tests
 1. Make sure that you can log out
