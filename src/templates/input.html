@@ -18,6 +18,7 @@
     </form>
     <script>
         function onSubmit() {
+            // Fix pluses which otherwise would be converted to spaces by PHP
             var textarea = document.querySelector('textarea[name="umls"]');
             textarea.textContent = textarea.textContent.replace(/\+/g, '%2B');
         }
