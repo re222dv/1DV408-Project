@@ -128,3 +128,6 @@ All links on MyDiagrams page work
  - Pass
 1. Make sure the diagram is not present after a refresh
  - Pass
+
+## Gremlins.js
+I'v unleashed Gremlings with all species activated on all pages without any error appearing.
