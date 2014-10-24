@@ -13,7 +13,7 @@ Documentation of where the superglobal arrays are accessed
 ## POST
 - view\FileView
 - view\InputView
-- view}MyDiagramsView
+- view\MyDiagramsView
 - Template\directives\InputDirective
 
 ## SESSION

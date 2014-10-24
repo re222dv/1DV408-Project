@@ -3,7 +3,7 @@
 [Published version](http://umls.eneman.eu)
 
 ## Structure
-[Documentation and Manual tests](doc/)
-[Automatic tests](test/)
-[Source code](src/)
-[Source code to be treated as external libs](src/lib/)
+[Documentation and Manual tests](doc/)  
+[Automatic tests](test/)  
+[Source code](src/)  
+[Source code to be treated as external libs](src/lib/)  

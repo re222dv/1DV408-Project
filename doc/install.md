@@ -1,9 +1,9 @@
 # Install Instructions
 
 ## Requirements
-1. PHP 5.5
-1. MySQL
-1. A top level path (the application does not support being served from a subdirectory)
+- PHP 5.5
+- MySQL
+- A top level path (the application does not support being served from a subdirectory)
 
 ## Setup the web server
 All requests except for those to /static should be handled by index.php with the path
